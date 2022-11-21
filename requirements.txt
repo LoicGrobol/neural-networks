@@ -1,0 +1,14 @@
+conllu
+ipympl
+ipywidgets
+jupyterlab
+jupytext
+nbconvert
+numpy
+matplotlib
+pandas
+regex
+seaborn
+scikit-learn
+tol-colors
+RISE

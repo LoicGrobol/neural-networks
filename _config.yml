@@ -1,0 +1,20 @@
+theme: jekyll-theme-primer
+
+title: Réseaux de neurones
+description: Contenus pour le cours « Réseaux de neurones » du master Plurital.
+emojicon: 🤖
+
+url: https://loicgrobol.github.io/
+baseurl: /neural-networks
+repository: "loicgrobol/neural-networks"
+environ_repository: "loicgrobol/neural-networks-environ"
+repo_branch: "main"
+
+exclude:
+  - "*.py.md"
+  - "**/local"
+
+include:
+  - _pages
+  - "*.py.html"
+  - "pdf_slides/*"
