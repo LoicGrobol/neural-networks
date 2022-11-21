@@ -7,13 +7,13 @@ layout: default
 
 ## News
 
-- **2021-09-20** Premier cours du semestre le 23/11/2022
+- **2022-11-21** Premier cours du semestre le 23/11/2022
 
 ## Infos pratiques
 
 - **Quoi** « Réseaux de neurones »
 - **Où** Salle 219, bâtiment Paul Ricœur
-- **Quand** 8 séances, les mercredi de 9:30 à 12:30, du 20/09 au 17/11
+- **Quand** 8 séances, les mercredi de 9:30 à 12:30, du 23/11/22 au 25/01/23
   - Voir le planning pour les dates exactes (quand il aura été mis en ligne)
 - **Contact** Loïc Grobol [<loic.grobol@parisnanterre.fr>](mailto:loic.grobol@parisnanterre.fr)
 - **Évaluation** Un TP noté en temps limité (date à déterminer) et un projet
