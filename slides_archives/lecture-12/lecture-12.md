@@ -19,6 +19,8 @@ jupyter:
 Cours 12 : Réseaux de neurones
 ==============================
 
+EXOEXOEXO https://pageperso.lis-lab.fr/~francois.denis/IAAM1/TP3_Perceptron.pdf
+
 **Loïc Grobol** [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
 
 2021-11-10
@@ -35,6 +37,8 @@ import matplotlib.pyplot as plt
 
 ## Le perceptron simple
 
+### Principe et historique
+
 [![Schéma d'un neurone avec des légendes pour les organelles et les connexions importantes pour la
 communication entre
 neurones.](https://upload.wikimedia.org/wikipedia/commons/1/10/Blausen_0657_MultipolarNeuron.png)](https://commons.wikimedia.org/w/index.php?curid=28761830)
@@ -47,7 +51,7 @@ renvoie une sortie binaire $y$ ($1$ si $z$ est positif, $0$ sinon).
 Autrement dit
 
 $$\begin{align}
-z &= \sum_i w_ix_i\\
+z &= \sum_i w_ix_i = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
 y &=
     \begin{cases}
         1 & \text{si $z > 0$}\\
@@ -57,7 +61,9 @@ y &=
 
 Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différentes
 
-**Attention** selon les auteurices, le cas $z=0$ est traité différemment, pour *Speech and Language Processing*, on renvoie $0$ dans ce cas, c'est donc la convention qu'on suivra, mais vérifiez à chaque fois.
+**Attention** selon les auteurices, le cas $z=0$ est traité différemment, pour *Speech and Language
+Processing*, par exemple, on renvoie $0$ dans ce cas, c'est donc la convention qu'on suivra, mais
+vérifiez à chaque fois.
 
 
 On peut ajouter un terme de *biais* en fixant $x_0=1$ et $w_0=b$, ce qui donne
@@ -100,7 +106,7 @@ Implémenté comme une machine, le perceptron Mark I, par Rosenblatt (1958) :
 🤔
 
 
-C'est un **classifieur linéaire** dont on a déjà parlé [précédemment](../lecture10/lecture10.md).
+C'est un **classifieur linéaire** dont on a déjà parlé dans le cours précédent.
 
 
 Les ambitions initiales étaient grandes
@@ -109,7 +115,7 @@ Les ambitions initiales étaient grandes
 > New York Times, rappporté par Olazaran (1996)
 
 
-C'est par exemple assez facile de construire un qui réalis l'opération logique élémentaire $\operatorname{ET}$ :
+C'est par exemple assez facile de construire un qui réalise l'opération logique élémentaire $\operatorname{ET}$ :
 
 ```python
 and_weights = np.array([-0.6, 0.5, 0.5])
@@ -120,7 +126,9 @@ for x_i in [0, 1]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-Ça marche bien parce que c'est un problème **linéairement séparable** : si on représente $x$ et $y$ dans le plan, on peut tracer une droite qui sépare la parties où $x\operatorname{ET}y$ vaut $1$ et la partie où ça vaut $0$ :
+Ça marche bien parce que c'est un problème **linéairement séparable** : si on représente $x$ et $y$
+dans le plan, on peut tracer une droite qui sépare la parties où $x\operatorname{ET}y$ vaut $1$ et
+la partie où ça vaut $0$ :
 
 ```python
 import tol_colors as tc
@@ -159,10 +167,14 @@ On confirme : ça marche !
 
 Ça marche aussi très bien pour $\operatorname{OU}$ et $\operatorname{NON}$
 
+### Exo
+
+Déterminer la structure et les poids à utiliser pour implémenter une porte OU et une porte NON avec
+des perceptrons simples.
 
 <!-- TODO: ceci pourrait être un exo -->
 
-```python
+<!-- ```python
 or_weights = np.array([-0.5, 1, 1])
 print("x\ty\tx OU y")
 for x_i in [0, 1]:
@@ -177,10 +189,12 @@ print("x\tNON x")
 for x_i in [0, 1]:
     out = perceptron([x_i], not_weights).astype(int)
     print(f"{x_i}\t{out}")
-```
+``` -->
+
+### XOR
 
 Mais on se heurte vite à des problèmes, même pour représenter les fonctions logiques les plus
-basiques, comme $\operatorname{XOR}$ définie pour $x ∈ \{0, 1\}$ et  $y ∈ \{0, 1\}$ par :
+basiques, comme $\operatorname{XOR}$ défini pour $x ∈ \{0, 1\}$ et  $y ∈ \{0, 1\}$ par :
 
 
 $$\begin{equation}
@@ -996,5 +1010,5 @@ similaire](https://docs.microsoft.com/en-us/learn/modules/intro-natural-language
 Un peu de lecture : [*Natural Language Processing (almost) from
 scratch](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
 
-[Une super série de vidéo](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+[Une super série de vidéos](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 avec de belles visus sur [la chaîne YouTube 3blue1brown](https://www.youtube.com/c/3blue1brown).

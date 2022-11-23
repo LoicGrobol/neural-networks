@@ -39,6 +39,8 @@ est indisponible.
 
 ### 2022-11-23 — Historique et perceptron simple
 
+- {% notebook_badges slides/01-perceptron/perceptron-slides.py.md %}
+  [Notebook perceptron simple](slides/01-perceptron/perceptron-slides.py.ipynb)
 
 ## Lire les slides en local
 
