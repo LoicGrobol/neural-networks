@@ -934,6 +934,12 @@ plt.colorbar(heatmap)
 plt.show()
 ```
 
+## Exo
+
+Reprendre les exercices du cours [Perceptron simple](../01-perceptron/perceptron-slides.py.md),
+mais en les résolvant avec un réseau à une couche caché entraîné avec l'algorithme de descente de
+gradient stochastique, comme ce qui précède. Comparer les résultats obtenus.
+
 ## Aller plus loin
 
 La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le

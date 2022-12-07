@@ -42,6 +42,11 @@ est indisponible.
 - {% notebook_badges slides/01-perceptron/perceptron-slides.py.md %}
   [Notebook perceptron simple](slides/01-perceptron/perceptron-slides.py.ipynb)
 
+### 2022-12-07 - Perceptron multi-couches
+
+- {% notebook_badges slides/02-nn/nn-slides.py.md %}
+  [Notebook perceptron simple](slides/02-nn/nn-slides.py.ipynb)
+
 ## Lire les slides en local
 
 Les supports de ce cours sont écrits en Markdown, convertis en notebooks avec
