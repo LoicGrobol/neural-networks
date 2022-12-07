@@ -76,7 +76,35 @@ Ou schématiquement
 Ou avec du code
 
 ```python
-def perceptron(inpt, weights):
+def perceptron(inpt, weight):
+    z = 0.0
+    for i in range(len(inpt)):
+        z += inpt[i]*weight[i]
+    if z > 0:
+        y = 1
+    else:
+        y = 0
+    return y
+
+perceptron([-2.0, -1.0], [-0.5, 0.5])
+```
+
+```python
+def perceptron(inpt, weight):
+    z = weight[0]
+    for x, w in zip(inpt, weight[1:]):
+        z += w*x
+    if z > 0:
+        y = 1
+    else:
+        y = 0
+    return y
+
+perceptron([-2.0, -1.0], [1.0, -0.5, 0.5])
+```
+
+```python
+def perceptron(inpt, weight):
     """Calcule la sortie du perceptron dont les poids sont `weights` pour l'entrée `inpt`
     
     Entrées :
@@ -86,7 +114,7 @@ def perceptron(inpt, weights):
     
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
-    return (np.inner(weights[1:], inpt) + weights[0]) > 0
+    return (np.inner(weight[1:], inpt) + weight[0]) > 0
 ```
 
 Implémenté comme une machine, le perceptron Mark I, par Rosenblatt (1958) :

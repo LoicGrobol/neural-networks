@@ -7,7 +7,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.13.0
+      jupytext_version: 1.14.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -16,14 +16,11 @@ jupyter:
 
 <!-- LTeX: language=fr -->
 <!-- #region slideshow={"slide_type": "slide"} -->
-Cours 12 : Réseaux de neurones
+Cours 2 : Réseaux de neurones
 ==============================
-
-EXOEXOEXO https://pageperso.lis-lab.fr/~francois.denis/IAAM1/TP3_Perceptron.pdf
 
 **Loïc Grobol** [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
 
-2021-11-10
 <!-- #endregion -->
 
 ```python
@@ -37,48 +34,11 @@ import matplotlib.pyplot as plt
 
 ## Le perceptron simple
 
-### Principe et historique
-
-[![Schéma d'un neurone avec des légendes pour les organelles et les connexions importantes pour la
-communication entre
-neurones.](https://upload.wikimedia.org/wikipedia/commons/1/10/Blausen_0657_MultipolarNeuron.png)](https://commons.wikimedia.org/w/index.php?curid=28761830)
-
-Un modèle de neurone biologique (plutôt sensoriel) : une unité qui reçoit plusieurs entrées $x_i$
-scalaires (des nombres quoi), en calcule une somme pondérée $z$ (avec des poids $w_i$ prédéfinis) et
-renvoie une sortie binaire $y$ ($1$ si $z$ est positif, $0$ sinon).
-
-
-Autrement dit
-
-$$\begin{align}
-z &= \sum_i w_ix_i = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
-y &=
-    \begin{cases}
-        1 & \text{si $z > 0$}\\
-        0 & \text{sinon}
-    \end{cases}
-\end{align}$$
-
-Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différentes
-
-**Attention** selon les auteurices, le cas $z=0$ est traité différemment, pour *Speech and Language
-Processing*, par exemple, on renvoie $0$ dans ce cas, c'est donc la convention qu'on suivra, mais
-vérifiez à chaque fois.
-
-
-On peut ajouter un terme de *biais* en fixant $x_0=1$ et $w_0=b$, ce qui donne
-
-$$\begin{equation}
-    z = \sum_{i=0}^n w_ix_i = \sum_{i=1}^n w_ix_i + b
-\end{equation}$$
-
-Ou schématiquement
+### Rappels
 
 
 ![](figures/perceptron/perceptron.svg)
 
-
-Ou avec du code
 
 ```python
 def perceptron(inpt, weights):
@@ -94,28 +54,7 @@ def perceptron(inpt, weights):
     return (np.inner(weights[1:], inpt) + weights[0]) > 0
 ```
 
-Implémenté comme une machine, le perceptron Mark I, par Rosenblatt (1958) :
-
-[![Une photographie en noir et blanc d'une machine ressemblant à une grande armoire pleine de fils
-électriques](https://upload.wikimedia.org/wikipedia/en/5/52/Mark_I_perceptron.jpeg)](https://en.wikipedia.org/wiki/File:Mark_I_perceptron.jpeg)
-
-
-**Est-ce que ça vous rappelle quelque chose ?**
-
-
-🤔
-
-
-C'est un **classifieur linéaire** dont on a déjà parlé dans le cours précédent.
-
-
-Les ambitions initiales étaient grandes
-
-> *the embryo of an electronic computer that [the Navy] expects will be able to walk, talk, see, write, reproduce itself and be conscious of its existence.*  
-> New York Times, rappporté par Olazaran (1996)
-
-
-C'est par exemple assez facile de construire un qui réalise l'opération logique élémentaire $\operatorname{ET}$ :
+On peut s'en servir pour implémenter la porte logique $\operatorname{ET}$ :
 
 ```python
 and_weights = np.array([-0.6, 0.5, 0.5])
@@ -126,9 +65,7 @@ for x_i in [0, 1]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-Ça marche bien parce que c'est un problème **linéairement séparable** : si on représente $x$ et $y$
-dans le plan, on peut tracer une droite qui sépare la parties où $x\operatorname{ET}y$ vaut $1$ et
-la partie où ça vaut $0$ :
+Parce que c'est un problème **linéairement séparable** :
 
 ```python
 import tol_colors as tc
@@ -145,7 +82,7 @@ plt.colorbar(heatmap)
 plt.show()
 ```
 
-Ici voilà les valeurs que renvoie notre neurone :
+Et voilà ce que fait le neurone précédent
 
 ```python
 import tol_colors as tc
@@ -162,19 +99,9 @@ plt.colorbar(heatmap)
 plt.show()
 ```
 
-On confirme : ça marche !
-
-
 Ça marche aussi très bien pour $\operatorname{OU}$ et $\operatorname{NON}$
 
-### Exo
-
-Déterminer la structure et les poids à utiliser pour implémenter une porte OU et une porte NON avec
-des perceptrons simples.
-
-<!-- TODO: ceci pourrait être un exo -->
-
-<!-- ```python
+```python
 or_weights = np.array([-0.5, 1, 1])
 print("x\ty\tx OU y")
 for x_i in [0, 1]:
@@ -189,7 +116,7 @@ print("x\tNON x")
 for x_i in [0, 1]:
     out = perceptron([x_i], not_weights).astype(int)
     print(f"{x_i}\t{out}")
-``` -->
+```
 
 ### XOR
 
@@ -225,7 +152,6 @@ plt.colorbar(heatmap)
 plt.show()
 ```
 
-
 Si on l'étend à tout le plan pour mieux voir en prenant $0.5$ comme frontière pour *vrai* :
 
 
@@ -250,7 +176,10 @@ linéaire ne sera jamais capable de le résoudre.
 
 ## Réseaux de neurones
 
-Comment on peut s'en sortir ? En combinant des neurones !
+Comment on peut s'en sortir ?
+
+
+En combinant des neurones !
 
 
 On sait faire les portes logiques élémentaires $\operatorname{ET}$, $\operatorname{OU}$ et
@@ -623,7 +552,7 @@ $$\begin{equation}
 \end{equation}$$
 
 
-Au final, voici à quoi ressemble un classifieur neuronal classique.
+Finalement, voici à quoi ressemble un classifieur neuronal classique.
 
 ```python
 from scipy.special import softmax
@@ -674,7 +603,7 @@ Et bien c'est toujours la même recette pour l'apprentissage supervisé :
 
 
 Les fonctions de coût ressemblent très fort à celles d'autres techniques d'apprentissage. En TAL,
-comme on s'en sort toujours plus ou moins pour se rammener à de la classification, on va en général
+comme on s'en sort toujours plus ou moins pour se ramener à de la classification, on va en général
 utiliser la $\log$-vraisemblance négative, comme pour les classifieurs logistiques.
 
 
@@ -737,10 +666,13 @@ particulièrement notables sont l'accelération de Nesterov et l'estimation adap
 
 ## En pratique 🔥
 
-En pratique, comme on ne va certainement pas implémenter tout ça à la main ici (même si je vous
-recommande de le faire une fois de votre côté pour bien comprendre comment ça marche), on va se
+En pratique, comme on ne va certainement pas implémenter tout ça à la main aujourd'hui, on va se
 reposer sur la bibliothèque de réseaux de neurones la plus utilisée pour le TAL ces dernières (et
 probablement aussi ces prochaines) années : [Pytorch](pytorch.org).
+
+```python
+%pip install torch
+```
 
 ```python
 import torch
@@ -817,7 +749,8 @@ Il y en a beaucoup
 len(dir(torch.nn))
 ```
 
-En pratique, Pytorch ne fait pas la différence entre un réseau et une couche : tout ça sera un `torch.nn.Module`. L'avantage c'est que ça permet facilement d'interconnecter des réseaux entre eux.
+En pratique, Pytorch ne fait pas la différence entre un réseau et une couche : tout ça sera un
+`torch.nn.Module`. L'avantage c'est que ça permet facilement d'interconnecter des réseaux entre eux.
 
 
 La couche la plus importante pour nous ici c'est la couche
@@ -856,11 +789,18 @@ for x_i in [0.0, 1.0]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-On peut remarque que la définition du calcul fait par une couche ne se fait pas directement en implémentant `__call__` mais `forward` (le nom vient de l'idée que dans un réseau les données **avancent** à travers les différentes couches). Pytorch fait plein de magie pour que l'utilisation des algos d'apprentissage soit aussi laconique que possible, et une de ses astuces c'est qu'il définit lui-même `__call__` en prenant le `forward` défini par vous et en faisant d'autres trucs autour.
+On peut remarque que la définition du calcul fait par une couche ne se fait pas directement en
+implémentant `__call__` mais `forward` (le nom vient de l'idée que dans un réseau les données
+**avancent** à travers les différentes couches). Pytorch fait plein de magie pour que l'utilisation
+des algos d'apprentissage soit aussi laconique que possible, et une de ses astuces c'est qu'il
+définit lui-même `__call__` en prenant le `forward` défini par vous et en faisant d'autres trucs
+autour.
 
 ## Entraînement 🔥
 
-Pour entraîner un réseau en Pytorch, on peut presque directement traduire l'algo de descente de gradient stochastique. Voici par exemple comment on peut entraîner un réseau à trois couches logistiques de deux neurones à apprendre la fonction $\operatorname{XOR}$
+Pour entraîner un réseau en Pytorch, on peut presque directement traduire l'algo de descente de
+gradient stochastique. Voici par exemple comment on peut entraîner un réseau à trois couches
+logistiques de deux neurones à apprendre la fonction $\operatorname{XOR}$
 
 
 On commence par définir un jeu de données d'apprentissage
@@ -894,6 +834,8 @@ Et on traduit l'algo
 
 ```python
 import torch.optim
+# Pour fixer l'aléa et donc avoir toujours la même trajectoire
+torch.manual_seed(0)
 
 xor_net = get_xor_net()
 # SGD est déjà implémenté, sous la forme d'un objet auquel on
@@ -951,8 +893,8 @@ plt.show()
 Qu'est-ce que ça donne comme poids ? Regardons :
 
 ```python
-for p in xor_net.parameters():
-    print(p.data)
+for n, p in xor_net.named_parameters():
+    print(f"{n}: {p.data}")
 ```
 
 Est-ce qu'on peut en tirer des conclusions ? Pas sûr !
