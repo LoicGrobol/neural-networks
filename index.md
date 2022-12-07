@@ -45,7 +45,7 @@ est indisponible.
 ### 2022-12-07 - Perceptron multi-couches
 
 - {% notebook_badges slides/02-nn/nn-slides.py.md %}
-  [Notebook perceptron simple](slides/02-nn/nn-slides.py.ipynb)
+  [Perceptron multi-couches](slides/02-nn/nn-slides.py.ipynb)
 
 ## Lire les slides en local
 
