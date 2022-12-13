@@ -356,7 +356,12 @@ class Layer:
         return ((np.matmul(self.weight, inpt) + self.bias) > 0).astype(int)
     
 layer1 = Layer(
-    np.array([[0.5, 0.5], [1, 1]]),
+    np.array(
+        [
+            [0.5, 0.5], 
+            [  1,   1],
+        ]
+    ),
     np.array([-0.6, -0.5]),
 )
 display(layer1([0,1]))
@@ -729,7 +734,10 @@ torch.sum(torch.tensor([1,2,3,4]))
 Même si en général, on y préfère un style d'opérations en chaînes
 
 ```python
-torch.tensor([1,2,3,4]).mul(torch.tensor(2)).sum()
+(torch.tensor([1,2,3,4])
+ .mul(torch.tensor(2))
+ .sum()
+)
 ```
 
 Vous trouverez dans la doc [la liste des fonctions natives](https://pytorch.org/docs/stable/torch.html) et celle des [méthodes des tenseurs](https://pytorch.org/docs/stable/tensors.html), n'hésitez pas à vous y pencher souvent, surtout avant de vouloir recoder des trucs vous mêmes.

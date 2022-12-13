@@ -290,7 +290,7 @@ Problèmes :
 - Surtout pour les mots inconnus
 
 
-Un peu mieux : on va donner accès non seulement au mots mais aussi aux contexte gauches et droits
+Un peu mieux : on va donner accès non seulement aux mots mais aussi aux contextes gauches et droits
 
 ```python
 class ContextClassifier(torch.nn.Module):
@@ -717,7 +717,7 @@ display(tok.tokenize("Mangez les riches!"))
 
 ```python
 with torch.no_grad():
-    embeddings = model(**tok("Alex a eu une riche idée", return_tensors="pt")).last_hidden_state
+    embeddings = model(**tok("Alex a de riches idées.", return_tensors="pt")).last_hidden_state
     other_embeddings = model(**tok("Mangez les riches!", return_tensors="pt")).last_hidden_state
 display(embeddings[0, 3, :8])
 display(other_embeddings[0, 3, :8])
