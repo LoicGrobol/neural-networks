@@ -1,5 +1,5 @@
 conllu
-datasetss
+datasets
 ipympl
 ipywidgets
 jupyterlab
