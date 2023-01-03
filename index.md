@@ -49,7 +49,7 @@ est indisponible.
 
 ### 2022-01-03 — Transformers
 
-- {% slides/03-transformers/transformers-slides.py.md %}
+- {% notebook_badges slides/03-transformers/transformers-slides.py.md %}
   [Notebook demo](slides/03-transformers/transformers-slides.py.ipynb)
 - [Cours 🤗 Transformers](https://huggingface.co/course)
 
