@@ -45,7 +45,13 @@ est indisponible.
 ### 2022-12-07 - Perceptron multi-couches
 
 - {% notebook_badges slides/02-nn/nn-slides.py.md %}
-  [Perceptron multi-couches](slides/02-nn/nn-slides.py.ipynb)
+  [Notebook perceptron multi-couches](slides/02-nn/nn-slides.py.ipynb)
+
+### 2022-01-03 — Transformers
+
+- {% slides/03-transformers/transformers-slides.py.md %}
+  [Notebook demo](slides/03-transformers/transformers-slides.py.ipynb)
+- [Cours 🤗 Transformers](https://huggingface.co/course)
 
 ## Lire les slides en local
 
