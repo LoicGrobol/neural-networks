@@ -47,11 +47,22 @@ est indisponible.
 - {% notebook_badges slides/02-nn/nn-slides.py.md %}
   [Notebook perceptron multi-couches](slides/02-nn/nn-slides.py.ipynb)
 
-### 2022-01-03 — Transformers
+### 2023-01-03 — Transformers
 
 - {% notebook_badges slides/03-transformers/transformers-slides.py.md %}
   [Notebook demo](slides/03-transformers/transformers-slides.py.ipynb)
 - [Cours 🤗 Transformers](https://huggingface.co/course)
+
+### 2023-01-10 — Descente de gradient et *backpropagation*
+
+Un peu de lecture supplémentaire :
+
+- Pour les maths et les visuels, la leçon [*backpropagation
+  calculus*](https://www.3blue1brown.com/lessons/backpropagation-calculus) de 3blue1brown est bien.
+- Pour l'historique, l'article [*Backpropagation*](https://en.wikipedia.org/wiki/Backpropagation) de
+  Wikipedia en est pas mal.
+- Pour une zoologie des variantes de l'algo de descente de gradient, [Sebastian
+  Ruder](https://ruder.io/optimizing-gradient-descent/) a fait une bonne synthèse
 
 ## Lire les slides en local
 
