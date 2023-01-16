@@ -7,6 +7,8 @@ layout: default
 
 ## News
 
+- **2023-01-16** Les [consignes pour les projets]({{site.url}}{{site.baseurl}}/projects) sont en
+  ligne.
 - **2022-11-21** Premier cours du semestre le 23/11/2022
 
 ## Infos pratiques
@@ -15,8 +17,7 @@ layout: default
 - **Où** Salle 219, bâtiment Paul Ricœur
 - **Quand** 8 séances, les mercredi de 9:30 à 12:30, du 23/11/22 au 25/01/23
   - Voir le planning pour les dates exactes (quand il aura été mis en ligne)
-- **Contact** Loïc Grobol [<loic.grobol@parisnanterre.fr>](mailto:loic.grobol@parisnanterre.fr)
-- **Évaluation** Un TP noté en temps limité (date à déterminer) et un projet
+- **Contact** Loïc Grobol [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
 
 
 **Note** ce cours remplace pour l'année 2022-2023 le cours « arbres, graphes, réseaux »
@@ -25,6 +26,7 @@ layout: default
 
 - Lien Binder de secours :
   [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/LoicGrobol/neural-networks/main)
+- [Consignes pour les projets]({{site.url}}{{site.baseurl}}/project) sont en ligne.
 
 ## Séances
 

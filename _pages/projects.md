@@ -1,13 +1,19 @@
+---
+title: Projets réseaux de neurons — M2 PluriTAL 2022
+layout: default
+permalink: /projects/
+---
+
 [comment]: <> "LTeX: language=fr"
 
-Projets Apprentissage artificiel
-================================
+Projets
+========
 
 Votre travail sera de réaliser une application, une ressource, une interface ou une bibliothèque
-pour Python. Son thème devra être lié au TAL ou au traitement de données, utiliser des notions
-d'apprentissage artificiel et pourra évidemment être en lien avec d'autres cours, d'autres projets
-ou votre travail en entreprise (mais assurez-vous avant que ce soit OK de partager votre code avec
-moi dans ce cas).
+pour Python. Son thème devra être lié au TAL ou au traitement de données, utiliser un système de
+réseaux de neurones artificiels et pourra évidemment être en lien avec d'autres cours, d'autres
+projets ou votre travail en entreprise (mais assurez-vous avant que ce soit OK de partager votre
+code avec moi dans ce cas).
 
 *Bien entendu, rien ne vous empêche de combiner ces options.*
 
@@ -17,9 +23,12 @@ votre travail peut aussi prendre la forme d'un plugin/add-on/module… pour un p
 un gros *pull request* à Pytorch par exemple) mais si c'est ce que vous visez, dites le moi très en
 avance et on en discute.
 
+Dans tous les cas, je m'attends à un travail substantiel (pas juste suivre un tuto trouvé sur le
+web, par exemple…), si vous avez un doute, là encore, demandez moi.
+
 ## Consignes
 
-- Projet à rendre le 4 février 2021 *au plus tard*
+- Projet à rendre le 1 mars 2023 *au plus tard*
 - Projet de préférence collectif, par groupe de 2 ou 3
   - Si c'est un problème pour vous, venez me voir, tout est négociable
   - S'il y a un problème — quel qu'il soit — dans votre groupe, n'hésitez pas à m'en parler
@@ -29,36 +38,33 @@ Le rendu devra comporter :
 1. Une documentation du projet traitant les points suivants :
 
    - Les objectifs du projet
-   - Les données (origine, format, statut juridique) et les traitements opérés
-     sur celles-ci
-   - La méthodologie (comment vous vous êtes répartis le travail, comment vous
-     avez identifié les problèmes et les avez résolus, différentes étapes du
-     projet…)
-   - L'implémentation ou les implémentations (modélisation le cas échéant,
-     modules et/ou API utilisés, différents langages le cas échéant)
-   - Les résultats (fichiers output, visualisations…) et une discussion sur ces
-     résultats (ce que vous auriez aimé faire et ce que vous avez pu faire par
-     exemple)
+   - Les données utilisées (origine, format, statut juridique) et les traitements opérés sur
+     celles-ci
+   - La méthodologie (comment vous vous êtes répartis le travail, comment vous avez identifié les
+     problèmes et les avez résolus, différentes étapes du projet…)
+   - L'implémentation ou les implémentations (modélisation le cas échéant, modules et/ou API
+     utilisés, différents langages le cas échéant)
+   - Les résultats (fichiers output, visualisations…) et une discussion sur ces résultats (ce que
+     vous auriez aimé faire et ce que vous avez pu faire par exemple)
 
-   On attend de la documentation technique, pas une dissertation. Elle pourra
-   prendre le format d'un ou plusieurs fichiers, d'un site web, d'un notebook de
-   démonstration, à votre convenance
+   On attend de la documentation technique, pas une dissertation. Elle pourra prendre le format d'un
+   ou plusieurs fichiers, d'un site web, d'un notebook de démonstration, à votre convenance
 
-2. Le code Python et les codes annexes (JS par ex.) que vous avez produit.
-   Le code *doit* être commenté. Des tests ce serait bien. **Évitez les
-   notebooks**, préférez les interfaces en ligne de commande ou web (ou
-   graphiques si vous êtes très motivé⋅e⋅s)
+   **La documentation ne doit pas, jamais, sous aucun prétexte, comporter de capture d'écran de
+   code.**
 
-3. Les éventuelles données en input et en output (ou un échantillon si le volume
-   est important)
+2. Le code Python et les codes annexes (JS par ex.) que vous avez produit. Le code *doit* être
+   commenté. Des tests ce serait bien. **Évitez les notebooks**, préférez les interfaces en ligne de
+   commande ou web (ou graphiques si vous êtes très motivé⋅es)
+
+3. Les éventuelles données en input et en output (ou un échantillon si le volume est important)
 
 N'hésitez pas à vous servir de git pour versionner vos projets !
 
 ## Conseils
 
-Écrivez ! Tenez un carnet : vos questions, un compte-rendu de vos discussions,
-les problèmes rencontrés, tout est bon à prendre et cela vous aidera à rédiger
-la documentation finale.
+Écrivez ! Tenez un carnet : vos questions, un compte-rendu de vos discussions, les problèmes
+rencontrés, tout est bon à prendre et cela vous aidera à rédiger la documentation finale.
 
 ## Ressources
 
@@ -96,15 +102,15 @@ search](https://toolbox.google.com/datasetsearch)
   j'ai beaucoup aimé [*Universal Adversarial Triggers for Attacking and Analyzing
   NLP*](https://www.aclweb.org/anthology/D19-1221/)).
 
-- Classification de documents : le classique, se décline en analyse du sentiment ; détection de
+- Classification de documents : le classique, se décline en analyse de sentiment ; détection de
   discours haineux, de *fake news*.
 - Syntaxe : POS tagging, parsing, chunking… Attention, [la
-  concurrence](https://github.com/bencrabbe/npdependency) est rude.
+  concurrence](https://github.com/npdependency/npdependency) est rude.
 - Génération de texte : modèles de langues, résumé automatique, question-réponses.
 - …
 
 Commencez plutôt petit : voyez si vous pouvez reproduire l'état de l'art en piquant du code qui
 existe, puis modifiez-le pour arriver à vos fins.
 
-On le répète encore une fois : si vous avez des idées mais que vous galérez, si vous n'avez pas
+On le répète encore une fois : si vous avez des idées, mais que vous galérez, si vous n'avez pas
 d'idée, s'il y a un problème **contactez moi**.
