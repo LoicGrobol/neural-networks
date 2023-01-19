@@ -66,6 +66,51 @@ Un peu de lecture supplémentaire :
 - Pour une zoologie des variantes de l'algo de descente de gradient, [Sebastian
   Ruder](https://ruder.io/optimizing-gradient-descent/) a fait une bonne synthèse
 
+### 2023-01-18 — Modèles de génération de séquences
+
+Articles cités :
+
+<!-- LTeX: language=en-US -->
+
+- Adelani, David, Jesujoba Alabi, Angela Fan, Julia Kreutzer, Xiaoyu Shen, Machel Reid, Dana Ruiter,
+  et al. 2022. “[A Few Thousand Translations Go a Long Way! Leveraging Pre-Trained Models for
+  African News Translation.](https://doi.org/10.18653/v1/2022.naacl-main.223)” In Proceedings of the
+  2022 Conference of the North American Chapter of the Association for Computational Linguistics:
+  Human Language Technologies, 3053–70. Seattle, United States: Association for Computational
+  Linguistics.
+- Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. 2015. “[Neural Machine Translation by Jointly
+  Learning to Align and Translate.](http://arxiv.org/abs/1409.0473)” In Proceedings of the 3rd
+  International Conference on Learning Representations, edited by Yoshua Bengio and Yann LeCun. San
+  Diego, California, USA.
+- Fan, Angela, Shruti Bhosale, Holger Schwenk, Zhiyi Ma, Ahmed El-Kishky, Siddharth Goyal, Mandeep
+  Baines, et al. 2021. “Beyond English-Centric Multilingual Machine Translation.” The Journal of
+  Machine Learning Research 22 (1): 107:4839-107:4886.
+- Levy, Omer, Kenton Lee, Nicholas FitzGerald, and Luke Zettlemoyer. 2018. “[Long Short-Term Memory
+  as a Dynamically Computed Element-Wise Weighted Sum.](http://arxiv.org/abs/1805.03716)”
+  ArXiv:1805.03716 [Cs, Stat], May.
+- Lewis, Mike, Yinhan Liu, Naman Goyal, Marjan Ghazvininejad, Abdelrahman Mohamed, Omer Levy,
+  Veselin Stoyanov, and Luke Zettlemoyer. 2020. “[BART: Denoising Sequence-to-Sequence Pre-Training
+  for Natural Language Generation, Translation, and
+  Comprehension.](https://doi.org/10.18653/v1/2020.acl-main.703)” In Proceedings of the 58th Annual
+  Meeting of the Association for Computational Linguistics, 7871–80. Online: Association for
+  Computational Linguistics.
+- Merrill, William, Gail Weiss, Yoav Goldberg, Roy Schwartz, Noah A. Smith, and Eran Yahav. 2020.
+  “[A Formal Hierarchy of RNN Architectures.](https://www.aclweb.org/anthology/2020.acl-main.43)” In
+  Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, 443–59.
+  Online: Association for Computational Linguistics.
+- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+  Kaiser, and Illia Polosukhin. 2017. “[Attention Is All You
+  Need.](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf)”
+  In Advances in Neural Information Processing Systems 30, edited by I. Guyon, U. V. Luxburg, S.
+  Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, 5998–6008. Long Beach, California:
+  Curran Associates, Inc..
+- Weiss, Gail, Yoav Goldberg, and Eran Yahav. 2018. “[On the Practical Computational Power of Finite
+  Precision RNNs for Language Recognition.](https://www.aclweb.org/anthology/P18-2117)”, 2:740–45.
+  Melbourne, Australia: Association for Computational Linguistics.
+
+<!-- LTeX: language=fr -->
+
+
 ## Lire les slides en local
 
 Les supports de ce cours sont écrits en Markdown, convertis en notebooks avec
