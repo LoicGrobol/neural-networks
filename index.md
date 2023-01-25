@@ -119,19 +119,25 @@ Articles cités :
 - Abid, Abubakar, Maheen Farooqi, and James Zou. 2021a. “Large Language Models Associate Muslims
   with Violence.” Nature Machine Intelligence 3 (6): 461–63.
   <https://doi.org/10.1038/s42256-021-00359-2>.
-- ———. 2021b. “Persistent Anti-Muslim Bias in Large Language Models.” In Proceedings of the 2021
-  AAAI/ACM Conference on AI, Ethics, and Society, 298–306. AIES ’21. New York, NY, USA: Association
-  for Computing Machinery. <https://doi.org/10.1145/3461702.3462624>.
+- Abid, Abubakar, Maheen Farooqi, and James Zou. 2021b. “Persistent Anti-Muslim Bias in Large
+  Language Models.” In Proceedings of the 2021 AAAI/ACM Conference on AI, Ethics, and Society,
+  298–306. AIES ’21. New York, NY, USA: Association for Computing Machinery.
+  <https://doi.org/10.1145/3461702.3462624>.
 - Adelani, David, Jesujoba Alabi, Angela Fan, Julia Kreutzer, Xiaoyu Shen, Machel Reid, Dana Ruiter,
   et al. 2022. “A Few Thousand Translations Go a Long Way! Leveraging Pre-Trained Models for African
   News Translation.” In Proceedings of the 2022 Conference of the North American Chapter of the
   Association for Computational Linguistics: Human Language Technologies, 3053–70. Seattle, United
   States: Association for Computational Linguistics.
   <https://doi.org/10.18653/v1/2022.naacl-main.223>.
+- Artetxe, Mikel, and Holger Schwenk. 2019. “Massively Multilingual Sentence Embeddings for
+  Zero-Shot Cross-Lingual Transfer and Beyond.” Transactions of the Association for Computational
+  Linguistics 7 (September): 597–610. <https://doi.org/10.1162/tacl_a_00288>.
 - Bender, Emily M., Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. 2021. “On the
   Dangers of Stochastic Parrots: Can Language Models Be Too Big? 🦜.” In Proceedings of the 2021 ACM
   Conference on Fairness, Accountability, and Transparency, 610–23. FAccT ’21. New York, NY, USA:
   Association for Computing Machinery. <https://doi.org/10.1145/3442188.3445922>.
+- Birhane, Abeba. 2022. “ChatGPT, Galactica, and the Progress Trap.” Wired, December 9, 2022.
+  <https://www.wired.com/story/large-language-models-critique/>.
 - Caliskan, Aylin, Joanna J. Bryson, and Arvind Narayanan. 2017. “Semantics Derived Automatically
   from Language Corpora Contain Human-like Biases.” Science 356 (6334): 183–86.
   <https://doi.org/10.1126/science.aal4230>.
@@ -172,6 +178,8 @@ Articles cités :
   Georgia: Association for Computational Linguistics. <https://aclanthology.org/N13-1090>.
 - Perez, Fábio, and Ian Ribeiro. 2022. “Ignore Previous Prompt: Attack Techniques For Language
   Models.” arXiv. <https://doi.org/10.48550/arXiv.2211.09527>.
+- Perrigo, Billy. 2023. “The $2 Per Hour Workers Who Made ChatGPT Safer.” Time, January 18, 2023.
+  <https://time.com/6247678/openai-chatgpt-kenya-workers/>.
 - Prabhakaran, Vinodkumar, Margaret Mitchell, Timnit Gebru, and Iason Gabriel. 2022. “A Human
   Rights-Based Approach to Responsible AI.” arXiv. <https://doi.org/10.48550/arXiv.2210.02667>.
 - Prost, Flavien, Nithum Thain, and Tolga Bolukbasi. 2019. “Debiasing Embeddings for Reduced Gender
