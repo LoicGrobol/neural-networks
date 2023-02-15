@@ -26,7 +26,7 @@ layout: default
 
 - Lien Binder de secours :
   [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/LoicGrobol/neural-networks/main)
-- [Consignes pour les projets]({{site.url}}{{site.baseurl}}/project) sont en ligne.
+- [Consignes pour les projets]({{site.url}}{{site.baseurl}}/projects).
 
 ## Séances
 
