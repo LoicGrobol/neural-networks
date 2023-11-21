@@ -332,7 +332,7 @@ layer([0, 1], [[0.5, 0.5], [1, 1]], [-0.5, -0.6])
 ```
 
 Cette dernière formulation est celle qu'on utilise en général, elle a le gros avantage de très bien
-se paralléliser, et même, si on dispose de matériel spécialisé, comme des cartes graphiques) de
+se paralléliser, et même, si on dispose de matériel spécialisé (comme des cartes graphiques) de
 bénéficier d'accélérations supplémentaires (voir par exemple Vuduc et Choi
 ([2013](https://jeewhanchoi.github.io/publication/pdf/brief_history.pdf)) pour la culture).
 
@@ -887,7 +887,8 @@ for x_i in [0.0, 1.0]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-Félicitations, vous venez d'apprendre un réseau de neurones et de vous adonner à la célèbre tradition dite « regarder avec anxiété la loss en espérant qu'elle descende ».
+Félicitations, vous venez d'apprendre un réseau de neurones et de vous adonner à la célèbre
+tradition dite « regarder avec anxiété la loss en espérant qu'elle descende ».
 
 
 Et elle est bien descendue, n'est-ce pas ?
@@ -950,21 +951,19 @@ gradient stochastique, comme ce qui précède. Comparer les résultats obtenus.
 
 ## Aller plus loin
 
-La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le
-tutoriel de towards
-datascience](https://towardsdatascience.com/handwritten-digit-mnist-pytorch-977b5338e627) (une
-source pas toujours excellente mais dans ce cas précis ça va.
-
-On fait du TAL ici ! Et langage ? Et bien en pratique c'est un peu plus compliqué à traiter que les
-images ou les nombres. On se penchera davantage dessus la prochaine fois, mais pour l'instant vous
-pouvez faire un peu de classification de documents avec [le tutoriel de
-torchtext](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html) (qui n'est
-pas une bibliothèque très souvent populaire, mais elle est bien utile ici. Microsoft propose [un
-tutorial
-similaire](https://docs.microsoft.com/en-us/learn/modules/intro-natural-language-processing-pytorch).
-
-Un peu de lecture : [*Natural Language Processing (almost) from
-scratch](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
-
-[Une super série de vidéos](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-avec de belles visus sur [la chaîne YouTube 3blue1brown](https://www.youtube.com/c/3blue1brown).
+- La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le
+   tutoriel de towards
+   datascience](https://towardsdatascience.com/handwritten-digit-mnist-pytorch-977b5338e627) (une
+   source pas toujours excellente mais dans ce cas précis ça va).
+- On fait du TAL ici ! Et le langage ? Et bien en pratique c'est un peu plus compliqué à traiter que
+   les images ou les nombres. On se penchera davantage dessus la prochaine fois, mais pour l'instant
+   vous pouvez faire un peu de classification de documents avec [le tutoriel de
+   torchtext](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html) (qui n'est
+   pas une bibliothèque très souvent populaire, mais elle est bien utile ici). Microsoft propose [un
+   tutorial
+   similaire](https://docs.microsoft.com/en-us/learn/modules/intro-natural-language-processing-
+   pytorch).
+  - Un peu de lecture : [*Natural Language Processing (almost) from
+    scratch](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
+- [Une super série de vidéos](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+  avec de belles visus sur [la chaîne YouTube 3blue1brown](https://www.youtube.com/c/3blue1brown).

@@ -38,16 +38,16 @@ import matplotlib.pyplot as plt
 communication entre
 neurones.](https://upload.wikimedia.org/wikipedia/commons/1/10/Blausen_0657_MultipolarNeuron.png)](https://commons.wikimedia.org/w/index.php?curid=28761830)
 
-Un modèle de neurone biologique (plutôt sensoriel) : une unité qui reçoit plusieurs entrées $x_i$
-scalaires (des nombres quoi), en calcule une somme pondérée $z$ (avec des poids $w_i$ prédéfinis) et
+Un modèle de neurone biologique (plutôt sensoriel) : une unité qui reçoit plusieurs entrées $x_j$
+scalaires (des nombres quoi), en calcule une somme pondérée $z$ (avec des poids $w_j$ prédéfinis) et
 renvoie une sortie binaire $y$ ($1$ si $z$ est positif, $0$ sinon).
 
 
 Autrement dit
 
 $$\begin{align}
-z &= \sum_i w_ix_i = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
-y &=
+z &= \sum_j w_jx_j = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
+\hat{y} &=
     \begin{cases}
         1 & \text{si $z > 0$}\\
         0 & \text{sinon}
@@ -60,11 +60,15 @@ Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différe
 Processing*, par exemple, on renvoie $0$ dans ce cas, c'est donc la convention qu'on suivra, mais
 vérifiez à chaque fois.
 
+**Note**: si on note $W$ le vecteur dont les coordonnées sont les $w_j$ et $X$ celui dont les
+coordonnés sont les $x_j$, $z$ est le **produit scalaire** de $W$ et $X$, noté $\langle W | X
+\rangle$.
+
 
 On peut ajouter un terme de *biais* en fixant $x_0=1$ et $w_0=b$, ce qui donne
 
 $$\begin{equation}
-    z = \sum_{i=0}^n w_ix_i = \sum_{i=1}^n w_ix_i + b
+    z = \sum_{j=0}^n w_jx_j = \sum_{j=1}^n w_jx_j + b
 \end{equation}$$
 
 Ou schématiquement
@@ -134,23 +138,25 @@ C'est un **classifieur linéaire** dont on a déjà parlé dans le cours précé
 
 Les ambitions initiales étaient grandes
 
-> *the embryo of an electronic computer that [the Navy] expects will be able to walk, talk, see, write, reproduce itself and be conscious of its existence.*  
+> *the embryo of an electronic computer that [the Navy] expects will be able to walk, talk, see,
+> write, reproduce itself and be conscious of its existence.*  
 > New York Times, rapporté par Olazaran (1996)
 
 
-C'est par exemple assez facile de construire un qui réalise l'opération logique élémentaire $\operatorname{ET}$ :
+C'est par exemple assez facile de construire un qui réalise l'opération logique élémentaire
+$\operatorname{ET}$ :
 
 ```python
 and_weights = np.array([-0.6, 0.5, 0.5])
 print("x\ty\tx ET y")
-for x_i in [0, 1]:
-    for y_i in [0, 1]:
-        out = perceptron([x_i, y_i], and_weights).astype(int)
-        print(f"{x_i}\t{y_i}\t{out}")
+for x in [0, 1]:
+    for y in [0, 1]:
+        out = perceptron([x, y], and_weights).astype(int)
+        print(f"{x}\t{y}\t{out}")
 ```
 
 Ça marche bien parce que c'est un problème **linéairement séparable** : si on représente $x$ et $y$
-dans le plan, on peut tracer une droite qui sépare la parties où $x\operatorname{ET}y$ vaut $1$ et
+dans le plan, on peut tracer une droite qui sépare la partie où $x\operatorname{ET}y$ vaut $1$ et
 la partie où ça vaut $0$ :
 
 ```python
@@ -190,7 +196,7 @@ On confirme : ça marche !
 
 Ça marche aussi très bien pour $\operatorname{OU}$ et $\operatorname{NON}$
 
-## 🙅🏻 Exo 🙅🏻
+### 🙅🏻 Exo 🙅🏻
 
 Déterminer la structure et les poids à utiliser pour implémenter une porte OU et une porte NON avec
 des perceptrons simples.
@@ -213,6 +219,35 @@ for x_i in [0, 1]:
 ``` -->
 
 ## Algorithme du perceptron
+
+L'algorithme du perceptron de Rosenblatt permet de trouver des poids pour lesquels le perceptron
+simple partitionne de façon exacte un jeu de données avec un étiquetage linéairement séparable.
+
+On va supposer ici pour simplifier les notations qu'on utilise comme classe $-1$ et $1$ au lieu de
+$0$ et $1$ et on considère un taux d'apprentissage $α>0$.
+
+Alors l'algorithme prend la forme suivante :
+
+- Initialiser le vecteur de poids $W$ à des valeurs arbitraires.
+- Tant qu'il reste des points $x_i$ mal classifiés.
+
+  - Pour chaque couple $(X, y) \in \mathcal{D}$ :
+
+    - Calculer $z = \langle W | X \rangle$.
+    - Si $y×z ≤ 0$:
+      - $W←W+α×y×X$
+
+Notez que :
+
+- La condition $y×z ≤ 0$ est une façon compressée de dire “si $y$ et $z$ sont de même signe” et donc
+  “si $\hat{y}= y”.
+- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + yX | X
+  \rangle$ pour s'en convaincre.
+- On peut compresser la condition et la mise à jour en une seule ligne : $W←W+α(y-\hat{y})X$.
+
+Sous réserve que le jeu de données soit effectivement linéairement séparable, l'algorithme termine
+toujours (et on peut même estimer sa vitesse de convergence), un résultat parfois appelé *théorème
+de convergence de Novikov*.
 
 ### 🎲 Exo 🎲
 
@@ -243,14 +278,75 @@ couleurs différentes pour les deux classes) ainsi que la frontière du classifi
 Le jeu de données `perceptron_data.bias` représente un problème de classification à une dimension,
 mais pour lequel un terme de biais est nécessaire.
 
-1\. Appliquer votre implémentation précédente de l'algorithme du perceptron (pour un nombre grand
-mais fixé d'epochs) pour constater la non-convergence (par exemple en affichant les poids et
+1\. Appliquer votre implémentation précédente de l'algorithme du perceptron (pour un nombre grand,
+mais fixé) d'epochs pour constater la non-convergence (par exemple en affichant les poids et
 l'erreur de classification moyenne à chaque étape).
 
 2\. Modifier votre implémentation pour introduire un terme de biais et montrer que dans ce cas
 l'apprentissage converge.
 
 ## Perceptron multi-classe
+
+Le cas d'un problème de classification à $n$ classe se traite en prédisant un score par classe avec
+une fonction linéaire par classe et en affectant la classe pour laquelle le score est maximal.
+Formellement on dispose donc d'un $n$-uplet de poids $W_1, …, W_n$ et on a pour un exemple $X$ :
+
+$$\begin{align}
+    z_1 &= \langle W_1 | X \rangle\\
+        &⋮\\
+    z_n &= \langle W_n | X \rangle
+    \hat{y} &= \argmax_k z_k
+\end{align}$$
+
+Moralement on peut y penser comme avoir $n$ perceptrons, un par classe.
+
+L'algorithme d'apprentissage du perceptron simple simple s'adapte simplement : pour les exemples mal
+classifiés on ajuste les $W_k$ de façon à ce que le score $z_y$ de la classe correcte augmente et à
+ce que le score de la classe prédite diminue. En pseudo-code :
+
+- Tant qu'on est pas satisfait⋅e:
+  - Pour chaque $(X, y)∈\mathcal{D}$:
+    - Pour chaque $k∈⟦1, n⟧$:
+      - Calculer $z_k=\langle W_k | X \rangle$
+    - Déterminer $\hat{y}=\argmax_k z_k$
+    - Si $\hat{y}\neq y$:
+      - $W_y←W_y+αX$
+      - $W_{\hat{y}}←W_{\hat{y}}-αX$
+
+Le critère de satisfaction peut être comme précédemment “jusqu'à ce qu'il n'y ait plus d'erreur”,
+mais comme précédemment ce n'est atteignable qu'avec des conditions contraignantes sur les données.
+Un critère d'arrêt plus réaliste peut être un nombre maximal d'étapes ou l'arrêt de l'amélioration
+des performances.
+
+**Note** : calculer les $n$ produits scalaires $\langle W_k | X \rangle$ revient à multiplier $X$ à
+gauche par la matrice dont les colonnes sont les $W_k$. Autrement dit si on note $W_k = (w_{ℓ, k})$
+et qu'on pose
+
+$$
+W =
+    \begin{pmatrix}
+        w_{1,1} & \ldots & w_{1,k}\\
+        \vdots  & \ddots & \vdots\\
+        w_{1,n} & \ldots & w_{n,k}\\
+    \end{pmatrix}
+$$
+
+Alors on a
+
+$$
+Z = \begin{pmatrix}z_1\\\vdots\\z_n\end{pmatrix} = W×X
+$$
+
+Le calcul de ce produit matriciel étant beaucoup plus rapide sur machine que l'écriture d'un boucle,
+il est fortement recommandé de l'utiliser, l'algorithme devenant alors :
+
+- Tant qu'on est pas satisfait⋅e:
+  - Pour chaque $(X, y)∈\mathcal{D}$:
+    - Calculer $Z=W×X$
+    - Déterminer $\hat{y}=\argmax_k z_k$
+    - Si $\hat{y}\neq y$:
+      - $W_y←W_y+αX$
+      - $W_{\hat{y}}←W_{\hat{y}}-αX$
 
 ### 🌷 Exo 🌷
 

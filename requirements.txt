@@ -3,6 +3,7 @@ datasets
 ipympl
 ipywidgets
 jupyterlab
+jupyterlab_rise
 jupytext
 nbconvert
 numpy
