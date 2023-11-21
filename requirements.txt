@@ -2,6 +2,7 @@ conllu
 datasets
 ipympl
 ipywidgets
+jupyter_server!=2.11.0
 jupyterlab
 jupyterlab_rise
 jupytext

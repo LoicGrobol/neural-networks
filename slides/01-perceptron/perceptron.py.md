@@ -54,7 +54,12 @@ z &= \sum_j w_jx_j = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
     \end{cases}
 \end{align}$$
 
-Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différentes
+Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différentes.
+
+Implémenté comme une machine, le perceptron Mark I, par Rosenblatt (1958) :
+
+[![Une photographie en noir et blanc d'une machine ressemblant à une grande armoire pleine de fils
+électriques](https://upload.wikimedia.org/wikipedia/en/5/52/Mark_I_perceptron.jpeg)](https://en.wikipedia.org/wiki/File:Mark_I_perceptron.jpeg)
 
 **Attention** selon les auteurices, le cas $z=0$ est traité différemment, pour *Speech and Language
 Processing*, par exemple, on renvoie $0$ dans ce cas, c'est donc la convention qu'on suivra, mais
@@ -121,10 +126,6 @@ def perceptron(inpt, weight):
     return (np.inner(weight[1:], inpt) + weight[0]) > 0
 ```
 
-Implémenté comme une machine, le perceptron Mark I, par Rosenblatt (1958) :
-
-[![Une photographie en noir et blanc d'une machine ressemblant à une grande armoire pleine de fils
-électriques](https://upload.wikimedia.org/wikipedia/en/5/52/Mark_I_perceptron.jpeg)](https://en.wikipedia.org/wiki/File:Mark_I_perceptron.jpeg)
 
 
 **Est-ce que ça vous rappelle quelque chose ?**
