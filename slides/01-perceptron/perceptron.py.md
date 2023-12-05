@@ -338,8 +338,8 @@ $$
 Z = \begin{pmatrix}z_1\\\vdots\\z_n\end{pmatrix} = W×X
 $$
 
-Le calcul de ce produit matriciel étant beaucoup plus rapide sur machine que l'écriture d'un boucle,
-il est fortement recommandé de l'utiliser, l'algorithme devenant alors :
+Le calcul de ce produit matriciel étant beaucoup plus rapide sur machine que l'écriture d'une
+boucle, il est fortement recommandé de l'utiliser, l'algorithme devenant alors :
 
 - Tant qu'on est pas satisfait⋅e:
   - Pour chaque $(X, y)∈\mathcal{D}$:

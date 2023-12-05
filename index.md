@@ -44,6 +44,11 @@ est indisponible.
 - {% notebook_badges slides/01-perceptron/perceptron.py.md %}
   [Notebook perceptron simple](slides/01-perceptron/perceptron.py.ipynb)
 
+### 2023-12-05 — Réseaux de neurones
+
+- {% notebook_badges slides/02-nn/nn.py.md %}
+  [Notebook réseaux de neurones](slides/02-nn/nn.py.ipynb)
+
 <!-- LTeX: language=fr -->
 
 

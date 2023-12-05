@@ -7,7 +7,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.2
+      jupytext_version: 1.16.0
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -51,7 +51,7 @@ def perceptron(inpt, weights):
     
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
-    return (np.inner(weights[1:], inpt) + weights[0]) > 0
+    return (np.inner(weights, [1, *inpt])) > 0
 ```
 
 On peut s'en servir pour implémenter la porte logique $\operatorname{ET}$ :
@@ -378,10 +378,10 @@ for x_i in [0, 1]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-(admirez au passage l'usage de `__call__`)
+Remarquez l'usage de `__call__` qui permet de rendre nos couches **appelables**, comme des fonctions. Ce n'est pas obligatoire mais ça rend le code plus lisible. Je vous recommande d'aller lire le [tuto Real Python](https://realpython.com/python-callable-instances/) à ce sujet.
 
 
-On peut aussi imaginer un conteneur pour une réseau
+On peut aussi imaginer un conteneur pour unréseau
 
 ```python
 class Network:
@@ -505,7 +505,7 @@ plt.show()
 Vous reconnaissez celle qu'on a utilisé dans notre réseau $\operatorname{XOR}$ ?
 
 
-Et il y en a [plein](https://mlfromscratch.com/activation-functions-explained) d'autres.
+Et il y en a [plein](https://web.archive.org/web/20220817071122/https://mlfromscratch.com/activation-functions-explained/#/) d'autres.
 
 
 En pratique, le choix de la bonne non-linéarité pour un réseau n'est pas encore bien compris : c'est
@@ -572,7 +572,7 @@ class SoftmaxLayer:
     def __call__(self, inpt):
         return softmax(inpt)
     
-# Un réseau a une couche cachée de taille 32 qui prend en entrée des vecteurs
+# Le réseau a une couche cachée de taille 32 qui prend en entrée des vecteurs
 # de traits de dimension 16 et renvoie les vraisemblances de 8 classes.
 # Les poids sont aléatoires
 classifier = Network(
@@ -944,26 +944,22 @@ plt.show()
 ```
 
 ## Exo
-
-Reprendre les exercices du cours [Perceptron simple](../01-perceptron/perceptron-slides.py.md),
+- La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le
+   tutoriel de towards
+   datascience](https://towardsdatascience.com/handwritten-digit-mnist-pytorch-977b5338e627) (une
+   source pas toujours excellente mais dans ce cas précis ça va).
+- Reprendre les exercices du cours [Perceptron simple](../01-perceptron/perceptron-slides.py.md),
 mais en les résolvant avec un réseau à une couche caché entraîné avec l'algorithme de descente de
 gradient stochastique, comme ce qui précède. Comparer les résultats obtenus.
 
 ## Aller plus loin
 
-- La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le
-   tutoriel de towards
-   datascience](https://towardsdatascience.com/handwritten-digit-mnist-pytorch-977b5338e627) (une
-   source pas toujours excellente mais dans ce cas précis ça va).
 - On fait du TAL ici ! Et le langage ? Et bien en pratique c'est un peu plus compliqué à traiter que
    les images ou les nombres. On se penchera davantage dessus la prochaine fois, mais pour l'instant
    vous pouvez faire un peu de classification de documents avec [le tutoriel de
    torchtext](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html) (qui n'est
-   pas une bibliothèque très souvent populaire, mais elle est bien utile ici). Microsoft propose [un
-   tutorial
-   similaire](https://docs.microsoft.com/en-us/learn/modules/intro-natural-language-processing-
-   pytorch).
-  - Un peu de lecture : [*Natural Language Processing (almost) from
-    scratch](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
+   pas une bibliothèque très souvent populaire, mais elle est bien utile ici).
+- Un peu de lecture : [*Natural Language Processing (almost) from
+    scratch*](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
 - [Une super série de vidéos](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
   avec de belles visus sur [la chaîne YouTube 3blue1brown](https://www.youtube.com/c/3blue1brown).
