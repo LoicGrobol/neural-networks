@@ -125,7 +125,7 @@ basiques, comme $\operatorname{XOR}$ défini pour $x ∈ \{0, 1\}$ et  $y ∈ \{
 
 
 $$\begin{equation}
-    \operatorname{XOR}(x, y) = 
+    \operatorname{XOR}(x, y) =
         \begin{cases}
             1 & \text{si $x ≠ y$}\\
             0 & \text{si $x = y$}
@@ -594,14 +594,14 @@ $\log\operatorname{softmax}$, c'est toujours la même histoire.</small>
 
 ## Apprendre un réseau de neurones
 
-Tout ça c'est bien gentil, mais encore une fois, on a choisi des poids à la main. Or notre objectif
-c'est d'**apprendre**.
+Tout ça, c'est bien gentil, mais encore une fois, on a choisi des poids à la main. Or notre
+objectif, c'est d'**apprendre**.
 
 
 Comment on apprend un réseau de neurone ? Comment on détermine les poids à partir de données ?
 
 
-Et bien c'est toujours la même recette pour l'apprentissage supervisé :
+Toujours la même recette pour l'apprentissage supervisé :
 
 - Déterminer une fonction de coût
 - Apprendre par descente de gradient
@@ -672,8 +672,10 @@ particulièrement notables sont l'accelération de Nesterov et l'estimation adap
 ## En pratique 🔥
 
 En pratique, comme on ne va certainement pas implémenter tout ça à la main aujourd'hui, on va se
-reposer sur la bibliothèque de réseaux de neurones la plus utilisée pour le TAL ces dernières (et
-probablement aussi ces prochaines) années : [Pytorch](pytorch.org).
+reposer sur une des trois bibliothèques de réseaux de neurones les plus utilisées pour le TAL ces
+dernières (et probablement aussi ces prochaines) années : [Pytorch](pytorch.org).
+
+(Les deux autres en vogue sont Tensorflow et Jax)
 
 ```python
 %pip install torch
@@ -683,7 +685,7 @@ probablement aussi ces prochaines) années : [Pytorch](pytorch.org).
 import torch
 ```
 
-Pytorch fait plein de choses (allez voir la [doc](https://pytorch.org/docs)), mais pour commencer,
+Pytorch fait plein de choses (allez voir la [doc](https://pytorch.org/docs) !), mais pour commencer,
 on va l'utiliser comme une collection de couches neuronales et une bibliothèque de calcul vectoriel
 (comme numpy).
 
@@ -740,7 +742,10 @@ Même si en général, on y préfère un style d'opérations en chaînes
 )
 ```
 
-Vous trouverez dans la doc [la liste des fonctions natives](https://pytorch.org/docs/stable/torch.html) et celle des [méthodes des tenseurs](https://pytorch.org/docs/stable/tensors.html), n'hésitez pas à vous y pencher souvent, surtout avant de vouloir recoder des trucs vous mêmes.
+Vous trouverez dans la doc [la liste des fonctions
+natives](https://pytorch.org/docs/stable/torch.html) et celle des [méthodes des
+tenseurs](https://pytorch.org/docs/stable/tensors.html), n'hésitez pas à vous y pencher souvent,
+surtout avant de vouloir recoder des trucs vous mêmes.
 
 ### Les couches neuronales
 
@@ -944,22 +949,26 @@ plt.show()
 ```
 
 ## Exo
+
 - La tradition veut qu'on commence par entraîner un modèle sur le jeu de données MNIST : suivez [le
    tutoriel de towards
    datascience](https://towardsdatascience.com/handwritten-digit-mnist-pytorch-977b5338e627) (une
    source pas toujours excellente mais dans ce cas précis ça va).
-- Reprendre les exercices du cours [Perceptron simple](../01-perceptron/perceptron-slides.py.md),
-mais en les résolvant avec un réseau à une couche caché entraîné avec l'algorithme de descente de
-gradient stochastique, comme ce qui précède. Comparer les résultats obtenus.
+- Reprendre les exercices du cours [Perceptron simple](../01-perceptron/perceptron-slides.py.md) en
+  utilisant Pytorch, d'abord pour implémenter un perceptron simple, puis un réseau à une couche
+  cachée. Entraînez-les avec l'algorithme de descente de gradient stochastique, comme ce qui
+  précède. Comparer les résultats obtenus avec ceux de la séance précédente.
 
 ## Aller plus loin
 
-- On fait du TAL ici ! Et le langage ? Et bien en pratique c'est un peu plus compliqué à traiter que
-   les images ou les nombres. On se penchera davantage dessus la prochaine fois, mais pour l'instant
-   vous pouvez faire un peu de classification de documents avec [le tutoriel de
+- Et le langage ? En pratique c'est un peu plus compliqué à traiter que les images ou les nombres.
+   On se penchera davantage dessus la prochaine fois, mais pour l'instant
+   - Vous pouvez faire un peu de classification de documents avec [le tutoriel de
    torchtext](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html) (qui n'est
-   pas une bibliothèque très souvent populaire, mais elle est bien utile ici).
-- Un peu de lecture : [*Natural Language Processing (almost) from
-    scratch*](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
+   pas une bibliothèque très populaire, mais elle est bien utile ici).
+   - Un peu de lecture : [*Natural Language Processing (almost) from
+     scratch*](https://dl.acm.org/doi/10.5555/1953048.2078186) (Collobert et al., 2011).
+- Tutos fortement recommandés :
+  - [*Deep Learning with PyTorch: A 60 Minute Blitz*](https://pytorch.org/tutorials/beginner/blitz)
 - [Une super série de vidéos](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
   avec de belles visus sur [la chaîne YouTube 3blue1brown](https://www.youtube.com/c/3blue1brown).

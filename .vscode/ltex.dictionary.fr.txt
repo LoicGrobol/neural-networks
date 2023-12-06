@@ -4,3 +4,4 @@ toustes
 bigrammes
 unigrammes
 Skłodowska
+classifieurs
