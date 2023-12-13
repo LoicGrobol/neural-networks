@@ -47,10 +47,14 @@ est indisponible.
 
 ### 2023-12-05 — Réseaux de neurones
 
-- {% notebook_badges slides/02-nn/nn.py.md %}
-  [Notebook réseaux de neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
+- {% notebook_badges slides/02-nn/nn.py.md %} [Notebook réseaux de
+  neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
 
+### 2023-12-12 — Représentations vectorielles de mots
+
+- {% notebook_badges slides/03-embeddings/embeddings.py.md %} [Notebook réseaux de
+  neurones]({{site.url}}{{site.baseurl}}/slides/03-embeddings/embeddings.py.md)
 
 <!-- LTeX: language=fr -->
 
