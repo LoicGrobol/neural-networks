@@ -54,7 +54,7 @@ est indisponible.
 ### 2023-12-12 — Représentations vectorielles de mots
 
 - {% notebook_badges slides/03-embeddings/embeddings.py.md %} [Notebook réseaux de
-  neurones]({{site.url}}{{site.baseurl}}/slides/03-embeddings/embeddings.py.md)
+  neurones]({{site.url}}{{site.baseurl}}/slides/03-embeddings/embeddings.py.ipynb)
 
 <!-- LTeX: language=fr -->
 
