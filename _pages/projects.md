@@ -1,5 +1,5 @@
 ---
-title: Projets réseaux de neurons — M2 PluriTAL 2022
+title: Projets réseaux de neurons — M2 PluriTAL 2024
 layout: default
 permalink: /projects/
 ---
@@ -24,11 +24,11 @@ un gros *pull request* à Pytorch par exemple) mais si c'est ce que vous visez, 
 avance et on en discute.
 
 Dans tous les cas, je m'attends à un travail substantiel (pas juste suivre un tuto trouvé sur le
-web, par exemple…), si vous avez un doute, là encore, demandez moi.
+web, par exemple…), si vous avez un doute, là encore, *demandez-moi*.
 
 ## Consignes
 
-- Projet à rendre le 1 mars 2023 *au plus tard*
+- Projet à rendre le 1 mars 2024 *au plus tard*
 - Projet de préférence collectif, par groupe de 2 ou 3
   - Si c'est un problème pour vous, venez me voir, tout est négociable
   - S'il y a un problème — quel qu'il soit — dans votre groupe, n'hésitez pas à m'en parler
@@ -54,8 +54,8 @@ Le rendu devra comporter :
    code.**
 
 2. Le code Python et les codes annexes (JS par ex.) que vous avez produit. Le code *doit* être
-   commenté. Des tests ce serait bien. **Évitez les notebooks**, préférez les interfaces en ligne de
-   commande ou web (ou graphiques si vous êtes très motivé⋅es)
+   commenté. Des tests, ce serait bien. **Évitez les notebooks**, préférez les interfaces en ligne
+   de commande ou web (ou graphiques si vous êtes très motivé⋅es)
 
 3. Les éventuelles données en input et en output (ou un échantillon si le volume est important)
 
@@ -63,7 +63,7 @@ N'hésitez pas à vous servir de git pour versionner vos projets !
 
 ## Conseils
 
-Écrivez ! Tenez un carnet : vos questions, un compte-rendu de vos discussions, les problèmes
+Écrivez ! Tenez un carnet : vos questions, un compte rendu de vos discussions, les problèmes
 rencontrés, tout est bon à prendre et cela vous aidera à rédiger la documentation finale.
 
 ## Ressources

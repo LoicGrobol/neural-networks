@@ -8,6 +8,8 @@ layout: default
 ## News
 
 - **2023-11-21** Premier cours du semestre le 22/11/2023
+- **2023-11-19** Les [consignes pour les projets]({{site.url}}{{site.baseurl}}/projects) sont en
+  ligne.
 
 ## Infos pratiques
 
