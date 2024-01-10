@@ -7,7 +7,7 @@ permalink: /projects/
 [comment]: <> "LTeX: language=fr"
 
 Projets
-========
+=======
 
 Votre travail sera de réaliser une application, une ressource, une interface ou une bibliothèque
 pour Python. Son thème devra être lié au TAL ou au traitement de données, utiliser un système de

@@ -1,5 +1,5 @@
 ---
-title: Réseau de neurones — M2 PluriTAL 2022
+title: Réseau de neurones — M2 PluriTAL 2024
 layout: default
 ---
 
@@ -57,6 +57,59 @@ est indisponible.
 
 - {% notebook_badges slides/03-embeddings/embeddings.py.md %} [Notebook réseaux de
   neurones]({{site.url}}{{site.baseurl}}/slides/03-embeddings/embeddings.py.ipynb)
+
+### 2023-12-20 — Représentation de séquences et mécanisme d'attention
+
+### 2024-01-10 — Transformers
+
+Illustrations :
+
+<!-- LTeX: language=en-GB -->
+
+- Alammar, Jay. 2018. ‘The Illustrated Transformer’. 2018.
+  <http://jalammar.github.io/illustrated-transformer/>.
+- Huang, Austin, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, and Stella Biderman. 2022. ‘The
+  Annotated Transformer’. 2022. <http://nlp.seas.harvard.edu/annotated-transformer/>.
+
+<!-- LTeX: language=fr -->
+
+
+Articles fondateurs :
+
+<!-- LTeX: language=en-GB -->
+
+- Ba, Jimmy Lei, Jamie Ryan Kiros, and Geoffrey E. Hinton. 2016. ‘Layer Normalization’. In .
+  <http://arxiv.org/abs/1607.06450>.
+- Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. 2015. ‘Neural Machine Translation by Jointly
+  Learning to Align and Translate’. In Proceedings of the 3rd International Conference on Learning
+  Representations, edited by Yoshua Bengio and Yann LeCun. San Diego, California, USA.
+  <http://arxiv.org/abs/1409.0473>.
+- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+  Kaiser, and Illia Polosukhin. 2017. ‘Attention Is All You Need’. In Advances in Neural Information
+  Processing Systems 30, edited by I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S.
+  Vishwanathan, and R. Garnett, 5998–6008. Long Beach, California: Curran Associates, Inc.
+  <https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf>.
+
+<!-- LTeX: language=fr -->
+
+Compléments :
+<!-- LTeX: language=en-GB -->
+
+- Collobert, Ronan, and Jason Weston. 2008. ‘A Unified Architecture for Natural Language Processing:
+  Deep Neural Networks with Multitask Learning’. In Proceedings of the 25th International Conference
+  on Machine Learning, 160–67. ICML ’08. Association for Computing Machinery.
+  <https://doi.org/10.1145/1390156.1390177>.
+- Collobert, Ronan, Jason Weston, Léon Bottou, Michael Karlen, Koray Kavukcuoglu, and Pavel P.
+  Kuksa. 2011. ‘Natural Language Processing (Almost) from Scratch’. Journal of Machine Learning
+  Research 12 (August): 2493−2537.
+- Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+  2019. ‘BERT: Pre-Training of Deep - Bidirectional Transformers for Language Understanding’. In
+  Proceedings of the 2019 Conference of the North American Chapter of the Association for
+  Computational Linguistics: Human Language Technologies, 4171–86. Association for Computational
+  Linguistics. <https://doi.org/10.18653/v1/N19-1423>.
+- Radford, Alec, Karthik Narasimhan, Tim Salimans, and Ilya Sutskever. 2018. ‘Improving Language
+  Understanding by Generative Pre-Training’. Technical report. OpenAI.
+  <https://openai.com/blog/language-unsupervised/>.
 
 <!-- LTeX: language=fr -->
 
