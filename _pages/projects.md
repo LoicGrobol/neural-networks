@@ -28,7 +28,7 @@ web, par exemple…), si vous avez un doute, là encore, *demandez-moi*.
 
 ## Consignes
 
-- Projet à rendre le 1 mars 2024 *au plus tard*
+- Projet à rendre le 7 mars 2024 *au plus tard*
 - Projet de préférence collectif, par groupe de 2 ou 3
   - Si c'est un problème pour vous, venez me voir, tout est négociable
   - S'il y a un problème — quel qu'il soit — dans votre groupe, n'hésitez pas à m'en parler
