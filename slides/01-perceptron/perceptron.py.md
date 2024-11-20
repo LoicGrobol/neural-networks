@@ -75,9 +75,11 @@ coordonnés sont les $x_j$, $z$ est le **produit scalaire** de $W$ et $X$, noté
 
 On peut ajouter un terme de *biais* en fixant $x_0=1$ et $w_0=b$, ce qui donne
 
-$$\begin{equation}
+$$
+\begin{equation}
     z = \sum_{j=0}^n w_jx_j = \sum_{j=1}^n w_jx_j + b
-\end{equation}$$
+\end{equation}
+$$
 
 Ou schématiquement
 
@@ -89,8 +91,8 @@ Ou avec du code
 
 ```python
 def perceptron(inpt, weight):
-    z = 0.0
-    for i in range(len(inpt)):
+    z = weight[0] # On commence par le terme de biais
+    for i in range(len(inpt)):  # Attention, en Python les indices commencent à 0
         z += inpt[i]*weight[i]
     if z > 0:
         y = 1
@@ -126,7 +128,7 @@ def perceptron(inpt, weight):
 
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
-    return (np.inner(weight, [1.0, *inpt])) > 0
+    return np.inner(weight, np.concatenate([1.0, inpt])) > 0
 ```
 
 
