@@ -1,13 +1,14 @@
 ---
 jupyter:
   jupytext:
+    custom_cell_magics: kql
     formats: ipynb,md
     split_at_heading: true
     text_representation:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.14.1
+      jupytext_version: 1.11.2
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -45,14 +46,16 @@ renvoie une sortie binaire $y$ ($1$ si $z$ est positif, $0$ sinon).
 
 Autrement dit
 
-$$\begin{align}
+$$
+\begin{align}
 z &= \sum_j w_jx_j = w_1 x_1 + w_2 x_2 + … + w_n x_n\\
 \hat{y} &=
     \begin{cases}
         1 & \text{si $z > 0$}\\
         0 & \text{sinon}
     \end{cases}
-\end{align}$$
+\end{align}
+$$
 
 Formulé célèbrement par McCulloch et Pitts (1943) avec des notations différentes.
 
@@ -123,7 +126,7 @@ def perceptron(inpt, weight):
 
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
-    return (np.inner(weight[1:], inpt) + weight[0]) > 0
+    return (np.inner(weight, [1.0, *inpt])) > 0
 ```
 
 
@@ -224,27 +227,28 @@ for x_i in [0, 1]:
 L'algorithme du perceptron de Rosenblatt permet de trouver des poids pour lesquels le perceptron
 simple partitionne de façon exacte un jeu de données avec un étiquetage linéairement séparable.
 
-On va supposer ici pour simplifier les notations qu'on utilise comme classe $-1$ et $1$ au lieu de
-$0$ et $1$ et on considère un taux d'apprentissage $α>0$.
+On considère un nombre $α>0$, le *taux d'apprentissage*.
 
-Alors l'algorithme prend la forme suivante :
+L'algorithme prend la forme suivante :
 
 - Initialiser le vecteur de poids $W$ à des valeurs arbitraires.
 - Tant qu'il reste des points $X$ mal classifiés.
 
   - Pour chaque couple $(X, y) \in \mathcal{D}$ :
 
+    - Si $y = 1$, on pose $y'=1$, et si $y=0$, $y'=-1$
     - Calculer $z = \langle W | X \rangle$.
-    - Si $y×z ≤ 0$:
-      - $W←W+α×y×X$
+    - Si $y'×z ≤ 0$:
+      - $W←W+α×y'×X$
 
 Notez que :
 
-- La condition $y×z ≤ 0$ est une façon compressée de dire “si $y$ et $z$ sont de même signe” et donc
-  “si $\hat{y}= y”.
-- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + αyX | X
-  \rangle$ (autrement dit $z$ après la mise à jour de $W$) pour s'en convaincre.
+- La condition $y'×z ≤ 0$ est une façon compressée de dire “si $y'$ et $z$ sont de signes opposés” et donc
+  “si $\hat{y} ≠ y$”.
+- La mise à jour de $W$ réduit son écart angulaire avec $X$ si $y=1$ et l'augmente de $X$ si $y=0$.
+  Pour s'neconvaincre, faire un dessin, puis calculer $\langle W+ay'X | X \rangle$.
 - On peut compresser la condition et la mise à jour en une seule ligne : $W←W+α(y-\hat{y})X$.
+- Pour économiser un test, on peut simplement écrire $y'=2y-1$.
 
 Sous réserve que le jeu de données soit effectivement linéairement séparable, l'algorithme termine
 toujours (et on peut même estimer sa vitesse de convergence), un résultat parfois appelé *théorème
