@@ -13,7 +13,7 @@ layout: default
 
 - **Quoi** « Réseaux de neurones »
 - **Où** Salle 408, bâtiment de la formation continue
-- **Quand** 8 séances, les mercredi de 9:30 à 12:30, du 23/11/22 au 25/01/23
+- **Quand** 8 séances, les mercredi de 9:30 à 12:30, du 20/11/24 au 22/01/25
   - Voir le planning pour les dates exactes (quand il aura été mis en ligne)
 - **Contact** L. Grobol [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
 

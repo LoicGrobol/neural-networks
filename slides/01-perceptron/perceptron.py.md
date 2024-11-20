@@ -292,18 +292,20 @@ Le cas d'un problème de classification à $n$ classe se traite en prédisant un
 une fonction linéaire par classe et en affectant la classe pour laquelle le score est maximal.
 Formellement on dispose donc d'un $n$-uplet de poids $W_1, …, W_n$ et on a pour un exemple $X$ :
 
-$$\begin{align}
+$$
+\begin{align}
     z_1 &= \langle W_1 | X \rangle\\
         &⋮\\
     z_n &= \langle W_n | X \rangle
     \hat{y} &= \argmax_k z_k
-\end{align}$$
+\end{align}
+$$
 
 Moralement on peut y penser comme avoir $n$ perceptrons, un par classe.
 
-L'algorithme d'apprentissage du perceptron simple simple s'adapte simplement : pour les exemples mal
-classifiés on ajuste les $W_k$ de façon à ce que le score $z_y$ de la classe correcte augmente et à
-ce que le score de la classe prédite diminue. En pseudo-code :
+L'algorithme d'apprentissage du perceptron simple s'adapte simplement : pour les exemples mal
+classifiés : on ajuste les $W_k$ de façon à ce que le score $z_y$ de la classe correcte augmente et
+à ce que le score de la classe prédite diminue (puisque elle est incorrecte). En pseudo-code :
 
 - Tant qu'on est pas satisfait⋅e:
   - Pour chaque $(X, y)∈\mathcal{D}$:
@@ -315,9 +317,9 @@ ce que le score de la classe prédite diminue. En pseudo-code :
       - $W_{\hat{y}}←W_{\hat{y}}-αX$
 
 Le critère de satisfaction peut être comme précédemment “jusqu'à ce qu'il n'y ait plus d'erreur”,
-mais comme précédemment ce n'est atteignable qu'avec des conditions contraignantes sur les données.
-Un critère d'arrêt plus réaliste peut être un nombre maximal d'étapes ou l'arrêt de l'amélioration
-des performances.
+mais aussi comme précédemment ce n'est atteignable qu'avec des conditions contraignantes sur les
+données. Un critère d'arrêt plus réaliste peut être un nombre maximal d'étapes ou l'arrêt de
+l'amélioration des performances.
 
 **Note** : calculer les $n$ produits scalaires $\langle W_k | X \rangle$ revient à multiplier $X$ à
 gauche par la matrice dont les colonnes sont les $W_k$. Autrement dit si on note $W_k = (w_{ℓ, k})$
