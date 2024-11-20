@@ -115,12 +115,12 @@ perceptron([-2.0, -1.0], [1.0, -0.5, 0.5])
 ```python
 def perceptron(inpt, weight):
     """Calcule la sortie du perceptron dont les poids sont `weights` pour l'entrée `inpt`
-    
+
     Entrées :
-    
+
     - `inpt` un tableau numpy de dimension $n$
     - `weights` un tableau numpy de dimention $n+1$
-    
+
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
     return (np.inner(weight[1:], inpt) + weight[0]) > 0
@@ -157,7 +157,7 @@ for x in [0, 1]:
 ```
 
 Ça marche bien parce que c'est un problème **linéairement séparable** : si on représente $x$ et $y$
-dans le plan, on peut tracer une droite qui sépare la partie où $x\operatorname{ET}y$ vaut $1$ et
+dans le plan, on peut tracer une droite qui sépare la partie où $x\,\operatorname{ET}\,y$ vaut $1$ et
 la partie où ça vaut $0$ :
 
 ```python
@@ -230,7 +230,7 @@ $0$ et $1$ et on considère un taux d'apprentissage $α>0$.
 Alors l'algorithme prend la forme suivante :
 
 - Initialiser le vecteur de poids $W$ à des valeurs arbitraires.
-- Tant qu'il reste des points $x_i$ mal classifiés.
+- Tant qu'il reste des points $X$ mal classifiés.
 
   - Pour chaque couple $(X, y) \in \mathcal{D}$ :
 
@@ -242,8 +242,8 @@ Notez que :
 
 - La condition $y×z ≤ 0$ est une façon compressée de dire “si $y$ et $z$ sont de même signe” et donc
   “si $\hat{y}= y”.
-- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + yX | X
-  \rangle$ pour s'en convaincre.
+- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + αyX | X
+  \rangle$ (autrement dit $z$ après la mise à jour de $W$) pour s'en convaincre.
 - On peut compresser la condition et la mise à jour en une seule ligne : $W←W+α(y-\hat{y})X$.
 
 Sous réserve que le jeu de données soit effectivement linéairement séparable, l'algorithme termine

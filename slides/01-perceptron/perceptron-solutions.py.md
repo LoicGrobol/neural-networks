@@ -67,7 +67,7 @@ $0$ et $1$ et on considère un taux d'apprentissage $α>0$.
 Alors l'algorithme prend la forme suivante :
 
 - Initialiser le vecteur de poids $W$ à des valeurs arbitraires.
-- Tant qu'il reste des points $x_i$ mal classifiés.
+- Tant qu'il reste des points $X$ mal classifiés.
 
   - Pour chaque couple $(X, y) \in \mathcal{D}$ :
 
@@ -79,7 +79,7 @@ Notez que :
 
 - La condition $y×z ≤ 0$ est une façon compressée de dire “si $y$ et $z$ sont de même signe” et donc
   “si $\hat{y}= y”.
-- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + yX | X
+- La mise à jour de $W$ va tirer $z$ dans la direction de $y$ : calculer $\langle W + αyX | X
   \rangle$ pour s'en convaincre.
 - On peut compresser la condition et la mise à jour en une seule ligne : $W←W+α(y-\hat{y})X$.
 
