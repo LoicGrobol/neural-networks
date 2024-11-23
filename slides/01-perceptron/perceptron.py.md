@@ -128,7 +128,7 @@ def perceptron(inpt, weight):
 
     Sortie: un tableau numpy de type booléen et de dimensions $0$
     """
-    return np.inner(weight, np.concatenate([1.0, inpt])) > 0
+    return np.greater(np.inner(weight, np.concatenate([[1.0], inpt])), 0.0).astype(np.int64)
 ```
 
 
@@ -157,7 +157,7 @@ and_weights = np.array([-0.6, 0.5, 0.5])
 print("x\ty\tx ET y")
 for x in [0, 1]:
     for y in [0, 1]:
-        out = perceptron([x, y], and_weights).astype(int)
+        out = perceptron([x, y], and_weights)
         print(f"{x}\t{y}\t{out}")
 ```
 
@@ -166,8 +166,6 @@ dans le plan, on peut tracer une droite qui sépare la partie où $x\,\operatorn
 la partie où ça vaut $0$ :
 
 ```python
-import tol_colors as tc
-
 x = np.array([0, 1])
 y = np.array([0, 1])
 X, Y = np.meshgrid(x, y)
@@ -175,7 +173,7 @@ Z = np.logical_and(X, Y)
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.scatter(X, Y, c=Z, cmap=tc.tol_cmap("sunset"))
+heatmap = plt.scatter(X, Y, c=Z)
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -183,8 +181,6 @@ plt.show()
 Ici voilà les valeurs que renvoie notre neurone :
 
 ```python
-import tol_colors as tc
-
 x = np.linspace(0, 1, 1000)
 y = np.linspace(0, 1, 1000)
 X, Y = np.meshgrid(x, y)
@@ -192,7 +188,7 @@ Z = 0.5*X + 0.5*Y - 0.6 > 0
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
 plt.colorbar(heatmap)
 plt.show()
 ```
