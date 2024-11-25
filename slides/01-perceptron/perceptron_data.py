@@ -1,15 +1,16 @@
-import json
-
 import numpy as np
 from numpy.typing import NDArray
 
 
-def random_nice_dataset(n: int) -> list[tuple[NDArray[np.float64], int]]:
+def random_nice_dataset(
+    n: int, bias: bool = True, _domain_radius: float = 8.0
+) -> list[tuple[NDArray[np.float64], int]]:
     """Generate a random linearly separable dataset of 2d points with a boolean class.
 
     ## Arguments
 
     - `n`: the number of points to generate. Must be at least 2.
+    - `bias` whether the linear separator has a bias.
 
     ## Returns
 
@@ -18,47 +19,43 @@ def random_nice_dataset(n: int) -> list[tuple[NDArray[np.float64], int]]:
     - `point` is a numpy NDArray of dtype `np.float64`
     - `class` is an integer, either 0 or 1
 
-    There will be at least one point of each class, and the classes will be separated by a random
-    straight line, with a margin of at least 0.5.
+    Each class will be at least 1/4 of the points and no less than 1, and the classes will be
+    separated by a random straight line.
     """
     if n < 2:
         raise ValueError(f"n must be at least 2, received {n}.")
     rng = np.random.default_rng()
-    n_true = rng.integers(low=1, high=n)  # How many items in True
-    classes = np.less(np.arange(n), n_true).astype(np.int64)[:, np.newaxis]
+    min_class_size = max(1, n//4)
+    n_true = rng.integers(low=min_class_size, high=n-min_class_size)  # How many items in True
+    classes = rng.permutation(np.less(np.arange(n), n_true).astype(np.int64))
     # The idea here is to
-    # 1. Generate n points that are all above the x axis as a (n, 2) matrix coord.
-    # 2. Select those that will be affected the False class and reflect them round the x axis so
-    #    they are under it and we get a problem that is linearly separated by the x axis.
-    # 3. Chose a straigtht line D that will be our linear separator. Call theta its angle with the x
-    #    axis and beta its ordinate at origin.
-    # 4. Transform the data point by rotating around the origin with angle theta and then shifting
-    #    them on the y axis from beta. This will make the classification problem linearly separated
-    #    by D.
-    #    - To do that transformation, we multiply coord to the *right* by the transpose of the theta
-    #      rotation matrix.
-    #    - Transpose because we will iterate on it and by default iteration on arrays is rowise.
-    separator_theta = rng.uniform(-np.pi, np.pi)  # The angle of the linear separtor
-    separator_beta = rng.uniform(-8, 8)  # The orginate at origin of the linear separator
-    rot_mat_t = np.array(
-        [
-            [np.cos(separator_theta), np.sin(separator_theta)],
-            [-np.sin(separator_theta), np.cos(separator_theta)],
-        ],
-        dtype=np.float64,
+    # 1. Chose a directed straight line D that will be our pre-shift linear separator. Call θ its
+    #    angle with the x axis
+    # 2. Generate n points in polar coordinates $(ρ, η)$ with $η∈]0, π[$.
+    # 3. Reflect the angles of the 0 class so they are in $]-π, 0[$
+    # 4. Add θ to all the angles
+    # 5. Shift all the points' ordinates by the bias value β
+    theta = rng.uniform(-np.pi, np.pi)  # The angle of the linear separtor
+    radii = rng.uniform(low=np.nextafter(0.0, 1.0), high=_domain_radius, size=n)
+    # Flipping the False items
+    angles = (
+        rng.uniform(low=np.nextafter(0, 1.0), high=np.pi, size=n)
+        * (2.0 * classes.astype(np.float64) - 1)
+        + theta
     )
-    coord = np.matmul(
-        # reflect False items wrt the origin (simpler than just the x axis but doesn't change the
-        # distribution)
-        (2.0 * classes.astype(np.float64) - 1)
-        * (rng.uniform(low=[-8.0, 0.0], high=[8.0, 8.0], size=[n, 2]) + np.array([0.0, 0.5])),
-        rot_mat_t,
-    ) + np.array([0.0, separator_beta])
-    data = np.concatenate(
-        (coord, classes),
+    # This could be more compact but who cares (me, i do care, but it's ok this time)
+    if bias:
+        beta = rng.uniform(-1.0, 1.0)
+    else:
+        beta = 0.0
+    coord = np.stack(
+        (
+            radii * np.cos(angles),
+            radii * np.sin(angles) + beta,
+        ),
         axis=1,
     )
-    return [(x[:2], x[2].item()) for x in rng.permutation(data)]
+    return [(x, y.item()) for x, y in zip(coord, classes, strict=True)]
 
 
 iris = (

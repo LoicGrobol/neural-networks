@@ -73,9 +73,47 @@ for x_i in [0, 1]:
 
 > <small>Tiré du [cours de François
 > Denis](https://pageperso.lis-lab.fr/~francois.denis/IAAM1/TP3_Perceptron.pdf)</small>
->
+> 
 > La fonction `random_nice_dataset` du script [`perceptron_data.py`](perceptron_data.py) permet de
 > générer un jeu de données aléatoire linéairement séparable en deux dimensions.
+
+
+On va utiliser une version vectorisée du perceptron. On peut faire sans (avec des boucles), mais
+avec la très puissante fonction
+[`np.einsum`](https://numpy.org/doc/stable/reference/generated/numpy.einsum.html), la vie est douce.
+
+```python
+def perceptron(inpt, weights):
+    """Calcule la sortie du perceptron dont les poids sont `weights` pour l'entrée `inpt`
+
+    Entrées :
+
+    - `inpt` un tableau numpy de dimension $*×n$
+    - `weights` un tableau numpy de dimention $n+1$
+
+    Sortie: un tableau numpy d'entiers de dimension *, tous 0 soit 1.
+    """
+    inpt = np.array(inpt)
+    biased_inpt = (
+        np.concatenate(
+            (np.full((*inpt.shape[:-1], 1), 1.0), inpt),
+            axis=-1,
+        )
+    )
+    return np.greater(
+        # En vrai dans ce cas ça marcherait avec `np.dot` mais je veux pas avoir à me souvenir
+        # comment elle marche.
+        # Ici on dit "le premier argument est de dimension i, le deuxième de dimension (*, i),
+        # la sortie doit avoir toutes les dimensions de l'entrée, en enlevant i avec des
+        # sommes-produits.
+        np.einsum(
+            "i,...i->...",
+            weights,
+            biased_inpt,
+        ),
+        0.0,
+    ).astype(np.int64)
+```
 
 ```python
 import perceptron_data
@@ -95,8 +133,8 @@ test_set = perceptron_data.random_nice_dataset(64)
 X = np.stack([x for x, _ in train_set])
 c = np.array([c for _, c in train_set])
 
-fig = plt.figure(dpi=200)
-heatmap = plt.scatter(X[:, 0], X[:, 1], c=c)
+plt.figure(dpi=200)
+plt.scatter(X[:, 0], X[:, 1], c=c, s=2)
 plt.show()
 
 ```
@@ -109,15 +147,17 @@ plt.show()
 alpha = 0.1
 w = np.array([0.0, 0.0, 0.0])
 err = True
+n_epoch = 0
 while err:
+    n_epoch += 1
+    print(f"Epoch {n_epoch}")
     err = False
     for x, y in train_set:
         y_hat = perceptron(x, w)
-        print(y, y_hat)
         # Only do something if the perceptron made an erro
         if y_hat != y:
             err = True
-            w = w + (1 - 2 * y) * np.concatenate([[1.0], x])
+            w = w + (2 * y-1) * np.concatenate([[1.0], x])
             print(f"{w=}")
 ```
 
@@ -126,17 +166,31 @@ while err:
 
 
 
-### ➕ Exo ➕
+```python
+x = np.linspace(-10.0, 10.0, 1000)
+y = np.linspace(-10.0, 10.0, 1000)
+X, Y = np.meshgrid(x, y)
+# On calcule la sortie du perceptron pour chaque point de la grille
+# C'est là que pouvoir travailler avec des inputs arbitraires est pratique
+Z = perceptron(np.stack((X, Y), axis=-1), w)
 
-Le jeu de données `perceptron_data.bias` représente un problème de classification à une dimension,
-mais pour lequel un terme de biais est nécessaire.
+X_train = np.stack([x for x, _ in train_set])
+c_train = np.array([c for _, c in train_set])
 
-1\. Appliquer votre implémentation précédente de l'algorithme du perceptron (pour un nombre grand,
-mais fixé) d'epochs pour constater la non-convergence (par exemple en affichant les poids et
-l'erreur de classification moyenne à chaque étape).
+plt.figure(dpi=200)
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
+# Les couleurs sont pas les mêmes mais comme ça on voit les deux classes
+plt.scatter(
+    X_train[:, 0],
+    X_train[:, 1],
+    c=c_train,
+    cmap="seismic",
+    s=2,
+)
+plt.colorbar(heatmap)
+plt.show()
 
-2\. Modifier votre implémentation pour introduire un terme de biais et montrer que dans ce cas
-l'apprentissage converge.
+```
 
 ## Perceptron multi-classe
 

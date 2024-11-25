@@ -276,18 +276,6 @@ de test.
 3\. Représenter (par exemple avec `matplotlib.pyplot`) les données de test (en utilisant des
 couleurs différentes pour les deux classes) ainsi que la frontière du classifieur.
 
-### ➕ Exo ➕
-
-Le jeu de données `perceptron_data.bias` représente un problème de classification à une dimension,
-mais pour lequel un terme de biais est nécessaire.
-
-1\. Appliquer votre implémentation précédente de l'algorithme du perceptron (pour un nombre grand,
-mais fixé) d'epochs pour constater la non-convergence (par exemple en affichant les poids et
-l'erreur de classification moyenne à chaque étape).
-
-2\. Modifier votre implémentation pour introduire un terme de biais et montrer que dans ce cas
-l'apprentissage converge.
-
 ## Perceptron multi-classe
 
 Le cas d'un problème de classification à $n$ classe se traite en prédisant un score par classe avec
