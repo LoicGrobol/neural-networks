@@ -1,15 +1,16 @@
 ---
 jupyter:
   jupytext:
+    custom_cell_magics: kql
     formats: ipynb,md
     split_at_heading: true
     text_representation:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.0
+      jupytext_version: 1.11.2
   kernelspec:
-    display_name: Python 3 (ipykernel)
+    display_name: cours-nn
     language: python
     name: python3
 ---
@@ -24,7 +25,7 @@ Cours 2 : Réseaux de neurones
 <!-- #endregion -->
 
 ```python
-from IPython.display import display, Markdown
+from IPython.display import display
 ```
 
 ```python
@@ -43,15 +44,34 @@ import matplotlib.pyplot as plt
 ```python
 def perceptron(inpt, weights):
     """Calcule la sortie du perceptron dont les poids sont `weights` pour l'entrée `inpt`
-    
+
     Entrées :
-    
-    - `inpt` un tableau numpy de dimension $n$
+
+    - `inpt` un tableau numpy de dimension $*×n$
     - `weights` un tableau numpy de dimention $n+1$
-    
-    Sortie: un tableau numpy de type booléen et de dimensions $0$
+
+    Sortie: un tableau numpy d'entiers de dimension *, tous 0 soit 1.
     """
-    return (np.inner(weights, [1, *inpt])) > 0
+    inpt = np.array(inpt)
+    biased_inpt = (
+        np.concatenate(
+            (np.full((*inpt.shape[:-1], 1), 1.0), inpt),
+            axis=-1,
+        )
+    )
+    return np.greater(
+        # En vrai dans ce cas ça marcherait avec `np.dot` mais je veux pas avoir à me souvenir
+        # comment elle marche.
+        # Ici on dit "le premier argument est de dimension i, le deuxième de dimension (*, i),
+        # la sortie doit avoir toutes les dimensions de l'entrée, en enlevant i avec des
+        # sommes-produits.
+        np.einsum(
+            "i,...i->...",
+            weights,
+            biased_inpt,
+        ),
+        0.0,
+    ).astype(np.int64)
 ```
 
 On peut s'en servir pour implémenter la porte logique $\operatorname{ET}$ :
@@ -61,15 +81,13 @@ and_weights = np.array([-0.6, 0.5, 0.5])
 print("x\ty\tx ET y")
 for x_i in [0, 1]:
     for y_i in [0, 1]:
-        out = perceptron([x_i, y_i], and_weights).astype(int)
+        out = perceptron([x_i, y_i], and_weights)
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
 Parce que c'est un problème **linéairement séparable** :
 
 ```python
-import tol_colors as tc
-
 x = np.array([0, 1])
 y = np.array([0, 1])
 X, Y = np.meshgrid(x, y)
@@ -77,7 +95,7 @@ Z = np.logical_and(X, Y)
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.scatter(X, Y, c=Z, cmap=tc.tol_cmap("sunset"))
+heatmap = plt.scatter(X, Y, c=Z)
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -85,16 +103,14 @@ plt.show()
 Et voilà ce que fait le neurone précédent
 
 ```python
-import tol_colors as tc
-
 x = np.linspace(0, 1, 1000)
 y = np.linspace(0, 1, 1000)
 X, Y = np.meshgrid(x, y)
-Z = 0.5*X + 0.5*Y - 0.6 > 0
+Z = perceptron(np.stack((X, Y), axis=-1), [-0.6, 0.5, 0.5])
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -106,7 +122,7 @@ or_weights = np.array([-0.5, 1, 1])
 print("x\ty\tx OU y")
 for x_i in [0, 1]:
     for y_i in [0, 1]:
-        out = perceptron([x_i, y_i], or_weights).astype(int)
+        out = perceptron([x_i, y_i], or_weights)
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
@@ -114,7 +130,7 @@ for x_i in [0, 1]:
 not_weights = np.array([1, -1])
 print("x\tNON x")
 for x_i in [0, 1]:
-    out = perceptron([x_i], not_weights).astype(int)
+    out = perceptron([x_i], not_weights)
     print(f"{x_i}\t{out}")
 ```
 
@@ -138,8 +154,6 @@ Autrement dit, $\operatorname{XOR}(x, y)$ c'est vrai si $x$ est vrai ou si $y$ e
 les deux sont vrais en même temps.
 
 ```python
-import tol_colors as tc
-
 x = np.array([0, 1])
 y = np.array([0, 1])
 X, Y = np.meshgrid(x, y)
@@ -147,7 +161,7 @@ Z = np.logical_xor(X, Y)
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.scatter(X, Y, c=Z, cmap=tc.tol_cmap("sunset"))
+heatmap = plt.scatter(X, Y, c=Z)
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -156,8 +170,6 @@ Si on l'étend à tout le plan pour mieux voir en prenant $0.5$ comme frontière
 
 
 ```python
-import tol_colors as tc
-
 x = np.linspace(0, 1, 1000)
 y = np.linspace(0, 1, 1000)
 X, Y = np.meshgrid(x, y)
@@ -165,7 +177,7 @@ Z = np.logical_xor(X > 0.5, Y > 0.5)
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -203,7 +215,8 @@ mis en **réseau**
 
 ![](figures/xor/xor.svg)
 
-Ou, en écrivant les termes de biais dans les neurones et en ajoutant un neurone pour servir de relai
+Ou, en écrivant les termes de biais dans les neurones et en ajoutant un neurone *passthrough* pour
+servir de relai
 
 ![](figures/xor_ffnn/xor_ffnn.svg)
 
@@ -219,16 +232,15 @@ _**feedforward neural network**_.
 Voyons sa frontière de décision
 
 ```python
-import tol_colors as tc
-
 def and_net(X, Y):
-    return 0.5*X + 0.5*Y - 0.6 > 0
+    return perceptron(np.stack((X, Y), axis=-1), [-0.6, 0.5, 0.5])
 
 def or_net(X, Y):
-    return X + Y - 0.5 > 0
+    return perceptron(np.stack((X, Y), axis=-1), [-0.5, 1.0, 1.0])
 
 def not_net(X):
-    return -1*X + 1 > 0
+    # Il nous faut un newaxis pour passer de (n, n) à (n, n, 1). Pas très joli mais
+    return perceptron(X[..., np.newaxis], [1.0, -1.0])
 
 x = np.linspace(0, 1, 1000)
 y = np.linspace(0, 1, 1000)
@@ -237,7 +249,7 @@ Z = and_net(or_net(X, Y), not_net(and_net(X, Y)))
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -306,7 +318,7 @@ def layer(inpt, weight1, bias1, weight2, bias2):
     output_1 = ((np.inner(inpt, weight1) + bias1) > 0).astype(int)
     output_2 = ((np.inner(inpt, weight2) + bias2) > 0).astype(int)
     return np.hstack([output_1, output_2])
-                
+
 layer([1, 0], [0.5, 0.5], -0.6, [1, 1], -0.5)
 ```
 
@@ -317,17 +329,18 @@ def layer(inpt, weight, bias):
     output_1 = ((np.inner(inpt, weight[0]) + bias[0]) > 0).astype(int)
     output_2 = ((np.inner(inpt, weight[1]) + bias[1]) > 0).astype(int)
     return np.hstack([output_1, output_2])
-                
+
 layer([0, 1], [[0.5, 0.5], [1, 1]], [-0.5, -0.6])
 ```
 
 Et même, en l'écrivant comme des opérations matricielles
+$\textrm{output}=\textrm{weight}×\textrm{inpt}+\textrm{bias}$.
 
 ```python
 def layer(inpt, weight, bias):
     output = ((np.matmul(weight, inpt) + bias) > 0).astype(int)
     return output
-                
+
 layer([0, 1], [[0.5, 0.5], [1, 1]], [-0.5, -0.6])
 ```
 
@@ -336,9 +349,26 @@ se paralléliser, et même, si on dispose de matériel spécialisé (comme des c
 bénéficier d'accélérations supplémentaires (voir par exemple Vuduc et Choi
 ([2013](https://jeewhanchoi.github.io/publication/pdf/brief_history.pdf)) pour la culture).
 
-
 Elle permet aussi de facilement manipuler les tailles des couches : une couche à $n$ entrées et $m$
 sorties correspond à une matrice de poids de taille $m×n$ et un vecteur de biais de taille $m$.
+
+
+(on pourrait utiliser `einsum` comme dans notre fonction `perceptron` si fancy pour que ça
+s'applique à n'importe quelle forme d'entrées, mais je veux vous graver dans la tête l'idée que tout
+ce qu'on fait c'est des muliplications matrice-vecteur.)
+
+
+Notez que cette fois on ajoute explicitement un terme de biais au lieu de faire comme précédemment
+et de stacker $1$ à l'entrée. C'est parce que c'est :
+
+1. Plus lisible
+2. Implémenté directement comme la fonction
+   [GEMM](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3) de la norme BLAS,
+   dont vous avez en général une implémentation très rapide de disponible (par exemple dans
+   [scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.blas.sgemm.html))
+
+   En fait $\mathop{GEMM}(α, A, B, β, C) = αA×B + βC$, du coup ici on peut utiliser
+   `gemm(1.0, weight, inpt, 1.0, bias)`.
 
 
 Une dernière subtilité ? Pour matérialiser le concept de couche et éviter d'avoir à passer en
@@ -354,11 +384,11 @@ class Layer:
 
     def __call__(self, inpt):
         return ((np.matmul(self.weight, inpt) + self.bias) > 0).astype(int)
-    
+
 layer1 = Layer(
     np.array(
         [
-            [0.5, 0.5], 
+            [0.5, 0.5],
             [  1,   1],
         ]
     ),
@@ -378,16 +408,18 @@ for x_i in [0, 1]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-Remarquez l'usage de `__call__` qui permet de rendre nos couches **appelables**, comme des fonctions. Ce n'est pas obligatoire mais ça rend le code plus lisible. Je vous recommande d'aller lire le [tuto Real Python](https://realpython.com/python-callable-instances/) à ce sujet.
+Remarquez l'usage de `__call__` qui permet de rendre nos couches **appelables**, comme des
+fonctions. Ce n'est pas obligatoire mais ça rend le code plus lisible. Je vous recommande d'aller
+lire le [tuto Real Python](https://realpython.com/python-callable-instances/) à ce sujet.
 
 
-On peut aussi imaginer un conteneur pour unréseau
+On peut aussi imaginer un conteneur pour un réseau
 
 ```python
 class Network:
     def __init__(self, layers):
         self.layers = layers
-    
+
     def __call__(self, inpt):
         res = inpt
         for l in self.layers:
@@ -403,7 +435,8 @@ for x_i in [0, 1]:
         print(f"{x_i}\t{y_i}\t{out}")
 ```
 
-Ça fait propre, non ?
+Ça fait propre, non ? Notez que `Network` se fiche complètement que les `layers` soient des couches
+neuronales, il fonctionnerait avec n'importe que objet appelable (y compris une fonction normale).
 
 ## Non-linearités
 
@@ -423,7 +456,7 @@ class SigmoidLayer:
 
     def __call__(self, inpt):
         return sigmoid(np.matmul(self.weight, inpt) + self.bias)
-    
+
 soft_and = SigmoidLayer(np.array([0.5, 0.5]), np.array(-0.6))
 
 print("x\ty\tx soft_and y")
@@ -445,13 +478,13 @@ class LinearLayer:
 
     def __call__(self, inpt):
         return np.matmul(self.weight, inpt) + self.bias
-    
+
 class SigmoidLayer:
     """Une couche neuronale qui applique la fonction logistique aux coordonnées de son entrée"""
     # Pas besoin d'un `__init__` particulier ici, on a pas de paramètres à initialiser
     def __call__(self, inpt):
         return 1/(1+np.exp(-inpt))
-    
+
 soft_and = Network(
     [
         LinearLayer(np.array([0.5, 0.5]), np.array(-0.6)),
@@ -502,10 +535,9 @@ for ax in fig.get_axes():
 plt.show()
 ```
 
-Vous reconnaissez celle qu'on a utilisé dans notre réseau $\operatorname{XOR}$ ?
-
-
-Et il y en a [plein](https://web.archive.org/web/20220817071122/https://mlfromscratch.com/activation-functions-explained/#/) d'autres.
+Et il y en a
+[plein](https://web.archive.org/web/20220817071122/https://mlfromscratch.com/activation-functions-explained/#/)
+d'autres.
 
 
 En pratique, le choix de la bonne non-linéarité pour un réseau n'est pas encore bien compris : c'est
@@ -571,7 +603,7 @@ class SoftmaxLayer:
     """Une couche neuronale qui applique la fonction softmax à son entrée"""
     def __call__(self, inpt):
         return softmax(inpt)
-    
+
 # Le réseau a une couche cachée de taille 32 qui prend en entrée des vecteurs
 # de traits de dimension 16 et renvoie les vraisemblances de 8 classes.
 # Les poids sont aléatoires
@@ -926,7 +958,7 @@ with torch.no_grad():
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto")
 plt.colorbar(heatmap)
 plt.show()
 ```
@@ -943,7 +975,7 @@ with torch.no_grad():
 
 fig = plt.figure(dpi=200)
 
-heatmap = plt.pcolormesh(X, Y, Z, shading="auto", cmap=tc.tol_cmap("sunset"))
+heatmap = plt.pcolormesh(X, Y, Z, shading="auto",)
 plt.colorbar(heatmap)
 plt.show()
 ```
