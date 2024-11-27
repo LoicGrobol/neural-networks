@@ -970,7 +970,7 @@ x = np.linspace(0, 1, 1000, dtype=np.float64)
 y = np.linspace(0, 1, 1000, dtype=np.float64)
 X, Y = np.meshgrid(x, y)
 inpt = torch.stack((torch.from_numpy(X), torch.from_numpy(Y)), dim=-1).to(torch.float)
-with torch.no_grad():
+with torch.inference_mode():
     Z = xor_net(inpt).gt(0.5).squeeze().numpy()
 
 fig = plt.figure(dpi=200)

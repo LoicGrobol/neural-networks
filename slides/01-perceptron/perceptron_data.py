@@ -58,6 +58,56 @@ def random_nice_dataset(
     return [(x, y.item()) for x, y in zip(coord, classes, strict=True)]
 
 
+def random_okay_dataset(
+    n: int, _domain_radius: float = 8.0
+) -> list[tuple[NDArray[np.float64], int]]:
+    """Generate a random non-linearly separable dataset of 2d points with a boolean class.
+
+    ## Arguments
+
+    - `n`: the number of points to generate. Must be at least 4.
+    - `bias` whether the linear separator has a bias.
+
+    ## Returnss
+
+    A `n` length list of tuples `(point, class)`
+
+    - `point` is a numpy NDArray of dtype `np.float64`
+    - `class` is an integer, either 0 or 1
+
+    Each class will be at least 1/4 of the points and no less than 1, and the classes will not be
+    separable by a straight line.
+    """
+    if n < 4:
+        raise ValueError(f"n must be at least 4, received {n}.")
+    rng = np.random.default_rng()
+    min_class_size = max(1, n//4)
+    n_true = rng.integers(low=min_class_size, high=n-min_class_size)  # How many items in True
+    classes = rng.permutation(np.less(np.arange(n), n_true).astype(np.int64))
+
+    theta = rng.uniform(-np.pi, np.pi)  # The angle of the linear separtor
+    radii = rng.uniform(low=np.nextafter(0.0, 1.0), high=_domain_radius, size=n)
+    # Flipping the False items
+    angles = (
+        rng.uniform(low=np.nextafter(0, 1.0), high=np.pi, size=n)
+        * (2.0 * classes.astype(np.float64) - 1)
+        + theta
+    )
+    # This could be more compact but who cares (me, i do care, but it's ok this time)
+    if bias:
+        beta = rng.uniform(-1.0, 1.0)
+    else:
+        beta = 0.0
+    coord = np.stack(
+        (
+            radii * np.cos(angles),
+            radii * np.sin(angles) + beta,
+        ),
+        axis=1,
+    )
+    return [(x, y.item()) for x, y in zip(coord, classes, strict=True)]
+
+
 iris = (
     [
         [[6.0, 2.2, 4.0, 1.0], "iris-versicolor"],
