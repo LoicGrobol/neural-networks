@@ -60,7 +60,8 @@ est indisponible.
 
 - [Slide CM](slides/03-representations/lecture/representations.pdf)
 - {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
-  - [Dossier `data`]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/data)
+  - [Dossier
+    `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
 
 ## Utilisation en local
 
