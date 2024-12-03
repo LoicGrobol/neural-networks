@@ -60,16 +60,7 @@ def perceptron(inpt, weights):
         )
     )
     return np.greater(
-        # En vrai dans ce cas ça marcherait avec `np.dot` mais je veux pas avoir à me souvenir
-        # comment elle marche.
-        # Ici on dit "le premier argument est de dimension i, le deuxième de dimension (*, i),
-        # la sortie doit avoir toutes les dimensions de l'entrée, en enlevant i avec des
-        # sommes-produits.
-        np.einsum(
-            "i,...i->...",
-            weights,
-            biased_inpt,
-        ),
+        np.vecdot(weights, biased_inpt),
         0.0,
     ).astype(np.int64)
 ```
@@ -268,7 +259,15 @@ notre réseau $\operatorname{XOR}$ peut s'écrire comme :
 
 ```python
 def layer1(inpt):
-    output_1 = ((np.inner(inpt, np.array([0.5, 0.5])) + np.array(-0.6)) > 0).astype(int)
+    output_1 = (
+        (
+            np.inner(
+                inpt,
+                np.array([0.5, 0.5]),
+            )
+            + np.array(-0.6)
+        ) > 0
+    ).astype(int)
     output_2 = ((np.inner(inpt, np.array([1, 1])) + np.array(-0.5)) > 0).astype(int)
     return np.hstack([output_1, output_2])
 
@@ -333,7 +332,7 @@ def layer(inpt, weight, bias):
 layer([0, 1], [[0.5, 0.5], [1, 1]], [-0.5, -0.6])
 ```
 
-Et même, en l'écrivant comme des opérations matricielles
+Et finalement, en l'écrivant comme des opérations matricielles :
 $\textrm{output}=\textrm{weight}×\textrm{inpt}+\textrm{bias}$.
 
 ```python
@@ -351,11 +350,6 @@ bénéficier d'accélérations supplémentaires (voir par exemple Vuduc et Choi
 
 Elle permet aussi de facilement manipuler les tailles des couches : une couche à $n$ entrées et $m$
 sorties correspond à une matrice de poids de taille $m×n$ et un vecteur de biais de taille $m$.
-
-
-(on pourrait utiliser `einsum` comme dans notre fonction `perceptron` si fancy pour que ça
-s'applique à n'importe quelle forme d'entrées, mais je veux vous graver dans la tête l'idée que tout
-ce qu'on fait c'est des muliplications matrice-vecteur.)
 
 
 Notez que cette fois on ajoute explicitement un terme de biais au lieu de faire comme précédemment
@@ -710,10 +704,6 @@ dernières (et probablement aussi ces prochaines) années : [Pytorch](pytorch.
 (Les deux autres en vogue sont Tensorflow et Jax)
 
 ```python
-%pip install torch
-```
-
-```python
 import torch
 ```
 
@@ -768,8 +758,15 @@ torch.sum(torch.tensor([1,2,3,4]))
 Même si en général, on y préfère un style d'opérations en chaînes
 
 ```python
+t = torch.tensor([1,2,3,4])
+print(t.sum())
+print(t.mul(2))
+
+```
+
+```python
 (torch.tensor([1,2,3,4])
- .mul(torch.tensor(2))
+ .mul(2)
  .sum()
 )
 ```
@@ -919,7 +916,7 @@ for epoch in range(50000):
 print("x\ty\tx XOR y")
 for x_i in [0.0, 1.0]:
     for y_i in [0.0, 1.0]:
-        with torch.no_grad():
+        with torch.inference_mode():
             out = xor_net(torch.tensor([x_i, y_i]))
         print(f"{x_i}\t{y_i}\t{out}")
 ```

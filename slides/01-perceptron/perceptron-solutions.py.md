@@ -78,9 +78,9 @@ for x_i in [0, 1]:
 > générer un jeu de données aléatoire linéairement séparable en deux dimensions.
 
 
-On va utiliser une version vectorisée du perceptron. On peut faire sans (avec des boucles), mais
-avec la très puissante fonction
-[`np.einsum`](https://numpy.org/doc/stable/reference/generated/numpy.einsum.html), la vie est douce.
+On va utiliser une version vectorisée du perceptron avec
+[`np.vecdot`](https://numpy.org/doc/stable/reference/generated/numpy.vecdot.html) pour le produit
+scalaire batché. On peut faire sans (avec des boucles).
 
 ```python
 def perceptron(inpt, weights):
@@ -101,16 +101,7 @@ def perceptron(inpt, weights):
         )
     )
     return np.greater(
-        # En vrai dans ce cas ça marcherait avec `np.dot` mais je veux pas avoir à me souvenir
-        # comment elle marche.
-        # Ici on dit "le premier argument est de dimension i, le deuxième de dimension (*, i),
-        # la sortie doit avoir toutes les dimensions de l'entrée, en enlevant i avec des
-        # sommes-produits.
-        np.einsum(
-            "i,...i->...",
-            weights,
-            biased_inpt,
-        ),
+        np.vecdot(weights, biased_inpt),
         0.0,
     ).astype(np.int64)
 ```

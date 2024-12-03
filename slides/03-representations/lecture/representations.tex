@@ -142,12 +142,6 @@
 \let\UnicodeMathMathBfSfIt\mathbfsfit
 \let\mathbfsfit\relax
 \usepackage{mismath}
-% Fix incompatibility with newer versions of hyperref (when in Xe/LuaLaTeX, mismath tries to renew
-% \C when, which is not defined by hyperref anymore, so we monkey-patch this to have it be only a
-% newcommand)
-\renewcommand\onlymathC{
-	\newcommand{\C}{\mathset{C}}
-} 
 \let\mathbfsfit\UnicodeMathMathBfSfIt
 
 \usepackage{covington}
@@ -404,17 +398,27 @@
 \againframe<3>{lexicon}
 
 \begin{frame}{Machine}
-	Les algos d'apprentissage marchent plutôt sur des nombres ou souvent des séries de nombres (parce qu'on peut les voir comme des points dans un espace géométrique)  On a donc un problème constant qui est : 
+	Les algos d'apprentissage marchent plutôt sur des nombres ou souvent des séries de nombres
+	(parce qu'on peut les voir comme des points dans un espace géométrique)  On a donc un problème
+	constant qui est : 
 
 	Comment transformer nos données (texte, signal sonore, images, vidéo) en nombres ?
 \end{frame}
 
 \begin{frame}{Méthodes immédiates}
-	en soi on a toujours une solution : de fait, si on a des données sous forme numérique (dans une machine), elle sont comme leur nom l'indique numérique (représentées par des nombres, vous suivez ?)
+	En soi on a toujours une solution : \pause de fait, si on a des données sous forme numérique (dans une
+	machine), elles sont comme leur nom l'indique numérique (représentées par des nombres, vous
+	suivez ?)
 
-	Ces représentations peuvent être bien (par exemple le codage numérique des images traduit une réalité physique/perceptive du coup c'est pas mal) ou pas du tout (une suite de nombres représentant des points de code unicode qui représente des caractères c'est assez éloigné de la façon dont on pense le langage)
+	Ces représentations peuvent être bien (par exemple le codage numérique des images traduit une
+	réalité physique/perceptive du coup, c'est pas mal) ou pas du tout (une suite de nombres
+	représentant des points de code Unicode qui représentent des caractères, c'est assez éloigné de la
+	façon dont on pense le langage).
 
-	Ça ne veut pas dire que c'est impossible de se servir de ça, mais plutôt que c'est pas toujours la meilleure solution. Ça dépend de beaucoup de facteurs.
+	\pause
+
+	Ça ne veut pas dire que c'est impossible de se servir de ça, mais plutôt que c'est pas toujours
+	la meilleure solution. Ça dépend de beaucoup de facteurs.
 \end{frame}
 
 \begin{frame}[standout]
@@ -422,7 +426,8 @@
 \end{frame}
 
 \begin{frame}{Représenter les mots}
-	On peut représenter les mots comme des nombres en constituant un \alert{lexique} et en affectant à chaque item un nombre entier : sa position dans l'ordre lexicographique.
+	On peut représenter les mots comme des nombres en constituant un \alert{lexique} et en affectant
+	à chaque item un nombre entier : sa position dans l'ordre lexicographique.
 
 	\pause
 
@@ -436,7 +441,8 @@
 
 	\pause
 
-	Alors un mot, c'est juste un nombre et une suite de mots (phrase, tour de parole, document…) c'est juste une suite de nombres.
+	Alors un mot, c'est juste un nombre et une suite de mots (phrase, tour de parole, document…)
+	c'est juste une suite de nombres.
 \end{frame}
 
 \begin{frame}[standout]
@@ -444,7 +450,8 @@
 \end{frame}
 
 \begin{frame}{Une affaire de topologie}
-	Un problème assez problématique, c'est que ces représentations numériques sont purement \alert{orthographiques}, ce qui n'est pas idéal.
+	Un problème assez problématique, c'est que ces représentations numériques sont purement
+	\alert{orthographiques}, ce qui n'est pas idéal.
 
 	\pause
 
@@ -463,15 +470,18 @@
 
 	\pause
 
-	On a des mots qui n'ont presque rien en commun, mais dont les \alert{représentations} sont très proches.
+	On a des mots qui n'ont presque rien en commun, mais dont les \alert{représentations} sont très
+	proches.
 
 	\pause
 
 	Ça sera un problème pour beaucoup des algorithmes d'apprentissage.
 \end{frame}
 
-\begin{frame}<-4>[fragile]{Une solution de mathématicien⋅ne}
-	Il y a une façon de représenter un lexique à peine plus compliquée qui évite ce problème : un encodage \quoteforeign{english}{\alert{one-hot}} : on représente chaque mot par un \alert{vecteur} avec des zéros partout, sauf à sa position dans le lexique où on met un \num{1}.
+\begin{frame}<-4>[fragile]{Une solution de mathématicien⋅ne} Il y a une façon de représenter un
+	lexique à peine plus compliquée qui évite ce problème : un encodage
+	\quoteforeign{english}{\alert{one-hot}} : on représente chaque mot par un \alert{vecteur} avec
+	des zéros partout, sauf à sa position dans le lexique où on met un \num{1}.
 
 	\pause
 
@@ -506,7 +516,9 @@
 \end{frame}
 
 \begin{frame}{Une solution de linguiste}
-	Si on dispose d'un lexique annoté (au hasard JeuxDeMots \parencite{lafourcade2020JeuxDeMotsReseauLexicosemantique}), on peut aller dans la direction carrément opposée : représenter chaque mot par une \alert{structure de traits linguistiques}.
+	Si on dispose d'un lexique annoté (au hasard JeuxDeMots
+	\parencite{lafourcade2020JeuxDeMotsReseauLexicosemantique}), on peut aller dans la direction
+	carrément opposée : représenter chaque mot par une \alert{structure de traits linguistiques}.
 
 	\pause
 
@@ -538,23 +550,28 @@
 \end{frame}
 
 \begin{frame}{Une solution de langouste}
-	Bien entendu on va s'empresser d'oublier toute nuance sur cette citation et d'en tirer une idée pas forcément parfaite mais \alert{pratique}.
+	Bien entendu on va s'empresser d'oublier toute nuance sur cette citation et d'en tirer une idée
+	pas forcément parfaite mais \alert{pratique}.
 
 	\pause
 
-	On va faire l'hypothèse sauvage que des mots qui apparaissent dans des \alert{contextes} similaires ont des propriétés similaires.
+	On va faire l'hypothèse sauvage que des mots qui apparaissent dans des \alert{contextes}
+	similaires ont des propriétés similaires.
 
 	\pause
 
-	Ça nous donne une solution opérante pour représenter des mots : on va les représenter par les contextes dans lesquels ils apparaissent.
+	Ça nous donne une solution opérante pour représenter des mots : on va les représenter par les
+	contextes dans lesquels ils apparaissent.
 
 	\pause
 
-	En général : leurs fréquences de cooccurrence avec chacun des mots d'un lexique dans un grand corpus.
+	En général : leurs fréquences de cooccurrence avec chacun des mots d'un lexique dans un grand
+	corpus.
 \end{frame}
 
 \begin{frame}{Cooccurrences}
-	Représenter un mot par des fréquences de cooccurrences, ça donne toujours des vecteurs de la taille du lexique, \alert<1>{mais} :
+	Représenter un mot par des fréquences de cooccurrences, ça donne toujours des vecteurs de la
+	taille du lexique, \alert<1>{mais} :
 
 	\pause
 
@@ -565,7 +582,9 @@
 
 	\pause
 
-	La grande dimension est toujours un problème, mais il y a des techniques pour la réduire, \alert{compresser} les vecteurs en gardant, voire améliorant l'intérêt de leur \alert{géométrie}.
+	La grande dimension est toujours un problème, mais il y a des techniques pour la réduire,
+	\alert{compresser} les vecteurs en gardant, voire améliorant l'intérêt de leur
+	\alert{géométrie}.
 \end{frame}
 
 \begin{frame}[standout]
@@ -573,7 +592,8 @@
 \end{frame}
 
 \begin{frame}{Apprendre des représentations}
-	On a ici \alert{appris} des représentations : on a exploité des \alert{régularités} repérées dans un \alert{échantillon de données}.
+	On a ici \alert{appris} des représentations : on a exploité des \alert{régularités} repérées
+	dans un \alert{échantillon de données}.
 
 	\pause
 
@@ -581,7 +601,8 @@
 
 	\pause
 
-	Notamment la plus populaire et celle qui va nous préoccuper maintenant : utiliser des représentations apprises pour une \alert{tâche auxiliaire} pour laquelle les données abondent.
+	Notamment la plus populaire et celle qui va nous préoccuper maintenant : utiliser des
+	représentations apprises pour une \alert{tâche auxiliaire} pour laquelle les données abondent.
 \end{frame}
 
 \begin{frame}[fragile]{???}
@@ -597,11 +618,14 @@
 
 	\pause
 
-	Le modèle apprend à la fois une transformation des entrées en des \alert{représentations intermédiaires} pertinentes pour lui et à déterminer une sortie à partir de ces représentations.
+	Le modèle apprend à la fois une transformation des entrées en des \alert{représentations
+	intermédiaires} pertinentes pour lui et à déterminer une sortie à partir de ces représentations.
 
 	\pause
 
-	Si on applique un tel modèle à une tâche qui demande des représentations intéressantes et pour laquelle on a facilement des données, on pourra alors extraire ces représentations et les utiliser pour d'autres tâches.
+	Si on applique un tel modèle à une tâche qui demande des représentations intéressantes et pour
+	laquelle on a facilement des données, on pourra alors extraire ces représentations et les
+	utiliser pour d'autres tâches.
 \end{frame}
 
 \begin{frame}{⚠️}
@@ -609,7 +633,8 @@
 
 	\pause
 
-	Les données faciles à obtenir c'est bien pratique mais c'est aussi dangereux (voir cours suivant etc).
+	Les données faciles à obtenir c'est bien pratique, mais c'est aussi dangereux (on en a déjà
+	parlé, on en reparlera etc).
 \end{frame}
 
 \begin{frame}{🐍}
@@ -621,11 +646,14 @@
 
 	\pause
 
-	En fait on peut prendre un peu ce qu'on veut tant qu'on perd pas d'information : on est de toute façon pas très intéressé⋅e par le modèle de la tâche auxiliaire en soi. Tout ce qu'on veut c'est qu'elle apprenne des bonnes représentations intermédiaires.
+	En fait on peut prendre un peu ce qu'on veut tant qu'on perd pas d'information : on est de toute
+	façon pas très intéressé⋅e par le modèle de la tâche auxiliaire en soi. Tout ce qu'on veut,
+	c'est qu'elle apprenne des bonnes représentations intermédiaires.
 
 	\pause
 
-	En pratique : souvent des vecteurs \emph{one-hot} pour les mots. On pourrait faire du bootstrap, mais à ma connaissance ça ne se fait pas vraiment en pratique.
+	En pratique : souvent des vecteurs \emph{one-hot} pour les mots. On pourrait faire du bootstrap,
+	mais à ma connaissance ça ne se fait pas vraiment en pratique.
 \end{frame}
 
 \begin{frame}{Tâches auxiliaires}
@@ -644,7 +672,9 @@
 
 	\pause
 
-	Par exemple génératif : \enquote{Le petit chat est \textunderscore\textunderscore\textunderscore} ← quelle est la proba pour chacun des mots du vocabulaire de continuer la phrase ?
+	Par exemple génératif : \enquote{Le petit chat est
+	\textunderscore\textunderscore\textunderscore} ← quelle est la proba pour chacun des mots du
+	vocabulaire de continuer la phrase ?
 
 	\pause
 
@@ -652,23 +682,34 @@
 	
 	\pause
 	
-	C'est ce que fait \textcite{mikolov2013EfficientEstimationWord} avec plusieurs modèles de vraisemblance partielles (en regardant en biais).
+	C'est ce que fait \textcite{mikolov2013EfficientEstimationWord} avec plusieurs modèles de
+	vraisemblance partielles (en regardant en biais).
 \end{frame}
 
 \begin{frame}{Ces fameux \emph{embeddings}}
-	Ce que \textcite{bengio2006NeuralProbabilisticLanguage}, \textcite{mikolov2013EfficientEstimationWord} et les autres obtiennent ce sont des \alert{représentations vectorielles} de \alt<+>{mots}{\strikeThrough{mots} formes orthographiques}.
+	Ce que \textcite{bengio2006NeuralProbabilisticLanguage},
+	\textcite{mikolov2013EfficientEstimationWord} et les autres obtiennent ce sont des
+	\alert{représentations vectorielles} de \alt<+>{mots}{\strikeThrough{mots} formes
+	orthographiques}.
 
 	\pause
 
-	Fondamentalement, on a un \alert{dictionnaire} qui associe à chaque forme orthographique un vecteur qui contient des \strikeThrough{trucs} informations sur son usage observé dans un corpus.
+	Fondamentalement, on a un \alert{dictionnaire} qui associe à chaque forme orthographique un
+	vecteur qui contient des \strikeThrough{trucs} informations sur son usage observé dans un
+	corpus.
 
 	\pause
 
-	On les appelle \alert{embeddings} (ou \emph{plongements}) pour des raisons. Ce sont des vecteurs denses (peu de zéros), de dimensions très inférieures à la taille du lexique. Tout ce que les algos d'apprentissage (en particulier les réseaux de neurones) aiment bien.
+	On les appelle \alert{embeddings} (ou \emph{plongements}) pour des raisons. Ce sont des vecteurs
+	denses (peu de zéros), de dimensions très inférieures à la taille du lexique. Tout ce que les
+	algos d'apprentissage (en particulier les réseaux de neurones) aiment bien.
 
 	\pause
 
-	C'est difficile de les évaluer intrinsèquement (même si Mikolov propose des idées sur les liens géométrie-sémantique), mais on observe en pratique que \alert{pré-entraîner} ainsi des représentations aide pour des tâches en aval.
+	C'est difficile de les évaluer intrinsèquement (même si
+	\citeauthor{mikolov2013EfficientEstimationWord} propose des idées sur les liens
+	géométrie-sémantique), mais on observe en pratique que \alert{pré-entraîner} ainsi des
+	représentations aide pour des tâches en aval.
 \end{frame}
 
 \begin{frame}{La tuyauterie des données}
@@ -676,17 +717,25 @@
 
 	\pause
 
-	Quelles représentations pour nos données dans un algo d'apprentissage pour une \alert{tâche} précise ?
+	Quelles représentations pour nos données dans un algo d'apprentissage pour une \alert{tâche}
+	précise ?
 
 	\pause
 
-	Une solution très orthodoxe : un problème d'apprentissage ? \pause Résolvons-le avec deux fois plus d'apprentissage :
+	Une solution très orthodoxe : un problème d'apprentissage ? \pause Résolvons-le avec deux fois
+	plus d'apprentissage :
 	
 	\pause
 
 	\begin{itemize}[<+->]
-		\item Une première phase exploite des \alert{régularités} sur des données qui n'ont pas été annotées pour cette tâche. Nombreuses, \enquote{bon marché} et peu spécifiques \pause : par exemple un corpus de texte brut genre OSCAR \parencite{ortizsuarez2019AsynchronousPipelineProcessing} et en apprend ce faisant des représentations.
-		\item La deuxième apprend des corrélations entre \alert{ces} représentations et des informations contenues dans des données \alert{annotées spécifiquement} \pause : par exemple un treebank comme Sequoia \parencite{candito2012CorpusSequoiaAnnotation}.
+		\item Une première phase exploite des \alert{régularités} sur des données qui n'ont pas été
+		annotées pour cette tâche. Nombreuses, \enquote{bon marché} et peu spécifiques \pause : par
+		exemple un corpus de texte brut genre OSCAR
+		\parencite{ortizsuarez2019AsynchronousPipelineProcessing} et en apprend ce faisant des
+		représentations.
+		\item La deuxième apprend des corrélations entre \alert{ces} représentations et des
+		informations contenues dans des données \alert{annotées spécifiquement} \pause : par exemple
+		un treebank comme Sequoia \parencite{candito2012CorpusSequoiaAnnotation}.
 	\end{itemize}
 \end{frame}
 
@@ -695,7 +744,8 @@
 \end{frame}
 
 \begin{frame}{Une note}
-	Si pour plusieurs tâches aval on a l'intention d'utiliser le même pré-entraînement de représentations, on est pas obligé de recommencer à chaque fois !
+	Si pour plusieurs tâches aval on a l'intention d'utiliser le même pré-entraînement de
+	représentations, on est pas obligé de recommencer à chaque fois !
 
 	\pause
 
@@ -707,7 +757,8 @@
 \end{frame}
 
 \begin{frame}{Encore des problèmes}
-	Ces représentations de formes, ça marche \strikeThrough{bien} pas si pire pour beaucoup de choses, mais elles ont défaut majeur.
+	Ces représentations de formes, ça marche \strikeThrough{bien} pas si pire pour beaucoup de
+	choses, mais elles ont défaut majeur.
 
 	\pause
 
@@ -719,7 +770,8 @@
 
 	\pause
 
-	Comment faire pour que deux formes identiques de lexèmes différents, ou issues d'un syncrétisme morphologique d'un même lexème aient des représentations différentes ?
+	Comment faire pour que deux formes identiques de lexèmes différents, ou issues d'un syncrétisme
+	morphologique d'un même lexème aient des représentations différentes ?
 \end{frame}
 
 \begin{frame}{Désambigüiser}
@@ -740,7 +792,8 @@
 	\begin{enumerate}[<+->]
 		\item On apprend des représentations de formes
 		\item On les utilise comme entrées dans un modèle qui saurait désambigüiser des formes
-		\item Le modèle qui réalise notre tâche cible finale a donc accès à des représentations des formes, sans les ambigüités
+		\item Le modèle qui réalise notre tâche cible finale a donc accès à des représentations des
+		      formes, sans les ambigüités
 	\end{enumerate}
 
 	\pause
@@ -749,7 +802,8 @@
 \end{frame}
 
 \begin{frame}{Wavelength collapse}
-	Un modèle de désambigüisation va désambigüiser en utilisant des représentations des formes \alert{en contexte}.
+	Un modèle de désambigüisation va désambigüiser en utilisant des représentations des formes
+	\alert{en contexte}.
 
 	\pause
 
@@ -757,11 +811,14 @@
 
 	\pause
 
-	C'est encore mieux qu'une désambigüisation arbitraire : si on a de la chance ça pourrait capturer des nuances qu'on a pas annoté explicitement.
+	C'est encore mieux qu'une désambigüisation arbitraire : si on a de la chance ça pourrait
+	capturer des nuances qu'on a pas annoté explicitement.
 
 	\pause
 
-	Le plan ça pourrait donc être de prendre directement ces représentations : quand on nous donne une entrée, on la passe au modèle de désambigüisation, on intercepte ses représentations contextuelles internes et on se sert de \alert{ça} comme entrée pour notre tâche cible.
+	Le plan ça pourrait donc être de prendre directement ces représentations : quand on nous donne
+	une entrée, on la passe au modèle de désambigüisation, on intercepte ses représentations
+	contextuelles internes et on se sert de \alert{ça} comme entrée pour notre tâche cible.
 
 	\pause
 
@@ -777,41 +834,49 @@
 
 	\pause
 
-	Alors pourquoi ne pas shunter la désambigüisation et utiliser directement ces \alert{représentations contextuelles}-là ?
+	Alors pourquoi ne pas shunter la désambigüisation et utiliser directement ces
+	\alert{représentations contextuelles}-là ?
 
 	\pause
 
-	C'est exactement ce qui s'est produit avec quasi-simultanément \textcite{devlin2019BERTPretrainingDeep, howard2018UniversalLanguageModel, peters2018DeepContextualizedWord, radford2018ImprovingLanguageUnderstanding}
+	C'est exactement ce qui s'est produit avec quasi-simultanément
+	\textcite{devlin2019BERTPretrainingDeep, howard2018UniversalLanguageModel,
+	peters2018DeepContextualizedWord, radford2018ImprovingLanguageUnderstanding}
 
-	(BERT, ULMFit, ELMo, GPT : diverses formes d'entraînement de représentations à partir de formes de modèles de langue)
+	(BERT, ULMFit, ELMo, GPT : diverses formes d'entraînement de représentations à partir de formes
+	de modèles de langue)
 
 \end{frame}
 
 \begin{frame}{Killing the game}
-	Les représentations issues desdits modèles ont pris d'assaut le TAL, la linguistique informatique, les esprits et la société.
+	Les représentations issues desdits modèles ont pris d'assaut le TAL, la linguistique
+	informatique, les esprits et la société.
 
 	\pause
 
-	Il faut dire qu'elles apportent des gains impressionnants de performances (lesquelles ?) \pause à un coût computationnel défiant toute concurrence \pause (monstrueux). \pause Mais peut-être acceptable (???) selon ce qu'on veut faire.
+	Il faut dire qu'elles apportent des gains impressionnants de performances (lesquelles ?) \pause
+	à un coût computationnel défiant toute concurrence \pause (monstrueux). \pause Mais peut-être
+	acceptable (???) selon ce qu'on veut faire.
 
 	\pause
 
-	De fait, ce qui se passe : quand on veut une représentation vectorielle d'un mot (dans un contexte) on a plus seulement à aller la chercher dans un \alert{dictionnaire}, mais on doit à chaque fois faire passer tout le contexte dans un \alert{modèle} qui peut être très lourd.
-
-	\pause
-
-	On en reparle demain au plus tard.
+	De fait, ce qui se passe : quand on veut une représentation vectorielle d'un mot (dans un
+	contexte) on a plus seulement à aller la chercher dans un \alert{dictionnaire}, mais on doit à
+	chaque fois faire passer tout le contexte dans un \alert{modèle} qui peut être très lourd.
  \end{frame}
 
 \begin{frame}{Transfert}
-	Si on fait un pas en arrière sur ce dont on vient de parler, du point de vue de l'apprentissage :
+	Si on fait un pas en arrière sur ce dont on vient de parler, du point de vue de
+	l'apprentissage :
 
 	\pause
 
 	\begin{itemize}[<+->]
 		\item On a appris un modèle pour une certaine tâche.
-		\item Puis on prend ce modèle, on lui ajoute une surcouche et on entraîne l'ensemble sur une nouvelle tâche.
-		\item D'une certaine façon, on a \alert{transféré} des connaissances d'une tâche vers une autre.
+		\item Puis on prend ce modèle, on lui ajoute une surcouche et on entraîne l'ensemble sur une
+		      nouvelle tâche.
+		\item D'une certaine façon, on a \alert{transféré} des connaissances d'une tâche vers une
+		      autre.
 	\end{itemize}
 \end{frame}
 
@@ -820,11 +885,14 @@
 
 	\pause
 
-	Pour le dire vite : si on a un modèle qui marche bien pour un contexte \(X\), c'est peut-être moins coûteux et plus efficace de l'\enquote{\alert{adapter}} pour un contexte \(Y\) que de faire un modèle pour \(Y\) à partir de zéro.
+	Pour le dire vite : si on a un modèle qui marche bien pour un contexte \(X\), c'est peut-être
+	moins coûteux et plus efficace de l'\enquote{\alert{adapter}} pour un contexte \(Y\) que de
+	faire un modèle pour \(Y\) à partir de zéro.
 
 	\pause
 
-	Ça a été essayé pour plein de combinaisons de \(X\) et \(Y\) (\textcite{ruder2019NeuralTransferLearning} pour un bon historique).
+	Ça a été essayé pour plein de combinaisons de \(X\) et \(Y\)
+	(\textcite{ruder2019NeuralTransferLearning} pour un bon historique).
 
 	\begin{itemize}
 		\item D'une langue à une autre.
@@ -845,8 +913,10 @@
 			\end{itemize}
 		\item Ajouter des sur-/sous-/inter-couches dans le modèle qui gèrent l'adaptation :
 			\begin{itemize}
-				\item[→] En continuant à entraîner les paramètres du modèle original (\quoteforeign{english}{\alert{fine-tuning}}).
-				\item[→] En fixant les paramètres du modèle original et juste entraîner les nouvelles parties.
+				\item[→] En continuant à entraîner les paramètres du modèle original
+				         (\quoteforeign{english}{\alert{fine-tuning}}).
+				\item[→] En fixant les paramètres du modèle original et juste entraîner les
+				         nouvelles parties.
 			\end{itemize}
 	\end{itemize}
 

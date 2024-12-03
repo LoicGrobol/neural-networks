@@ -9,11 +9,11 @@ jupytext
 nbconvert
 numpy
 matplotlib
-pandas
 regex
 sacremoses
 seaborn
 scikit-learn
+spacy >= 3.8
 tol-colors
 torch
 transformers

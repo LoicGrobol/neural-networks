@@ -49,11 +49,18 @@ est indisponible.
     (partielles)
 
 
-### 2023-12-05 — *Réseaux* de neurones
+### 2024-11-27 — *Réseaux* de neurones
 
 - {% notebook_badges slides/02-nn/nn.py.md %} [Notebook réseaux de
   neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
+
+
+### 2023-12-04 — Représentations vectorielles des données
+
+- [Slide CM](slides/03-representations/lecture/representations.pdf)
+- {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
+  - [Dossier `data`]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/data)
 
 ## Utilisation en local
 
