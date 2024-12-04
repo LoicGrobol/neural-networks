@@ -21,10 +21,8 @@ jupyter:
 (inspiré par Karën Fort avec son accord, elle-même inspirée par Elia Robyn Lake, avec son accord)
 
 ```python
-import pathlib
 import random
 
-import numpy as np
 import spacy
 
 from sklearn.linear_model import SGDClassifier
@@ -96,7 +94,9 @@ vectors.shape  # Devrait être (taille du lexique, nombre de dimension des embed
 Maintenant on peut créer nos jeux de train et test.
 
 ```python
-train_vectors, test_vectors, train_targets, test_targets = train_test_split(vectors, targets, test_size=0.1, random_state=0)
+train_vectors, test_vectors, train_targets, test_targets = train_test_split(
+    vectors, targets, test_size=0.1, random_state=0
+)
 ```
 
 Et entraîner le classifieur (128 itérations). 
@@ -116,13 +116,13 @@ accuracy_score(model.predict(test_vectors), test_targets)
 Définissons maintenant une fonction qui permet de visualiser la polarité que ce classifieur prédit
 pour certains mots, puis appliquons-le sur des données du test set. L'idée est la suivante : pour
 établir la polarité d'un mot, qu'il soit dans le lexique ou pas, on récupère son embedding, puis on
-passe ce dernier dans le modèle qui nous renvoie deux log-vraisemeblances négatives : $-\log(p_{+})$
+passe ce dernier dans `model.predict_log_proba` qui nous renvoie deux log-vraisemeblances négatives : $-\log(p_{+})$
 et $-\log(p_{-})$. En les soustrayant on obtient un score qui représentera la polarité (positive ou
 négative) du mot.
 
 ```python
 def word_to_sentiment(model, spacy_model, word):
-   pass  # À vous de coder
+    pass  # À vous de coder
 
 
 # Show 16 examples from the test set
