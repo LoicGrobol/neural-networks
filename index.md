@@ -62,6 +62,8 @@ est indisponible.
 - {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
   - [Dossier
     `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
+    - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
+    [Solutions]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias-solutions.py.ipynb)
 
 ## Utilisation en local
 
