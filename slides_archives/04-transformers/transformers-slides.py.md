@@ -16,7 +16,7 @@ jupyter:
 
 <!-- LTeX: language=fr -->
 <!-- #region slideshow={"slide_type": "slide"} -->
-Cours 3 : Transformers
+Cours 4 : Transformers
 ======================
 
 **Loïc Grobol** [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
@@ -24,20 +24,14 @@ Cours 3 : Transformers
 <!-- #endregion -->
 
 ```python
-from IPython.display import display, Markdown
-```
-
-```python
 import numpy as np
 import matplotlib.pyplot as plt
+from IPython.display import display, Markdown
 ```
 
 ## POS tagging
 
 ## Récupérer les données avec 🤗 datasets
-
-
-🤗 datasets ?
 
 
 [🤗 datasets](https://huggingface.co/docs/datasets).
@@ -95,7 +89,8 @@ def get_pos_names(pos_indices):
 get_pos_names(train_dataset[5]["upos"])
 ```
 
-Il nous reste un truc à faire : construire un dictionnaire de mots pour passer des tokens du dataset à des nombres. On connaît la chanson : d'abord on récupère le vocabulaire.
+Il nous reste un truc à faire : construire un dictionnaire de mots pour passer des tokens du dataset
+à des nombres. On connaît la chanson : d'abord on récupère le vocabulaire.
 
 ```python
 from collections import Counter
@@ -103,7 +98,8 @@ word_counts = Counter(t.lower() for row in train_dataset for t in row["tokens"])
 word_counts.most_common(16)
 ```
 
-On filtre les hapax et on trie par ordre alphabétique pour que notre vocabulaire ne change pas d'une exécution sur l'autre
+On filtre les hapax et on trie par ordre alphabétique pour que notre vocabulaire ne change pas d'une
+exécution sur l'autre
 
 ```python
 idx_to_token = sorted([t for t, c in word_counts.items() if c > 1])
@@ -124,7 +120,7 @@ token_to_idx["demain"]
 ```
 
 Une fonction pour lire le dataset et récupérer les tokens et les POS comme tenseurs entiers. Le seul
-souci ici c'est qu'on a des mots inconnus et qu'il faudra leur attribuer un indice aussi : on va
+souci ici, c'est qu'on a des mots inconnus et qu'il faudra leur attribuer un indice aussi : on va
 leur donner tous `len(idx_to_tokens)`.
 
 ```python
@@ -195,7 +191,7 @@ class SimpleClassifier(torch.nn.Module):
         """Predict the POS for a tokenized sequence"""
         words_idx = encode(tokens)
         # Pas de calcul de gradient ici : c'est juste pour les prédictions
-        with torch.no_grad():
+        with torch.inference_mode():
             out = self(words_idx)
         out_predictions = out.argmax(dim=-1)
         return get_pos_names(out_predictions)
@@ -206,7 +202,8 @@ display(source)
 display(target)
 display(get_pos_names(target))
 simple_classifier = SimpleClassifier(len(idx_to_token), 128, 512, len(upos_names))
-with torch.no_grad():
+simple_classifier.eval()
+with torch.inference_mode():
     output = simple_classifier(source)
 display(output)
 output_predictions = output.argmax(dim=-1)
@@ -216,7 +213,7 @@ display(get_pos_names(output_predictions))
 simple_classifier.predict(["Le", "petit", "chat", "est", "content"])
 ```
 
-Évidemment c'est n'importe quoi : on a pas encore entraîné !
+Évidemment, c'est n'importe quoi : on a pas encore entraîné !
 
 
 Pour entraîner c'est comme précédemment, descente de gradient yada yada.
@@ -229,6 +226,7 @@ from typing import Sequence, Tuple
 import torch.optim
 
 # Pour s'assurer que les résultats seront les mêmes à chaque run du notebook
+torch.manual_seed(0)
 torch.use_deterministic_algorithms(True)
 
 def train_network(
@@ -237,10 +235,12 @@ def train_network(
     dev_set: Sequence[Tuple[torch.tensor, torch.Tensor]],
     epochs: int
 ):
+    torch.manual_seed(0)
     optim = torch.optim.Adam(model.parameters(), lr=0.01)
     print("Epoch\ttrain loss\tdev accuracy")
     for epoch_n in range(epochs):
     
+        model.train()
         epoch_loss = 0.0
         epoch_length = 0
         for source, target in train_set:
@@ -252,11 +252,14 @@ def train_network(
             epoch_loss += loss.item()
             epoch_length += source.shape[0]
 
+        model.eval()  # Entre autres ça désactive le dropout
         dev_correct = 0
         dev_total = 0
         for source, target in dev_set:
-            # Ici on ne se sert pas du gradient, on évite donc de le calculer
-            with torch.no_grad():
+            # Ici on ne se sert pas du gradient, on évite donc de le calculer, et
+            # on active des routines plus efficaces qui ne seraient pas compatible
+            # avec autodiff
+            with torch.inference_mode():
                 out_prediction = model(source).argmax(dim=-1)
                 dev_correct += out_prediction.eq(target).sum()
                 dev_total += source.shape[0]
@@ -290,10 +293,10 @@ Problèmes :
 - Pas d'accès au contexte : en fait on apprend un dictionnaire !
 - Sans accès au contexte, le réseau a peu d'infos pour décider et donc a tendance à tomber dans
   l'heuristique de la classe majoritaire.
-- Surtout pour les mots inconnus
+- Surtout pour les mots inconnus.
 
 
-Un peu mieux : on va donner accès non seulement aux mots mais aussi aux contextes gauches et droits
+Un peu mieux : on va donner accès non seulement aux mots, mais aussi aux contextes gauches et droits
 
 ```python
 class ContextClassifier(torch.nn.Module):
@@ -334,7 +337,7 @@ class ContextClassifier(torch.nn.Module):
     def predict(self, tokens: Sequence[str]) -> Sequence[str]:
         """Predict the POS for a tokenized sequence"""
         words_idx = encode(tokens)
-        with torch.no_grad():
+        with torch.inference_mode():
             out = self(words_idx)
         out_predictions = out.argmax(dim=-1)
         return get_pos_names(out_predictions)
@@ -365,10 +368,10 @@ context_classifier.predict(["Le", "petit", "chat","est", "content", "."])
 context_classifier.predict("Je reconnais l' existence du kiwi .".split())
 ```
 
-C'est un peu mieux mais
+C'est un peu mieux, mais
 
-- La prise en compte du contexte est pas encore parfaite
-- Il galère toujours avec les mots hors vocabulaire
+- La prise en compte du contexte est pas encore parfaite.
+- Il galère toujours avec les mots hors vocabulaire.
 
 
 En pratique on peut faire beaucoup même avec des modèles de ce type en les aidant plus
@@ -380,10 +383,12 @@ En pratique on peut faire beaucoup même avec des modèles de ce type en les aid
 - Pré-entraîner les embeddings
 - …
 
-Comme d'hab *Natural Language Processing (almost) from Scratch* (Collobert et al., 2011) a plein de bons exemples.
+Comme d'hab *Natural Language Processing (almost) from Scratch* (Collobert et al., 2011) a plein de
+bons exemples.
 
 
-Cependant, on reste sur un truc frustrant : le contexte pris en compte est limité, on aimerait bien plutôt pouvoir prendre en compte toute la phrase.
+Cependant, on reste sur un truc frustrant : le contexte pris en compte est limité, on aimerait bien
+plutôt pouvoir prendre en compte toute la phrase.
 
 
 On va voir une famille de réseaux de neurones qui permettent de modéliser ça directement.
@@ -436,7 +441,7 @@ class TransformerTagger(torch.nn.Module):
     def predict(self, tokens: Sequence[str]) -> Sequence[str]:
         """Predict the POS for a tokenized sequence"""
         words_idx = encode(tokens)
-        with torch.no_grad():
+        with torch.inference_mode():
             out = self(words_idx)
         out_predictions = out.argmax(dim=-1)
         return get_pos_names(out_predictions)
@@ -481,7 +486,7 @@ tok.tokenize("Morgan reconnait l'existence du kiwi.")
 
 ```python
 model = transformers.AutoModel.from_pretrained("flaubert/flaubert_small_cased")
-with torch.no_grad():
+with torch.inference_mode():
     embeddings = model(**tok("Morgan reconnait l'existence du kiwi.", return_tensors="pt")).last_hidden_state
 display(embeddings)
 display(embeddings.shape)
@@ -495,7 +500,7 @@ display(tok.tokenize("Mangez les riches!"))
 ```
 
 ```python
-with torch.no_grad():
+with torch.inference_mode():
     embeddings = model(**tok("Alex a de riches idées.", return_tensors="pt")).last_hidden_state
     other_embeddings = model(**tok("Mangez les riches!", return_tensors="pt")).last_hidden_state
 display(embeddings[0, 3, :8])
@@ -505,7 +510,7 @@ display(other_embeddings[0, 3, :8])
 ```python
 display(tok.tokenize("Morgan reconnait Keltie."))
 display(tok.tokenize("Morgan reconnait sa mère."))
-with torch.no_grad():
+with torch.inference_mode():
     embeddings = model(**tok("Morgan reconnait Keltie.", return_tensors="pt")).last_hidden_state
     other_embeddings = model(**tok("Morgan reconnait sa mère.", return_tensors="pt")).last_hidden_state
 display(embeddings[0, 1, :8])

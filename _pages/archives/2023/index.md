@@ -136,7 +136,14 @@ Articles cités :
 - Bender, Emily M., Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. 2021. “On the
   Dangers of Stochastic Parrots: Can Language Models Be Too Big? 🦜.” In Proceedings of the 2021 ACM
   Conference on Fairness, Accountability, and Transparency, 610–23. FAccT ’21. New York, NY, USA:
-  Association for Computing Machinery. <https://doi.org/10.1145/3442188.3445922>.
+  Association for Computing Mac -->
+
+- Abid, Abubakar, Maheen Farooqi, and James Zou. 2021a. “Large Language Models Associate Muslims
+  with Violence.” Nature Machine Intelligence 3 (6): 461–63.
+  <https://doi.org/10.1038/s42256-021-00359-2>.
+- Abid, Abubakar, Maheen Farooqi, and James Zou. 2021b. “Persistent Anti-Muslim Bias in Large
+  Language Models.” In Proceedings of the 2021 AAAI/ACM Conference on AI, Ethics, and Society,
+  298–306. AIES ’21. Nehinery. <https://doi.org/10.1145/3442188.3445922>.
 - Birhane, Abeba. 2022. “ChatGPT, Galactica, and the Progress Trap.” Wired, December 9, 2022.
   <https://www.wired.com/story/large-language-models-critique/>.
 - Caliskan, Aylin, Joanna J. Bryson, and Arvind Narayanan. 2017. “Semantics Derived Automatically

@@ -116,9 +116,9 @@ accuracy_score(model.predict(test_vectors), test_targets)
 Définissons maintenant une fonction qui permet de visualiser la polarité que ce classifieur prédit
 pour certains mots, puis appliquons-le sur des données du test set. L'idée est la suivante : pour
 établir la polarité d'un mot, qu'il soit dans le lexique ou pas, on récupère son embedding, puis on
-passe ce dernier dans `model.predict_log_proba` qui nous renvoie deux log-vraisemeblances négatives : $-\log(p_{+})$
-et $-\log(p_{-})$. En les soustrayant on obtient un score qui représentera la polarité (positive ou
-négative) du mot.
+passe ce dernier dans `model.predict_log_proba` qui nous renvoie deux log-vraisemeblances
+négatives : $-\log(p_{+})$ et $-\log(p_{-})$. En les soustrayant on obtient un score qui
+représentera la polarité (positive ou négative) du mot.
 
 ```python
 def word_to_sentiment(model, spacy_model, word):
