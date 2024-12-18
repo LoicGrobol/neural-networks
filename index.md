@@ -7,6 +7,8 @@ layout: default
 
 ## News
 
+- **2024-12-18** Les [consignes pour les projets]({{site.url}}{{site.baseurl}}/projects) sont en
+  ligne.
 - **2024-11-19** Premier cours du semestre le 20/11/2024
 
 ## Infos pratiques

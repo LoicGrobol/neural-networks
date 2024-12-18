@@ -1,7 +1,7 @@
 ---
-title: Projets réseaux de neurons — M2 PluriTAL 2025
+title: Projets réseaux de neurons — M2 PluriTAL 2024
 layout: default
-permalink: /projects/
+permalink: /2024/projects/
 ---
 
 [comment]: <> "LTeX: language=fr"
@@ -23,28 +23,15 @@ votre travail peut aussi prendre la forme d'un plugin/add-on/module… pour un p
 un gros *pull request* à Pytorch par exemple) mais si c'est ce que vous visez, dites le moi très en
 avance et on en discute.
 
-Dans tous les cas, je m'attends à un travail substantiel (pas juste suivre un tuto, quoi), si vous
-avez un doute, là encore, *demandez-moi*.
-
-Pas de prompt engineering, pas de chatbots, vous en mangez assez ailleurs.
+Dans tous les cas, je m'attends à un travail substantiel (pas juste suivre un tuto trouvé sur le
+web, par exemple…), si vous avez un doute, là encore, *demandez-moi*.
 
 ## Consignes
 
-- Composition des groupes et sujets des projets à envoyer avant le 20 janvier 2025 (envoyer un mail
-  par groupe avec vos noms, prénoms et établissements et une description concise, mais précise du
-  projet). Si vous avez un doute sur la pertinence ou la faisabilité du projet, venez m'en parler
-  avant.
-- Projet à rendre le 8 mars 2025 *au plus tard*
+- Projet à rendre le 7 mars 2024 *au plus tard*
 - Projet de préférence collectif, par groupe de 2 ou 3
   - Si c'est un problème pour vous, venez me voir, tout est négociable
   - S'il y a un problème — quel qu'il soit — dans votre groupe, n'hésitez pas à m'en parler
-- Rendus par mail à `lgrobol@parisnanterre.fr` avec en objet `[NN2025] Projet final` et les noms,
-  prénoms et établissements de tous les membres du groupe dans le corps du mail.
-  - **Si l'objet est différent, je ne verrai pas votre rendu**. Et si un nom manque, vous risquez de
-    ne pas avoir de note.
-  - J'accuserai réception sous trois jours ouvrés dans la mesure du possible, relancez-moi si ce
-    n'est pas le cas.
-
 
 Le rendu devra comporter :
 
@@ -119,7 +106,7 @@ search](https://toolbox.google.com/datasetsearch)
   discours haineux, de *fake news*.
 - Syntaxe : POS tagging, parsing, chunking… Attention, [la
   concurrence](https://github.com/npdependency/npdependency) est rude.
-- Génération de texte : résumé automatique, traduction, ASR (mais attention tout ça c'est long)
+- Génération de texte : modèles de langues, résumé automatique, question-réponses.
 - …
 
 Commencez plutôt petit : voyez si vous pouvez reproduire l'état de l'art en piquant du code qui
