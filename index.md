@@ -56,7 +56,7 @@ est indisponible.
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
 
 
-### 2023-12-04 — Représentations vectorielles des données
+### 2024-12-04 — Représentations vectorielles des données
 
 - [Slide CM](slides/03-representations/lecture/representations.pdf)
 - {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
@@ -64,6 +64,15 @@ est indisponible.
     `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
     - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
     [Solutions]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias-solutions.py.ipynb)
+
+### 2024-12-18 – Traitement de séquences
+
+En hommage à William Labov, décédé cette nuit, un peu de lecture :
+
+
+- [*The Social Motivation of a Sound Change*](https://web.stanford.edu/~eckert/PDF/LabovVineyard.pdf)
+- [*Some observations on the foundations of linguistics*](https://www.ling.upenn.edu/~wlabov/Papers/Foundations.html)
+- [*Empirical foundations for a theory of language change*](https://mnytud.arts.unideb.hu/tananyag/szoclingv_alap/wlh.pdf)
 
 ## Utilisation en local
 
