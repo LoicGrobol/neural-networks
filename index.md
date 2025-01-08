@@ -81,13 +81,34 @@ En hommage à William Labov, décédé cette nuit, un peu de lecture :
 
 Article principal :
 
-- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, et Illia Polosukhin. 2017. « [Attention is All you Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) ». In Advances in Neural Information Processing Systems 30, édité par I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, et R. Garnett, 5998‑6008. Long Beach, California: Curran Associates, Inc.
+- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+  Kaiser, et Illia Polosukhin. 2017. « [Attention is All you
+  Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) ».
+  In Advances in Neural Information Processing Systems 30, édité par I. Guyon, U. V. Luxburg, S.
+  Bengio, H. Wallach, R. Fergus, S. Vishwanathan, et R. Garnett, 5998‑6008. Long Beach, California:
+  Curran Associates, Inc.
 
 Auxiliaires :
 
-- Alammar, Jay. 2018. « [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) ». 2018.
-- Bahdanau, Dzmitry, Kyunghyun Cho, et Yoshua Bengio. 2015. « [Neural Machine Translation by Jointly Learning to Align and Translate](http://arxiv.org/abs/1409.0473) ». In Proceedings of the 3rd International Conference on Learning Representations, édité par Yoshua Bengio et Yann LeCun. San Diego, California, USA.
-- Huang, Austin, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, et Stella Biderman. 2022. « [The Annotated Transformer](http://nlp.seas.harvard.edu/annotated-transformer/) ». 2022.
+- Alammar, Jay. 2018. « The Illustrated Transformer ». 2018.
+<http://jalammar.github.io/illustrated-transformer/>. Ba, Jimmy Lei, Jamie Ryan Kiros, et Geoffrey
+E. Hinton. 2016. « Layer Normalization ». In . <http://arxiv.org/abs/1607.06450>.
+- Bahdanau, Dzmitry, Kyunghyun Cho, et Yoshua Bengio. 2015. « Neural Machine Translation by Jointly
+  Learning to Align and Translate ». In Proceedings of the 3rd International Conference on Learning
+  Representations, édité par Yoshua Bengio et Yann LeCun. San Diego, California, USA.
+  <http://arxiv.org/abs/1409.0473>.
+- Devlin, Jacob, Ming-Wei Chang, Kenton Lee, et Kristina Toutanova. 2019. « BERT: Pre-training of
+  Deep Bidirectional Transformers for Language Understanding ». In Proceedings of the 2019
+  Conference of the North American Chapter of the Association for Computational Linguistics: Human
+  Language Technologies, 4171‑86. Association for Computational Linguistics.
+  <https://doi.org/10.18653/v1/N19-1423>.
+- Huang, Austin, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, et Stella Biderman. 2022. « The
+  Annotated Transformer ». 2022. <http://nlp.seas.harvard.edu/annotated-transformer/>.
+- Lin, Tianyang, Yuxin Wang, Xiangyang Liu, et Xipeng Qiu. 2022. « A survey of transformers ». AI
+  Open 3 (janvier):111‑32. <https://doi.org/10.1016/j.aiopen.2022.10.001>.
+- Radford, Alec, Karthik Narasimhan, Tim Salimans, et Ilya Sutskever. 2018. « Improving Language
+  Understanding by Generative Pre-Training ». Technical report. OpenAI.
+  <https://openai.com/blog/language-unsupervised/>.
 
 
 ## Utilisation en local
