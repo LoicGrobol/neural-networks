@@ -1,5 +1,5 @@
 ---
-title: Réseau de neurones — M2 PluriTAL 2025
+title: Réseau de neurones — M2 PluriTAL 2025
 layout: default
 ---
 
@@ -75,6 +75,20 @@ En hommage à William Labov, décédé cette nuit, un peu de lecture :
 - [*The Social Motivation of a Sound Change*](https://web.stanford.edu/~eckert/PDF/LabovVineyard.pdf)
 - [*Some observations on the foundations of linguistics*](https://www.ling.upenn.edu/~wlabov/Papers/Foundations.html)
 - [*Empirical foundations for a theory of language change*](https://mnytud.arts.unideb.hu/tananyag/szoclingv_alap/wlh.pdf)
+
+
+### 2025-01-08 —  Attention is all you need?
+
+Article principal :
+
+- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, et Illia Polosukhin. 2017. « [Attention is All you Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) ». In Advances in Neural Information Processing Systems 30, édité par I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, et R. Garnett, 5998‑6008. Long Beach, California: Curran Associates, Inc.
+
+Auxiliaires :
+
+- Alammar, Jay. 2018. « [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) ». 2018.
+- Bahdanau, Dzmitry, Kyunghyun Cho, et Yoshua Bengio. 2015. « [Neural Machine Translation by Jointly Learning to Align and Translate](http://arxiv.org/abs/1409.0473) ». In Proceedings of the 3rd International Conference on Learning Representations, édité par Yoshua Bengio et Yann LeCun. San Diego, California, USA.
+- Huang, Austin, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, et Stella Biderman. 2022. « [The Annotated Transformer](http://nlp.seas.harvard.edu/annotated-transformer/) ». 2022.
+
 
 ## Utilisation en local
 
