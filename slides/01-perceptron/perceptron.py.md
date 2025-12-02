@@ -8,7 +8,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.2
+      jupytext_version: 1.18.1
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -269,18 +269,18 @@ perceptron_data.random_nice_dataset(4)
 1\. À l'aide de cette fonction, générer un jeu de données d'entraînement et un jeu de données de
 test (par exemple de tailles respectivement 128 et 64).
 
-2\. Appliquer l'algorithme du perceptron sur pour apprendre les données de d'entraînement (sans
-utiliser de terme de biais) et tester les performances du classifieur ainsi appris sur les données
-de test.
+2\. Appliquer l'algorithme du perceptron sur les données que vous venez de générer pour apprendre
+les données d'entraînement (sans utiliser de terme de biais) et tester les performances du
+classifieur ainsi appris sur les données de test.
 
 3\. Représenter (par exemple avec `matplotlib.pyplot`) les données de test (en utilisant des
 couleurs différentes pour les deux classes) ainsi que la frontière du classifieur.
 
 ## Perceptron multi-classe
 
-Le cas d'un problème de classification à $n$ classe se traite en prédisant un score par classe avec
+Le cas d'un problème de classification à $n$ classes se traite en prédisant un score par classe avec
 une fonction linéaire par classe et en affectant la classe pour laquelle le score est maximal.
-Formellement on dispose donc d'un $n$-uplet de poids $W_1, …, W_n$ et on a pour un exemple $X$ :
+Formellement, on dispose donc d'un $n$-uplet de poids $W_1, …, W_n$ et on a pour un exemple $X$ :
 
 $$
 \begin{align}
@@ -291,11 +291,11 @@ $$
 \end{align}
 $$
 
-Moralement on peut y penser comme avoir $n$ perceptrons, un par classe.
+Moralement, on peut y penser comme avoir $n$ perceptrons, un par classe.
 
 L'algorithme d'apprentissage du perceptron simple s'adapte simplement : pour les exemples mal
 classifiés : on ajuste les $W_k$ de façon à ce que le score $z_y$ de la classe correcte augmente et
-à ce que le score de la classe prédite diminue (puisque elle est incorrecte). En pseudo-code :
+à ce que le score de la classe prédite diminue (puisqu'elle est incorrecte). En pseudo-code :
 
 - Tant qu'on est pas satisfait⋅e:
   - Pour chaque $(X, y)∈\mathcal{D}$:

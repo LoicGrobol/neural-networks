@@ -8,7 +8,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.2
+      jupytext_version: 1.18.1
   kernelspec:
     display_name: cours-nn
     language: python
@@ -211,7 +211,7 @@ servir de relai
 
 ![](figures/xor_ffnn/xor_ffnn.svg)
 
-On voit ici appraître une structure en plusieurs couches (une d'entrée, une de sortie et trois
+On voit ici apparaître une structure en plusieurs couches (une d'entrée, une de sortie et trois
 intermédiaires) où chaque neurone prend en entrée les sorties de tous les neurones de la couche
 précédente.
 
@@ -498,8 +498,8 @@ Dans le cas général, on dit que la fonction logistique dans ce réseau est une
 sorties d'une couche neuronale. On peut en choisir une autre, selon ce qu'on veut obtenir.
 
 Pour les couches de sorties, c'est souvent l'application ciblée qui va conditionner ce choix, pour
-les couches internes, dites **couches cachées**, elle conditionnent la capacité d'apprentissage du
-réseau. Voici quelques uns des exemples les plus courants :
+les couches internes, dites **couches cachées**, elles conditionnent la capacité d'apprentissage du
+réseau. Voici quelques-uns des exemples les plus courants :
 
 ```python
 x = np.linspace(-5, 5, 1000)
@@ -664,7 +664,7 @@ considérer un paramètre $θ$ qui sera une concaténation de tous les poids de 
 réseau dans un gros vecteur et les les $L(f, x, y)$ comme des fonctions de $θ$.
 
 
-Par bonheur, si les non-linéarités qu'on a choisi sont gentilles (et elles le sont, on les choisit
+Par bonheur, si les non-linéarités qu'on a choisies sont gentilles (et elles le sont, on les choisit
 pour), ces fonctions seront différentiables, c'est-à-dire qu'elles ont un gradient pour tout $(x,
 y)$ et on peut donc leur appliquer l'algorithme de descente de gradient stochastique.
 
@@ -679,7 +679,7 @@ Il y en a deux :
 
 
 Le point 1. n'est pas un problème, les fonctions en questions peuvent être compliquées, surtout si
-le réseau est profond, et caculer leur gradients à la main ça peut être pénible, mais heureusement
+le réseau est profond, et caculer leurs gradients à la main ça peut être pénible, mais heureusement
 on a des programmes de calcul symbolique qui ont la gentillesse de le faire pour nous. C'est ce
 qu'on appelle de la **différentiation automatique** dont on va voir un exemple juste après.
 
@@ -687,12 +687,12 @@ qu'on appelle de la **différentiation automatique** dont on va voir un exemple 
 Le point 2. est plus délicat en théorie : on a pas de garantie théorique que l'algo fonctionne
 toujours, ni même réellement d'estimation de son comportement. Mais **en pratique** ça a tendance à
 marcher la plupart du temps : si on applique l'algo de descente de gradient avec des hyperparamètres
-raisonnables et suffisament de données, on arrive à trouver des bons poids.
+raisonnables et suffisamment de données, on arrive à trouver des bons poids.
 
 Un [certain](https://ruder.io/optimizing-gradient-descent/) nombre de raffinement de cet algo (que
 vous trouverez souvent sous le nom *SGD* pour _**S**tochastic **G**radient **D**escent_) ont été
-développé pour essayer que ça marche le mieux possible le plus souvent possible. Deux
-particulièrement notables sont l'accelération de Nesterov et l'estimation adaptative des moments
+développés pour essayer que ça marche le mieux possible le plus souvent possible. Deux
+particulièrement notables sont l'accélération de Nesterov et l'estimation adaptative des moments
 ([Adam](https://arxiv.org/abs/1412.6980)).
 
 ## En pratique 🔥
@@ -715,7 +715,7 @@ on va l'utiliser comme une collection de couches neuronales et une bibliothèque
 
 
 L'objet de base dans Pytorch est le **tenseur** `torch.tensor`, qui est un autre nom pour ce que
-numpy appelle un `array`.
+Numpy appelle un `array`.
 
 ```python
 t = torch.tensor([1,2,3,4])

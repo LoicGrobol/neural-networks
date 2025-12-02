@@ -39,6 +39,12 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
     [solutions]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron-solutions.py.ipynb)
     (partielles)
 
+### 2025-12-02 — *Réseaux* de neurones
+
+- {% notebook_badges slides/02-nn/nn.py.md %} [Notebook réseaux de
+  neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
+  - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
+
 ## Utilisation en local
 
 ### Environnements virtuels et packages
