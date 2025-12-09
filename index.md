@@ -45,6 +45,15 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
   neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
 
+### 2024-12-04 — Représentations des données
+
+- [Slide CM](slides/03-representations/lecture/representations.pdf)
+- {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
+  - [Dossier
+    `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
+    - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
+    [Solutions]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias-solutions.py.ipynb)
+
 ## Utilisation en local
 
 ### Environnements virtuels et packages

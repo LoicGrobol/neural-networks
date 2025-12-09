@@ -10,7 +10,7 @@ jupyter:
       format_version: '1.3'
       jupytext_version: 1.18.1
   kernelspec:
-    display_name: cours-nn
+    display_name: Python 3 (ipykernel)
     language: python
     name: python3
 ---
@@ -20,7 +20,7 @@ jupyter:
 Cours 2 : Réseaux de neurones
 ==============================
 
-**Loïc Grobol** [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
+**L. Grobol** [<lgrobol@parisnanterre.fr>](mailto:lgrobol@parisnanterre.fr)
 
 <!-- #endregion -->
 
@@ -52,7 +52,7 @@ def perceptron(inpt, weights):
 
     Sortie: un tableau numpy d'entiers de dimension *, tous 0 soit 1.
     """
-    inpt = np.array(inpt)
+    inpt = np.asarray(inpt)
     biased_inpt = (
         np.concatenate(
             (np.full((*inpt.shape[:-1], 1), 1.0), inpt),
@@ -109,7 +109,7 @@ plt.show()
 Ça marche aussi très bien pour $\operatorname{OU}$ et $\operatorname{NON}$
 
 ```python
-or_weights = np.array([-0.5, 1, 1])
+or_weights = np.array([-0.5, 1.0, 1.0])
 print("x\ty\tx OU y")
 for x_i in [0, 1]:
     for y_i in [0, 1]:
@@ -118,7 +118,7 @@ for x_i in [0, 1]:
 ```
 
 ```python
-not_weights = np.array([1, -1])
+not_weights = np.array([1.0, -1.1])
 print("x\tNON x")
 for x_i in [0, 1]:
     out = perceptron([x_i], not_weights)
@@ -771,6 +771,10 @@ print(t.mul(2))
 )
 ```
 
+```python
+torch.sum(torch.mul(2, torch.tensor([1,2,3,4])))
+```
+
 Vous trouverez dans la doc [la liste des fonctions
 natives](https://pytorch.org/docs/stable/torch.html) et celle des [méthodes des
 tenseurs](https://pytorch.org/docs/stable/tensors.html), n'hésitez pas à vous y pencher souvent,
@@ -849,7 +853,7 @@ On commence par définir un jeu de données d'apprentissage
 
 ```python
 train_set = [
-    (torch.tensor([0.0, 0.0]), torch.tensor([0.])),
+    (torch.tensor([0.0, 0.0]), torch.tensor([0.0])),
     (torch.tensor([0.0, 1.0]), torch.tensor([1.0])),
     (torch.tensor([1.0, 0.0]), torch.tensor([1.0])),
     (torch.tensor([1.0, 1.0]), torch.tensor([0.0])),
@@ -893,7 +897,7 @@ for epoch in range(50000):
     epoch_loss = 0.0
     # On parcourt le dataset
     for inpt, target in train_set:
-        # Le réseau prédit une classe
+        # Le réseau prédit une classe ŷ
         output = xor_net(inpt)
         # On mesure son erreur avec la log-vraisemblance négative
         loss = torch.nn.functional.binary_cross_entropy(output, target)
