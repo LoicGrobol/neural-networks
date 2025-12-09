@@ -22,6 +22,7 @@ layout: default
 
 - Prendre rendez-vous pour des *office hours* en visio :
   [mon calendrier](https://calendar.app.google/N9oW2c9BzhXsWrrv9)
+- [Dépôt GitHub](https://github.com/{{site.repository}}) avec les sources du cours
 
 ## Séances
 

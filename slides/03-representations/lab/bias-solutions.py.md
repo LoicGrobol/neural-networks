@@ -16,7 +16,7 @@ jupyter:
 
 # TD : analyse de sentiments express (pour l'anglais)
 
-(inspiré par Karën Fort avec son accord, elle-même inspirée par Elia Robyn Lake, avec son accord)
+(inspiré par Karën Fort avec son accord, elle-même inspirée par Elia Lake, avec son accord)
 
 ```python
 import pathlib
@@ -157,7 +157,8 @@ for word, label in random.choices(list(lexicon.items()), k=16):
     print(word, label, word_to_sentiment(model, nlp, word), sep="\t")
 ```
 
-Écrivez la fonction `text_to_sentiment` qui fait la même choe pour tout un texte, en considérant que la polarité d'un texte c'est juste la somme des polarités de ses mots.
+Écrivez la fonction `text_to_sentiment` qui fait la même choe pour tout un texte, en considérant que
+la polarité d'un texte c'est juste la somme des polarités de ses mots.
 
 ```python
 def text_to_sentiment(
@@ -242,9 +243,11 @@ text_to_sentiment(model, nlp, "I was born in Yemen")
 ```python
 for country in [
     "America",  # Non, c'est pas le nom d'un État.
+	"USA",
     "France",
     "Germany",
     "England",  # Non, c'est pas le nom d'un État non plus.
+	"UK",
     "Ireland",
     "Ethiopia",
     "Iran",

@@ -18,7 +18,7 @@ jupyter:
 
 # TD : analyse de sentiments express (pour l'anglais)
 
-(inspiré par Karën Fort avec son accord, elle-même inspirée par Elia Robyn Lake, avec son accord)
+(inspiré par Karën Fort avec son accord, elle-même inspirée par Elia Lake, avec son accord)
 
 ```python
 import random
@@ -208,9 +208,11 @@ text_to_sentiment(model, nlp, "I was born in Yemen")
 ```python
 for country in [
     "America",  # Non, c'est pas le nom d'un État.
+	"USA",
     "France",
     "Germany",
     "England",  # Non, c'est pas le nom d'un État non plus.
+	"UK",
     "Ireland",
     "Ethiopia",
     "Iran",
@@ -235,5 +237,6 @@ for country in [
 
 - Est-ce que vous voyez des problèmes ?
 - Est-ce que ces problèmes peuvent se régler en changeant le modèle ? Comment ?
-- Quel sens ça a de prédire la polarité d'un mot ? Comment on pourrait définir formellement la tâche ?
+- Quel sens ça a de prédire la polarité d'un mot ? Comment on pourrait définir formellement la
+  tâche ?
 - Est-ce que vous pouvez imaginer des utilisations problématiques de ce type de modèle ?
