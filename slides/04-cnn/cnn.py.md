@@ -210,10 +210,9 @@ optim = torch.optim.SGD(model.parameters(), lr=0.03)
 
 print("Epoch\tLoss")
 
-# Apprendre XOR n'est pas si rapide, on va faire 50 000 epochs
 loss_history = []
+epoch_length = cifar10["train"].num_rows
 for epoch in range(8):
-    # Pour l'affichage
     epoch_loss = 0.0
     # On parcourt le dataset en utilisant la conversion automatique des images vers des tenseurs
     # voir https://huggingface.co/docs/datasets/use_with_pytorch#other-feature-types
@@ -223,16 +222,19 @@ for epoch in range(8):
         # Multi-classif : cross-entropy (ou log_softmax puis nll_loss)
         loss = torch.nn.functional.cross_entropy(output.view(-1), row["label"])
         loss.backward()
-        optim.step()
-        # On doit remettre les gradients des paramètres à zéro, sinon ils
-        # s'accumulent quand on appelle `backward`
         optim.zero_grad()
+
         # Pour l'affichage toujours
         epoch_loss += loss.item()
         if i % 512 == 0:
-            print(f"{epoch + i / cifar10['train'].num_rows:.3f}\t{loss.item()}")
+            print(f"{epoch + i / epoch_length:.3f}\t{loss.item()}")
     loss_history.append(epoch_loss)
-    print(f"{epoch + 1.0}\t{epoch_loss / cifar10['train'].num_rows}")
+    print(f"{epoch + 1.0}\t{epoch_loss / epoch_length}")
+```
+
+Tracez la courbe d'appretissage :
+
+```python
 
 ```
 
@@ -242,72 +244,42 @@ for epoch in range(8):
 Évaluer les performances du modèle entraîné sur quelques exemples. Est-ce satisfaisant ?
 
 ```python
-random_ids = np.random.choice(len(x_test), n_display, replace=False)
-pred = np.argmax(model.predict(x_test[random_ids]), axis=1)
-f, axarr = plt.subplots(1, n_display, figsize=(16, 16))
-for k in range(n_display):
-    axarr[k].imshow(x_test_initial[random_ids[k]])
-    axarr[k].title.set_text(classes[pred[k]])
+
 ```
 
-Vos premiers résultats semblent-ils corrects ?
-
-Hum ! Affichons à présent la précision sur l'ensemble de votre base :
-
+Calculer l'exactitude globale sur le train et sur le test. Est-ce satisfaisant ?
 
 ```python
-print(
-    "Précision du réseau sur les {} images d'entraînement : {:.2f} %".format(
-        n_training_samples, 100 * history_dict["acc"][-1]
-    )
-)
-print(
-    "Précision du réseau sur les {} images de validation : {:.2f} %".format(
-        n_valid, 100 * history_dict["val_acc"][-1]
-    )
-)
+
 ```
 
+Calculer les matrices de confusions et l'exactitude par classe :
 
 ```python
-def accuracy_per_class(model):
-    n_classes = len(classes)
-    confusion_matrix = np.zeros((n_classes, n_classes), dtype=np.int64)
 
-    pred = np.argmax(model.predict(x_test), axis=1)
-    for i in range(len(y_test)):
-        confusion_matrix[np.argmax(y_test[i]), pred[i]] += 1
-
-    print("{:<10} {:^10}".format("Classe", "Précision (%)"))
-    total_correct = 0
-    for i in range(n_classes):
-        class_total = confusion_matrix[i, :].sum()
-        class_correct = confusion_matrix[i, i]
-        total_correct += class_correct
-        percentage_correct = 100.0 * float(class_correct) / class_total
-        print("{:<10} {:^10.2f}".format(classes[i], percentage_correct))
-    test_acc = 100.0 * float(total_correct) / len(y_test)
-    print("Précision du réseau sur les {} images de test : {:.2f} %".format(len(y_test), test_acc))
-    return confusion_matrix
-
-
-confusion_matrix = accuracy_per_class(model)
 ```
 
-### III.2. Matrices de Confusion
+## Bricolage
 
-Les matrices de confusion nous renseignent plus précisément sur la nature des erreurs commises par notre modèle.
+Testez différents hyperparamètres et notez les effets (ou absence d'effets). Essayez par exemple :
 
+- De changer la profondeur et la largeur du réseau
+- D'y ajouter des couches de normalisation comme `Dropout` ou `LayerNorm`
+- De ne pas normaliser les données
+- Différents taux d'apprentissages
+- D'utiliser `Adam` au lieu de `SGD`
+- De travailler par mini-batch (un peu de travail pour celui-là). Essayez différentes tailles.
+- Faire du *early stopping* sur un ensemble de dev
+- 
+- …
 
-```python
-# Plot normalized confusion matrix
-plot_confusion_matrix(
-    confusion_matrix, classes, normalize=True, title="Matrice de confusion normalisée"
-)
+Mettez vos tests dans des cellules indépendantes ci-dessous. Prenez des notes sur les sources que
+vous utilisez et les résultats que vous trouvez. N'hésitez pas à écrire des fonctions utilitaires
+(par exemple pour la boucle d'entraînement).
 
-# Plot non-normalized confusion matrix
-plot_confusion_matrix(confusion_matrix, classes, title="Matrice de confusion non normalisée")
-```
+L'état de l'art sur CIFAR-10 a un taux d'erreur de 0.5% (avec des trucs sophistiqués). Avec des
+efforts raisonnables, ça devrait être possible de faire au plus 40%, mais c'est aussi possible de
+faire beaucoup mieux.
 
 # IV - Visualisation des zones d'activation
 
