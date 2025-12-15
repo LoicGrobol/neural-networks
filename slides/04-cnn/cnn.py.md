@@ -172,15 +172,17 @@ Un réseau convolutionnel de base :
 class ConvNet(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = torch.nn.Conv2d(3, 6, 5)
-        self.conv2 = torch.nn.Conv2d(6, 16, 5)
-        self.fc1 = torch.nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = torch.nn.Linear(120, 84)
-        self.fc3 = torch.nn.Linear(84, 10)
         # Une seule couche d'activation et un seul pooling pour tout le réseau : pourquoi ce n'est
         # pas un problème ? Parce qu'elles n'ont pas de paramètres entraînables.
         self.activation = torch.nn.ReLU()
-        self.pool = torch.nn.MaxPool2d(2, 2)
+        self.pool = torch.nn.MaxPool2d(kernel_size=2, stride=2)
+        self.conv1 = torch.nn.Conv2d(in_channels=3, out_channels=8, kernel_size=5)
+        self.conv2 = torch.nn.Conv2d(in_channels=8, out_channels=16, kernel_size=5)
+        # Nombre de channels dans la dernière convolution×taille de l'image après deux max-pooling
+        # par bloc de taille 2
+        self.fc1 = torch.nn.Linear(in_features=16 * 5 * 5, out_features=128)
+        self.fc2 = torch.nn.Linear(in_features=128, out_features=128)
+        self.fc3 = torch.nn.Linear(in_features=128, out_features=10)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # ATTENTION! Conv2d utilise la disposition contre-intuitive (batch, channels, height,
