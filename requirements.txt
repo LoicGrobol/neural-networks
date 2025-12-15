@@ -1,5 +1,5 @@
 conllu
-datasets
+datasets[vision, audio]
 ipympl
 ipywidgets
 jupyter_server!=2.11.0
@@ -9,6 +9,7 @@ jupytext
 nbconvert
 numpy
 matplotlib
+polars
 regex
 sacremoses
 seaborn
@@ -16,5 +17,6 @@ scikit-learn
 spacy >= 3.8
 tol-colors
 torch
+torchvision
 transformers
 RISE
