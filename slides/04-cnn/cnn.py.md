@@ -251,7 +251,7 @@ optim = torch.optim.SGD(model.parameters(), lr=0.03)
 print("Epoch\tLoss")
 
 epoch_length = cifar10["train"].num_rows
-for epoch in range(8):
+for epoch in range(4):
     # Pour l'affichage uniquement
     epoch_loss = 0.0
     window_loss = 0.0
@@ -306,17 +306,7 @@ Tracez la courbe d'apprentissage :
 Calculer l'exactitude globale sur le train et sur le test. Est-ce satisfaisant ?
 
 ```python
-from rich.progress import track
 
-correct = 0
-with torch.inference_mode():
-    for row in track(cifar10["train"].with_format("torch"), total=cifar10["train"].num_rows):
-        output = model(row["zdata"].unsqueeze(0))
-        y_hat: torch.Tensor = output.argmax()
-        if y_hat.equal(row["label"]):
-            correct += 1
-
-print(f"Accuracy: {correct / cifar10['train'].num_rows}")
 ```
 
 Calculer les matrices de confusions et l'exactitude par classe :
@@ -348,8 +338,8 @@ Mettez vos tests dans des cellules indépendantes ci-dessous. Prenez des notes s
 vous utilisez et les résultats que vous trouvez. N'hésitez pas à écrire des fonctions utilitaires
 (par exemple pour la boucle d'entraînement).
 
-L'état de l'art sur CIFAR-10 a un taux d'erreur de 0.5% (avec des trucs sophistiqués). Avec des
-efforts raisonnables, ça devrait être possible de faire au plus 30%, mais c'est aussi possible de
+L'état de l'art sur CIFAR-10 a une exactitude de 95.5% (avec des trucs sophistiqués). Avec des
+efforts raisonnables, ça devrait être possible de faire au moins 60%, mais c'est aussi possible de
 faire beaucoup mieux.
 
 ```python
