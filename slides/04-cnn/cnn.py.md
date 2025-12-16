@@ -28,9 +28,7 @@ Classifier](https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.h
 ```python
 import datasets
 from IPython.display import display
-import matplotlib.pyplot as plt
 import numpy as np
-import polars as pl
 import torch
 ```
 
@@ -69,6 +67,15 @@ Chacun de ces trucs est un genre de Dataframe (d'ailleurs on peut les convertir 
 print(len(cifar10["train"]["img"]))
 print(cifar10["train"][0])
 ```
+
+Globablement : l'interface est optimisée pour des très gros jeux de données (qu'on ne peut pas
+charger entièrement en mémoire) et un accès à des séries d'élément. Accéder efficacement à un seul
+élément est — un peu étrangement — assez pénible. La seule raison pour laquelle je le garde comme ça
+ici au lieu de le convertir immédiatement en Polars, c'est la prise en charge native des images et
+les conversions automatiques vers Pytorch (dont il y a des exemples plus loin).
+
+(Et la gestion des types de Python est vraiment mauvaise)
+
 
 Les images sont stockées au format PIL de la bibliothèque [Pillow](https://python-pillow.github.io/), qui est assez standard. On peut les visualiser avec [`Ipython.display.display`](https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html) :
 
@@ -165,24 +172,26 @@ print(cifar10["train"]["zdata"][0])
 
 ## Modèle
 
-Un réseau convolutionnel de base :
+Un réseau convolutionnel [de base](https://en.wikipedia.org/wiki/LeNet) :
 
 
 ```python
 class ConvNet(torch.nn.Module):
     def __init__(self):
         super().__init__()
+        self.img_size = 32
         # Une seule couche d'activation et un seul pooling pour tout le réseau : pourquoi ce n'est
         # pas un problème ? Parce qu'elles n'ont pas de paramètres entraînables.
-        self.activation = torch.nn.ReLU()
-        self.pool = torch.nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv1 = torch.nn.Conv2d(in_channels=3, out_channels=8, kernel_size=5)
-        self.conv2 = torch.nn.Conv2d(in_channels=8, out_channels=16, kernel_size=5)
+        self.activation = torch.nn.Sigmoid()
+        self.pool = torch.nn.AvgPool2d(kernel_size=2, stride=2)
+        self.conv1 = torch.nn.Conv2d(in_channels=3, out_channels=6, kernel_size=5, padding=2)
+        self.conv2 = torch.nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5, padding=0)
         # Nombre de channels dans la dernière convolution×taille de l'image après deux max-pooling
-        # par bloc de taille 2
-        self.fc1 = torch.nn.Linear(in_features=16 * 5 * 5, out_features=128)
-        self.fc2 = torch.nn.Linear(in_features=128, out_features=128)
-        self.fc3 = torch.nn.Linear(in_features=128, out_features=10)
+        # par bloc de taille 2. Pour ce dernier point, lire attentivement la doc de Conv2d et
+        # AvgPool2d.
+        self.fc1 = torch.nn.Linear(in_features=16 * 6 * 6, out_features=128)
+        self.fc2 = torch.nn.Linear(in_features=128, out_features=64)
+        self.fc3 = torch.nn.Linear(in_features=64, out_features=10)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # ATTENTION! Conv2d utilise la disposition contre-intuitive (batch, channels, height,
@@ -195,14 +204,43 @@ class ConvNet(torch.nn.Module):
         x = self.fc3(x)
         return x
 
-
-print(ConvNet())
+model = ConvNet()
+print(model)
 ```
 
-Qu'on entraîne
+Voilà comment on peut l'utiliser :
+
+```python
+# Syntaxe très désagréable pour avoir et l'autoconversion (`with_format`) en ne récupérant qu'un
+# seul exemple.
+sample0 = cifar10["train"].with_format("torch").select([0])[0]
+print("Sample: ", sample0)
+# Rappel: si on n'utilise pas les gradients (donc hors de la boucle de train), toujours travailler
+# dans un `torch.inference_mode` pour ne pas faire de calculs inutiles
+with torch.inference_mode():
+    # A priori notre réseau prend en entrée des *batch* d'exemples, de forme (N, 3, 32, 32), ici on
+    # a qu'un seul exemple (donc de forme (3, 32, 32)), donc on lui ajoute une dimension de longueur
+    # 1, soit une batch de taille 1
+    output = model(sample0["zdata"].view(1, 3, 32, 32))
+    # On aurait aussi pu écrire `.view(1, *sample0["zdata"].shape)` pour être plus général, ou
+    # `.unsqueeze(0)` pour être général *et* concis
+    print("Output: ", output)
+    y_hat = output.argmax()
+    y = sample0["label"]
+
+    # On utilise `equal` plutôt que == pour les mêmes raisons qu'en Numpy
+    if y_hat.equal(y):
+        print("Ok!")
+    else:
+        print(f"Expected {y.item()}, predicted {y_hat.item()}")
+
+```
+
+Et voici une façon de l'entraîner :
 
 ```python
 torch.manual_seed(0)
+# On en refait un ici pour que l'initialisation soit faite avec la seed qu'on vient de définir
 model = ConvNet()
 
 # On enregistre les poids initiaux pour plus tard :
@@ -212,29 +250,45 @@ optim = torch.optim.SGD(model.parameters(), lr=0.03)
 
 print("Epoch\tLoss")
 
-loss_history = []
 epoch_length = cifar10["train"].num_rows
 for epoch in range(8):
+    # Pour l'affichage uniquement
     epoch_loss = 0.0
+    window_loss = 0.0
     # On parcourt le dataset en utilisant la conversion automatique des images vers des tenseurs
     # voir https://huggingface.co/docs/datasets/use_with_pytorch#other-feature-types
-    for i, row in enumerate(cifar10["train"].with_format("torch")):
+    for i, row in enumerate(cifar10["train"].with_format("torch"), start=1):
         # Unsqueeze pour faire des batchs de taille 1
-        output = model(row["zdata"].to(torch.float32).unsqueeze(0))
+        output = model(row["zdata"].unsqueeze(0))
         # Multi-classif : cross-entropy (ou log_softmax puis nll_loss)
         loss = torch.nn.functional.cross_entropy(output.view(-1), row["label"])
+
         loss.backward()
-        optim.zero_grad()
 
         # Pour l'affichage toujours
         epoch_loss += loss.item()
+        window_loss += loss.item()
+
+        if (epoch * epoch_length + i) % 4 == 0:
+            # Toutes les 4 itérations on calucle les gradients et on fait un pas doptimisation :
+            # autrement dit on travaille avec des mini-batch de taille 4. Ça va un peu plus vite (on
+            # fait 4 fois moins de pas) et ça stabilise l'apprentissage (comme on calcule un
+            # gradient moyen sur plusieurs exemples, potentiellement de plusieurs classes
+            # différentes). C'est facile parce que les gradients sont accumulés par `backward`
+            optim.step()
+            optim.zero_grad()
+            # Évidemment, on peut aller *beaucoup* plus vite en faisant aussi le *forward* (calculer
+            # `output`) et le *backward* (qui calculer le gradient) en batch.
+
         if i % 512 == 0:
-            print(f"{epoch + i / epoch_length:.3f}\t{loss.item()}")
-    loss_history.append(epoch_loss)
-    print(f"{epoch + 1.0}\t{epoch_loss / epoch_length}")
+            # La loss moyennes sur les 512 derniers exemples
+            print(f"{epoch + i / epoch_length:.3f}\t{window_loss / 512}")
+            window_loss = 0.0
+
+    print(f"{epoch + 1}\t{epoch_loss / epoch_length}")
 ```
 
-Tracez la courbe d'appretissage :
+Tracez la courbe d'apprentissage :
 
 ```python
 
@@ -252,7 +306,17 @@ Tracez la courbe d'appretissage :
 Calculer l'exactitude globale sur le train et sur le test. Est-ce satisfaisant ?
 
 ```python
+from rich.progress import track
 
+correct = 0
+with torch.inference_mode():
+    for row in track(cifar10["train"].with_format("torch"), total=cifar10["train"].num_rows):
+        output = model(row["zdata"].unsqueeze(0))
+        y_hat: torch.Tensor = output.argmax()
+        if y_hat.equal(row["label"]):
+            correct += 1
+
+print(f"Accuracy: {correct / cifar10['train'].num_rows}")
 ```
 
 Calculer les matrices de confusions et l'exactitude par classe :
@@ -265,14 +329,19 @@ Calculer les matrices de confusions et l'exactitude par classe :
 
 Testez différents hyperparamètres et notez les effets (ou absence d'effets). Essayez par exemple :
 
-- De changer la profondeur et la largeur du réseau
+- De changer la [profondeur](https://en.wikipedia.org/wiki/AlexNet) et la largeur du réseau
+- De changer le type de *pooling* ou d'activation, potentiellement en utilisant différentes options
+  à différentes couches.
+- D'u d'autiliser d'autres tailles de mini-batch.
+- De mélanger le dataset différemment à chaque epoch
 - D'y ajouter des couches de normalisation comme `Dropout` ou `LayerNorm`
 - De ne pas normaliser les données
-- Différents taux d'apprentissages
-- D'utiliser `Adam` au lieu de `SGD`
-- De travailler par mini-batch (un peu de travail pour celui-là). Essayez différentes tailles.
-- Faire du *early stopping* sur un ensemble de dev
-- 
+- Différents taux d'apprentissages et/ou une [accélération de
+  Nesterov](https://docs.pytorch.org/docs/stable/generated/torch.optim.SGD.html)
+- D'utiliser un `Adam` au lieu de `SGD`
+- De faire du *early stopping* sur un ensemble de dev
+- De faire de l'augemntation de données, en ajoutant les mirroirs des images du train, leurs
+  translations de quelques pixels dans une direction, voire leur rotation d'un petit angle
 - …
 
 Mettez vos tests dans des cellules indépendantes ci-dessous. Prenez des notes sur les sources que
@@ -280,48 +349,8 @@ vous utilisez et les résultats que vous trouvez. N'hésitez pas à écrire des 
 (par exemple pour la boucle d'entraînement).
 
 L'état de l'art sur CIFAR-10 a un taux d'erreur de 0.5% (avec des trucs sophistiqués). Avec des
-efforts raisonnables, ça devrait être possible de faire au plus 40%, mais c'est aussi possible de
+efforts raisonnables, ça devrait être possible de faire au plus 30%, mais c'est aussi possible de
 faire beaucoup mieux.
-
-# IV - Visualisation des zones d'activation
-
-
-```python
-from keras.models import Model
-
-reduced_model = Model(inputs=model.inputs, outputs=model.layers[1].output)
-reduced_model.summary()
-```
-
-
-```python
-feature_maps = reduced_model.predict(x_test)
-```
-
-
-```python
-def get_mask(k):
-    feature_maps_positive = np.maximum(feature_maps[k], 0)
-    mask = np.sum(feature_maps_positive, axis=2)
-    mask = mask / np.max(mask)
-    return mask
-```
-
-
-```python
-random_ids = np.random.choice(len(x_test), n_display, replace=False)
-f, rd_img = plt.subplots(1, n_display, figsize=(16, 16))
-for k in range(n_display):
-    img = x_test_initial[random_ids[k]]
-    rd_img[k].imshow(img)
-    rd_img[k].axis("off")
-f, rd_maps = plt.subplots(1, n_display, figsize=(16, 16))
-for k in range(n_display):
-    mask = get_mask(random_ids[k])
-    rd_maps[k].imshow(mask)
-    rd_maps[k].axis("off")
-```
-
 
 ```python
 
