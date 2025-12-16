@@ -41,13 +41,14 @@ classification d'images. Commençons par le charger. Il y a plein d'options
 - Il est dans
   [Torchvision](https://docs.pytorch.org/vision/stable/generated/torchvision.datasets.CIFAR10.html),
   qui est pratique pour utiliser dans Torch, mais pas le plus sympa en général.
-- (Il est aussi dans [Keras](https://keras.io/api/datasets/cifar10/) mais c'est surtout utile si on vous
-  oblige à utiliser Tensorflow.)
+- (Il est aussi dans [Keras](https://keras.io/api/datasets/cifar10/) mais c'est surtout utile si on
+  vous oblige à utiliser Tensorflow.)
 - Il est sur [Huggingface hub](https://huggingface.co/datasets/uoft-cs/cifar10), qui est pas
   parfait, mais assez pratique, on va donc utiliser ça.
 
 
-Pour ça, on exécute simplement la cellule ci-dessous, attention c'est un peu long (la première fois, après c'est dans le cache).
+Pour ça, on exécute simplement la cellule ci-dessous, attention c'est un peu long (la première fois,
+après c'est dans le cache).
 
 ```python
 cifar10 = datasets.load_dataset("uoft-cs/cifar10")
@@ -68,7 +69,7 @@ print(len(cifar10["train"]["img"]))
 print(cifar10["train"][0])
 ```
 
-Globablement : l'interface est optimisée pour des très gros jeux de données (qu'on ne peut pas
+Globalement : l'interface est optimisée pour des très gros jeux de données (qu'on ne peut pas
 charger entièrement en mémoire) et un accès à des séries d'élément. Accéder efficacement à un seul
 élément est — un peu étrangement — assez pénible. La seule raison pour laquelle je le garde comme ça
 ici au lieu de le convertir immédiatement en Polars, c'est la prise en charge native des images et
@@ -322,7 +323,7 @@ Testez différents hyperparamètres et notez les effets (ou absence d'effets). E
 - De changer la [profondeur](https://en.wikipedia.org/wiki/AlexNet) et la largeur du réseau
 - De changer le type de *pooling* ou d'activation, potentiellement en utilisant différentes options
   à différentes couches.
-- D'u d'autiliser d'autres tailles de mini-batch.
+- D'utiliser d'autres tailles de mini-batch.
 - De mélanger le dataset différemment à chaque epoch
 - D'y ajouter des couches de normalisation comme `Dropout` ou `LayerNorm`
 - De ne pas normaliser les données
@@ -330,7 +331,7 @@ Testez différents hyperparamètres et notez les effets (ou absence d'effets). E
   Nesterov](https://docs.pytorch.org/docs/stable/generated/torch.optim.SGD.html)
 - D'utiliser un `Adam` au lieu de `SGD`
 - De faire du *early stopping* sur un ensemble de dev
-- De faire de l'augemntation de données, en ajoutant les mirroirs des images du train, leurs
+- De faire de l'augmentation de données, en ajoutant les miroirs des images du train, leurs
   translations de quelques pixels dans une direction, voire leur rotation d'un petit angle
 - …
 
