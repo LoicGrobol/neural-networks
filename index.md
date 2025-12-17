@@ -55,10 +55,17 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
     - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
     [Solutions]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias-solutions.py.ipynb)
 
-### 2025-12-17 — Réseaux convolutif
+### 2025-12-17 — Réseaux convolutifs
 
-- {% notebook_badges slides/04-cnn/cnn.py.md %} [Notebook CNN]({{site.url}}{{site.baseurl}}/slides/04-cnn/cnn.py.ipynb)
+- {% notebook_badges slides/04-cnn/cnn.py.md %} [Notebook
+  CNN]({{site.url}}{{site.baseurl}}/slides/04-cnn/cnn.py.ipynb)
 
+Vos solutions (au format ipynb ou Myst/jupytext) pour les exercices du notebook CNN sont à envoyer à
+<lgrobol@parisnanterre.fr> avant le 29/01. L'objet du message devra être `[NN 2026] TP CNN`, le nom
+de fichier devra être de la forme `prénom_nom-établissment.{ipynb,md}`, `établissement` étant
+`Nanterre`, `P3` ou `Inalco` et vos prénoms et noms doivent être présents dans le corps du message.
+Objectif : répondre aux questions d'évaluation et faire de votre mieux pour trouver un CNN qui
+marche bien pour CIFAR-10.
 
 ## Utilisation en local
 

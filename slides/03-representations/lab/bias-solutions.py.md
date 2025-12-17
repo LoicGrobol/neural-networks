@@ -36,7 +36,7 @@ On va utiliser SpaCy pour ça. D'abord il nous faut un modèle, s'il n'est pas d
 décommentez la cellule suivante et exécutez la ça va prendre quelques minutes.
 
 ```python
-# spacy.cli.download("en_core_web_lg")
+spacy.cli.download("en_core_web_lg")
 ```
 
 Puis le charger
