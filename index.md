@@ -20,8 +20,8 @@ layout: default
 
 ## Liens utiles
 
-- Prendre rendez-vous pour des *office hours* en visio :
-  [mon calendrier](https://calendar.app.google/N9oW2c9BzhXsWrrv9)
+- Prendre rendez-vous pour des *office hours* en visio : [mon
+  calendrier](https://calendar.app.google/N9oW2c9BzhXsWrrv9)
 - [Dépôt GitHub](https://github.com/{{site.repository}}) avec les sources du cours
 
 ## Séances
@@ -33,8 +33,8 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
 
 ### 2025-11-26 — Historique et perceptron simple
 
-- {% notebook_badges slides/01-perceptron/perceptron.py.md %}
-  [Notebook perceptron simple]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron.py.ipynb)
+- {% notebook_badges slides/01-perceptron/perceptron.py.md %} [Notebook perceptron
+  simple]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron.py.ipynb)
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
   - {% notebook_badges slides/01-perceptron/perceptron-solutions.py.md %}
     [solutions]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron-solutions.py.ipynb)
@@ -49,7 +49,8 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
 ### 2025-12-10 — Représentations des données
 
 - [Slide CM](slides/03-representations/lecture/representations.pdf)
-- {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
+- {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook
+  TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
   - [Dossier
     `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
     - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
@@ -79,22 +80,23 @@ Je cite le [Crash course Python](slides/01-tools/python_crash_course.py.ipynb):
  lisez la doc.
   - Pour créer un environnement virtuel : `uv venv /chemin/vers/…`
   - La convention, c'est `uv venv .venv`, ce qui créée un dossier (caché par défaut sous Linux et
- Mac OS car son nom commence par `.`) : `.venv` dans le dossier courant (habituellement le
- dossier principal de votre projet). Donc faites ça.
+ Mac OS car son nom commence par `.`) : `.venv` dans le dossier courant (habituellement le dossier
+ principal de votre projet). Donc faites ça.
   - Il est **obligatoire** de travailler dans un environnement virtuel. L'idéal est d'en avoir un
  par cours, un par projet, etc. - uv est assez précautionneux avec l'espace disque, il y a donc
  assez peu de désavantage à avoir beaucoup d'environnements virtuels.
   - Un environnement virtuel doit être **activé** avant de s'en servir. Concrètement ça remplace la
  commande `python` de votre système par celle de l'environnement. - Dans Bash par exemple, ça se
  fait avec `source .venv/bin/activate` (en remplaçant par le chemin de l'environnement s'il est
-   différent) - `deactivate` pour le désactiver et rétablir votre commande `python`. À faire
- avant d'en activer un autre.
+   différent)
+  - `deactivate` pour le désactiver et rétablir votre commande `python`. À faire avant d'en activer
+ un autre.
 - On installe des packages avec `uv pip` ou `python -m pip` (mais plutôt `uv pip`, et jamais juste
   `pip`).
   - `uv pip install numpy` pour installer Numpy.
   - Si vous avez un fichier avec un nom de package par ligne (par exemple le
- [`requirements.txt`](https://github.com/LoicGrobol/web-interfaces/blob/main/requirements.txt) du
- cours) : `uv pip install -U -r requirements.txt`
+ [`requirements.txt`](ttps://github.com/{{site.repository}}/blob/main/requirements.txt) du cours) :
+ `uv pip install -U -r requirements.txt`
   - Le flag `-U` ou `--upgrade` sert à mettre à jour les packages si possible : `uv pip install -U
 	numpy` etc.
 - Je répète : on installe uniquement dans un environnement virtuel, on garde ses environnements bien
@@ -115,8 +117,8 @@ Maintenant à vous de jouer :
 - Dans ce dossier, créez un environnement virtuel nommé `.venv`
 - Activez-le
 - Téléchargez le
-  [`requirements.txt`](https://github.com/LoicGrobol/web-interfaces/blob/main/requirements.txt)
-  et installez les packages qu'il liste
+  [`requirements.txt`](https://github.com/{{site.repository}}/blob/main/requirements.txt) et
+  installez les packages qu'il liste
 
 ### Notebooks Jupyter
 
@@ -138,12 +140,11 @@ tout seul.
 ### Utilisation avancée
 
 Vous pouvez aussi (mais je ne le recommande pas forcément car ce sera plus compliqué pour vous de le
-maintenir à jour) cloner [le dépôt du
-cours](https://github.com/loicgrobol/apprentissage-artificiel). Tous les supports y sont, sous forme
-de fichiers Markdown assez standards, qui devraient se visualiser correctement sur la plupart des
-plateformes. Pour les utiliser comme des notebooks, il vous faudra utiliser l'extension
-[Jupytext](https://github.com/mwouts/jupytext) (qui est dans le `requirements.txt`). C'est entre
-autres une façon d'avoir un historique git propre.
+maintenir à jour) cloner [le dépôt du cours](https://github.com/{{site.repository}}). Tous les
+supports y sont, sous forme de fichiers Markdown assez standards, qui devraient se visualiser
+correctement sur la plupart des plateformes. Pour les utiliser comme des notebooks, il vous faudra
+utiliser l'extension [Jupytext](https://github.com/mwouts/jupytext) (qui est dans le
+`requirements.txt`). C'est entre autres une façon d'avoir un historique git propre.
 
 ## Ressources
 
