@@ -40,13 +40,13 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
     [solutions]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron-solutions.py.ipynb)
     (partielles)
 
-### 2025-12-02 — *Réseaux* de neurones
+### 2025-12-03 — *Réseaux* de neurones
 
 - {% notebook_badges slides/02-nn/nn.py.md %} [Notebook réseaux de
   neurones]({{site.url}}{{site.baseurl}}/slides/02-nn/nn.py.ipynb)
   - [`perceptron_data.py`]({{site.url}}{{site.baseurl}}/slides/01-perceptron/perceptron_data.py)
 
-### 2024-12-04 — Représentations des données
+### 2025-12-10 — Représentations des données
 
 - [Slide CM](slides/03-representations/lecture/representations.pdf)
 - {% notebook_badges slides/03-representations/lab/bias.py.md %} [Notebook TP]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias.py.ipynb)
@@ -54,6 +54,11 @@ allez voir [« Utilisation en local »](#utilisation-en-local)
     `data`](https://github.com/{{site.repository}}/tree/main/slides/03-representations/lab/data/opinion-lexicon-English)
     - {% notebook_badges slides/03-representations/lab/bias-solutions.py.md %}
     [Solutions]({{site.url}}{{site.baseurl}}/slides/03-representations/lab/bias-solutions.py.ipynb)
+
+### 2025-12-17 — Réseaux convolutif
+
+- {% notebook_badges slides/04-cnn/cnn.py.md %} [Notebook CNN]({{site.url}}{{site.baseurl}}/slides/04-cnn/cnn.py.ipynb)
+
 
 ## Utilisation en local
 
