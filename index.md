@@ -68,6 +68,45 @@ de fichier devra être de la forme `prénom_nom-établissment.{ipynb,md}`, `éta
 Objectif : répondre aux questions d'évaluation et faire de votre mieux pour trouver un CNN qui
 marche bien pour CIFAR-10.
 
+Autres source d'info :
+
+- [Le cours d'Alexander Amini](https://www.youtube.com/watch?v=oGpzWAlP5p0) « MIT 6.S191: Convolutional Neural Networks »
+- « [But what is a convolution?](https://www.youtube.com/watch?v=KuXjwB4LzSA) » de 3blue1brown.
+
+### 2026-01-21 — Attention is all you need?
+
+Articles principaux :
+
+- Bahdanau, Dzmitry, Kyunghyun Cho, et Yoshua Bengio. 2015. « Neural Machine Translation by Jointly
+  Learning to Align and Translate ». In Proceedings of the 3rd International Conference on Learning
+  Representations, édité par Yoshua Bengio et Yann LeCun. San Diego, California, USA.
+  <http://arxiv.org/abs/1409.0473>.
+- Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+  Kaiser, et Illia Polosukhin. 2017. « [Attention is All you
+  Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) ».
+  In Advances in Neural Information Processing Systems 30, édité par I. Guyon, U. V. Luxburg, S.
+  Bengio, H. Wallach, R. Fergus, S. Vishwanathan, et R. Garnett, 5998‑6008. Long Beach, California:
+  Curran Associates, Inc.
+
+Auxiliaires :
+
+- Alammar, Jay. 2018. « The Illustrated Transformer ». 2018.
+<http://jalammar.github.io/illustrated-transformer/>. Ba, Jimmy Lei, Jamie Ryan Kiros, et Geoffrey
+E. Hinton. 2016. « Layer Normalization ». In . <http://arxiv.org/abs/1607.06450>.
+- Devlin, Jacob, Ming-Wei Chang, Kenton Lee, et Kristina Toutanova. 2019. « BERT: Pre-training of
+  Deep Bidirectional Transformers for Language Understanding ». In Proceedings of the 2019
+  Conference of the North American Chapter of the Association for Computational Linguistics: Human
+  Language Technologies, 4171‑86. Association for Computational Linguistics.
+  <https://doi.org/10.18653/v1/N19-1423>.
+- Huang, Austin, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, et Stella Biderman. 2022. « The
+  Annotated Transformer ». 2022. <http://nlp.seas.harvard.edu/annotated-transformer/>.
+- Lin, Tianyang, Yuxin Wang, Xiangyang Liu, et Xipeng Qiu. 2022. « A survey of transformers ». AI
+  Open 3 (janvier):111‑32. <https://doi.org/10.1016/j.aiopen.2022.10.001>.
+- Radford, Alec, Karthik Narasimhan, Tim Salimans, et Ilya Sutskever. 2018. « Improving Language
+  Understanding by Generative Pre-Training ». Technical report. OpenAI.
+  <https://openai.com/blog/language-unsupervised/>.
+
+
 ## Utilisation en local
 
 ### Environnements virtuels et packages
