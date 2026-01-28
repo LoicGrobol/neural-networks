@@ -7,6 +7,8 @@ layout: default
 
 ## News
 
+- **2026-01-28**: Les [consignes pour les projets]({{site.url}}{{site.baseurl}}/projects) sont en
+  ligne.
 - **2025-11-25** Premier cours du semestre le 26/11/2025
 
 ## Infos pratiques
@@ -29,7 +31,7 @@ layout: default
 Les liens dans chaque séance vous permettent de télécharger les fichiers `.ipynb` à utiliser (et
 données additionnelles éventuelles). Attention : pour les utiliser en local, il faudra installer les
 packages du `requirements.txt` (dans un environnement virtuel). Si vous ne savez pas comment faire,
-allez voir [« Utilisation en local »](#utilisation-en-local)
+allez voir [« Utilisation en local »](#utilisation-en-local).
 
 ### 2025-11-26 — Historique et perceptron simple
 
