@@ -108,6 +108,22 @@ E. Hinton. 2016. « Layer Normalization ». In . <http://arxiv.org/abs/1607.06
   Understanding by Generative Pre-Training ». Technical report. OpenAI.
   <https://openai.com/blog/language-unsupervised/>.
 
+### 2026-01-28 — Transformers en pratique : tokenizers, embeddings positionnels, encodeurs, décodeurs et préentraînement
+
+### 2026-02-04 — BERT, BART et RAG
+
+- Devlin, Jacob, Ming-Wei Chang, Kenton Lee, et Kristina Toutanova. 2019. « BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding ». Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, juin, 4171‑86. https://doi.org/10.18653/v1/N19-1423.
+- Lewis, Mike, Yinhan Liu, Naman Goyal, et al. 2020. « BART: Denoising Sequence-to-Sequence
+  Pre-training for Natural Language Generation, Translation, and Comprehension ». Proceedings of the
+  58th Annual Meeting of the Association for Computational Linguistics, juillet, 7871‑80.
+  https://doi.org/10.18653/v1/2020.acl-main.703.
+- Guu, Kelvin, Kenton Lee, Zora Tung, Panupong Pasupat, et Ming-Wei Chang. 2020. « REALM: retrieval-augmented language model pre-training ». Proceedings of the 37th International Conference on Machine Learning, ICML’20, vol. 119 (juillet): 3929‑38. https://dl.acm.org/doi/10.5555/3524938.3525306.
+- Lewis, Patrick, Ethan Perez, Aleksandra Piktus, et al. 2020. « Retrieval-augmented generation for
+  knowledge-intensive NLP tasks ». Proceedings of the 34th International Conference on Neural
+  Information Processing Systems (Red Hook, NY, USA), NIPS ’20, décembre 6, 9459‑74.
+  https://dl.acm.org/doi/10.5555/3495724.3496517.
+
+-
 
 ## Utilisation en local
 
